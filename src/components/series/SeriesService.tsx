@@ -1,6 +1,6 @@
 export interface Serie {
     id: number;
-    total: number;
+    total: number | null;
     createdat: string;
 }
 
@@ -10,7 +10,7 @@ export interface Serie {
 const series: Serie[] = [
     {
         id: 1,
-        total: 100,
+        total: null,
         createdat: "12 janvier 2021"
     },
     {
