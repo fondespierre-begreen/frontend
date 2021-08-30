@@ -1,0 +1,7 @@
+{
+  "name": "ionicreact",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
