@@ -1,13 +1,21 @@
-import { IonList } from "@ionic/react";
+import { IonAvatar, IonItem, IonLabel } from "@ionic/react";
 import React from "react";
+import { Plant } from "./plantService";
 
 
-const PlantItem: React.FC = () => {
+const PlantItem: React.FC<{plant: Plant}> = (props) => {
 
     return (
-        <IonList>
-            
-        </IonList>
+        <IonItem>
+          <IonAvatar slot="start">
+            <img src={props.plant.img} />
+          </IonAvatar>
+          <IonLabel>
+            <h2>{props.plant.name}</h2>
+            <h3>{props.plant.latin}</h3>
+            <p>{props.plant.createdAt}</p>
+          </IonLabel>
+        </IonItem>
     )
 }
 export default PlantItem;

@@ -20,15 +20,17 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Plantlist from './components/plant/plantList';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
         <Route exact path="/home" />
-        
+        <Route exact path="/plants" component={Plantlist}/>
+
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/plants" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
