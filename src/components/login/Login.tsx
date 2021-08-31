@@ -3,24 +3,20 @@ import {
     IonHeader,
     IonTitle,
     IonContent,
-    IonToolbar
+    IonToolbar,
+    IonImg
 } from "@ionic/react";
 
+import "./Login.css";
 
 const Login: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                <IonTitle>Login</IonTitle>
+                <IonTitle>Login nya nya</IonTitle>
             </IonHeader>
             <IonContent fullscreen>
-                <IonHeader collapse="condense">
-                    <IonToolbar>
-                        <IonTitle size="large">
-                            Login
-                        </IonTitle>
-                    </IonToolbar>
-                </IonHeader>
+                <IonImg className="login-img" src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/AdobeStock_202538386-1024x683.jpeg?raw=true"></IonImg>
             </IonContent>
         </IonPage>
     )
