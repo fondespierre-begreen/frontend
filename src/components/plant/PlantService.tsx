@@ -7,10 +7,12 @@ export interface Plant {
     createdAt: string;
 }
 
-// const uri = "http://localhost:9090/plants";
-// const plants = fetch({uri}).then(plants => plants.json);
+const pubPlants =  fetch('http://localhost:9090/plants')
+.then(response => response.json())
+.catch(error => console.log(error));
 
-const plants: Plant[] = [
+
+const privPlants: Plant[] = [
     {
     id: 1,
     name: "string",
@@ -33,28 +35,29 @@ const plants: Plant[] = [
     createdAt: Date(),
 }] 
 
-const number : Plant[] = [
-    {
-    id: 1,
-    name: "number",
-    latin: "number",
-    description: "number",
-    createdAt: Date(),
-},
-    {
-    id: 2,
-    name: "number",
-    latin: "number",
-    description: "number",
-    createdAt: Date(),
-},
-    {
-    id: 3,
-    name: "number",
-    latin: "number",
-    description: "number",
-    createdAt: Date(),
-}] 
+// const pubPlants: Plant[] = [
+//     {
+//     id: 1,
+//     name: "number",
+//     latin: "number",
+//     description: "number",
+//     createdAt: Date(),
+// },
+//     {
+//     id: 2,
+//     name: "number",
+//     latin: "number",
+//     description: "number",
+//     createdAt: Date(),
+// },
+//     {
+//     id: 3,
+//     name: "number",
+//     latin: "number",
+//     description: "number",
+//     createdAt: Date(),
+// }] 
 
-export const getPlants = () => plants;
-export const getPrivate = () => number;
+
+export const getPrivPlants = () => privPlants;
+export const getPubPlants = () => pubPlants;

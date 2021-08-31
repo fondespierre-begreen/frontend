@@ -20,25 +20,17 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Plantlist from './components/plant/PlantList';
-import { getPlants, getPrivate } from './components/plant/PlantService';
-import TopBar from './components/plant/TopBar';
+import Plants from './components/plant/Plants';
 
 /** Datas */
-const privatePlants = getPrivate();
-const publicPlants = getPlants();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
 
-        <Route exact path="/private" >
-          <Plantlist list={privatePlants}/>
-        </Route>
-
-        <Route exact path="/public" >
-          <Plantlist list={publicPlants}/>
+        <Route exact path="/" >
+          <Plants />
         </Route>
 
       </IonRouterOutlet>
