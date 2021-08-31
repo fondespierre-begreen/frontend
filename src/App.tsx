@@ -21,17 +21,18 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import Plants from './components/plant/Plants';
+import PlantDetail from './components/plant/PlantDetail';
 
-/** Datas */
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-
-        <Route exact path="/" >
-          <Plants />
-        </Route>
+        <Route exact path="/" component={Plants}></Route>
+        <Route exact path="/plants" component={Plants}/>
+        
+        <Route exact path="/private/:id" component={PlantDetail}/>
+        <Route exact path="/public/:id" component={PlantDetail}/>
 
       </IonRouterOutlet>
     </IonReactRouter>

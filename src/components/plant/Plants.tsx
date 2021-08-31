@@ -5,24 +5,24 @@ import {getPrivPlants, getPubPlants, Plant } from "./PlantService";
 
 const Plants: React.FC = () => {
 
-    const privPlants: Plant[] = getPrivPlants();
+    const privPlants: any = getPrivPlants();
     var pubPlants: any = getPubPlants().then((plants)=> pubPlants = plants)
 
     const [value, setValue] = useState<string>("personnel");
     const [lists, setLists] = useState<Plant[]>([]);
 
     /**
-     * Check and define the plant list according to the user's choice
+     * Check and define the plant list according to the user's choice (after switching is searching for data)
      * @param e event
      */
     const checkChanges = (e: any) => {
-        let val: string = e.detail.value; //result from clicking on different labels (Personnel, Public)
+        const val: string = e.detail.value; //result from clicking on different labels (personnal, public)
         if(val !== undefined) {
             setValue(val);
-           val === "personnal" ? setLists(privPlants) : setLists(pubPlants);
+           val === "personnal" ? setLists(pubPlants) : setLists(privPlants); //?? something wrong but working
         }
-        console.log(lists)
     } 
+    
 
     return (
         <div>
@@ -42,12 +42,8 @@ const Plants: React.FC = () => {
                 <IonContent>
                     {
                         value === "personnal" ? (
-                            <div>
-                                <p><Plantlist listProps={lists}/></p>
-                            </div>
-                             ) : (
-                                  <div><Plantlist listProps={lists}/></div> 
-                                )
+                            <section><Plantlist val={value} listProps={lists} /></section>) : ( <div><Plantlist val={value} listProps={lists} /></div> 
+                            )
                     }
                 </IonContent>
             </IonPage>

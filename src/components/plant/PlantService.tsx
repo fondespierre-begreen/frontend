@@ -1,3 +1,6 @@
+/**
+ * Model
+ */
 export interface Plant {
     id: number;
     name: string;
@@ -7,10 +10,18 @@ export interface Plant {
     createdAt: string;
 }
 
+//informations
+const find = window.location.pathname;
+export const currentid = parseInt(find.slice(-1));
+export const uriList = find.slice(1,find.length-2);
+
+
+/**
+ * Repository
+ */
 const pubPlants =  fetch('http://localhost:9090/plants')
 .then(response => response.json())
 .catch(error => console.log(error));
-
 
 const privPlants: Plant[] = [
     {
@@ -35,29 +46,18 @@ const privPlants: Plant[] = [
     createdAt: Date(),
 }] 
 
-// const pubPlants: Plant[] = [
-//     {
-//     id: 1,
-//     name: "number",
-//     latin: "number",
-//     description: "number",
-//     createdAt: Date(),
-// },
-//     {
-//     id: 2,
-//     name: "number",
-//     latin: "number",
-//     description: "number",
-//     createdAt: Date(),
-// },
-//     {
-//     id: 3,
-//     name: "number",
-//     latin: "number",
-//     description: "number",
-//     createdAt: Date(),
-// }] 
+const pubPlantById = fetch('http://localhost:9090/plants/'+currentid)
+.then(response => response.json())
+.catch(error => console.log(error));
+
+export const getPrivPlantById = (id: number ) => privPlants.filter((plant)=> plant.id = id)
 
 
-export const getPrivPlants = () => privPlants;
+
+
+
+
 export const getPubPlants = () => pubPlants;
+export const getPrivPlants = () => privPlants;
+export const getPubPlantById = () => pubPlantById;
+// export const getPrivPlantById = (id: number) => privPlanById;
