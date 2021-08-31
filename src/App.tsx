@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonRouterOutlet, IonTabs, IonTabBar, IonIcon, IonTabButton, IonLabel } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import SeriesList from './components/series/SeriesList';
 
@@ -21,17 +21,39 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { home, leaf, school, settingsSharp } from 'ionicons/icons';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/series">
-          <SeriesList />
-        </Route>
 
+      <IonTabs>
+        <IonRouterOutlet>
+          <Route exact path="/series">
+            <SeriesList />
+          </Route>
+        </IonRouterOutlet>
 
-      </IonRouterOutlet>
+        <IonTabBar slot="bottom">
+          <IonTabButton tab="home" href="/home">
+            <IonIcon icon={home}></IonIcon>
+            <IonLabel>Home</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="plants" href="/plants">
+            <IonIcon icon={leaf}></IonIcon>
+            <IonLabel>Plantes</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="series" href="/series">
+            <IonIcon icon={school}></IonIcon>
+            <IonLabel>QCM</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="parametres" href="/settings">
+            <IonIcon icon={settingsSharp}></IonIcon>
+            <IonLabel>Paramètres</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
+      </IonTabs>
+
     </IonReactRouter>
   </IonApp>
 );
