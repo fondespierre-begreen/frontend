@@ -8,7 +8,7 @@ import {
     IonLabel,
     IonContent
 } from '@ionic/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Plantlist from './PlantList';
 
@@ -17,12 +17,16 @@ import { getPlants, getPubPlants, Plant } from "./PlantService";
 const PlantRouter: React.FC = () => {
 
     const [state, setstate] = useState<string>("personnel")
-    const [lists, setlists] = useState<Plant[]>([])
+    const [lists, setlists] = useState<Plant[]>()
+
+    useEffect(() => {
+        getPlants().then(l => setlists(l))
+    }, [])
 
     const changee = (e: any) => {
         if (e.detail.value !== undefined) {
             setstate(e.detail.value);
-            if (e.detail.value === "personnel") { setlists(getPlants()); }
+            if (e.detail.value === "personnel") { getPlants().then(l => setlists(l)) }
             else { setlists(getPubPlants()); }
         }
     }
@@ -31,9 +35,6 @@ const PlantRouter: React.FC = () => {
         <IonPage>
 
             <IonHeader translucent>
-                <IonToolbar>
-                    <IonTitle>Segment</IonTitle>
-                </IonToolbar>
                 <IonToolbar>
                     <IonSegment
                         onIonChange={changee}

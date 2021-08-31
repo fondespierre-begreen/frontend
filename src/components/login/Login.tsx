@@ -7,7 +7,7 @@ import {
     IonImg
 } from "@ionic/react";
 
-import "./Login.css";
+import "./login.css";
 
 const Login: React.FC = () => {
     return (

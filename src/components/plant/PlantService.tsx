@@ -7,31 +7,32 @@ export interface Plant {
     createdAt: string;
 }
 
-// const uri = "http://localhost:9090/plants";
-// const plants = fetch({uri}).then(plants => plants.json);
+// const plants = fetch(uri).then(plants => plants.json());
+const uri = "http://localhost:9090/plants";
 
-const plants: Plant[] = [
-    {
-        id: 1,
-        name: "rose",
-        latin: "rosa",
-        description: "une jolie fleur",
-        createdAt: Date(),
-    },
-    {
-        id: 2,
-        name: "bambou",
-        latin: "sino bambou",
-        description: "yum says the panda !",
-        createdAt: Date(),
-    },
-    {
-        id: 3,
-        name: "chêne",
-        latin: "chenus",
-        description: "feuillu",
-        createdAt: Date(),
-    }]
+
+// const plants: Plant[] = [
+//     {
+//         id: 1,
+//         name: "rose",
+//         latin: "rosa",
+//         description: "une jolie fleur",
+//         createdAt: Date(),
+//     },
+//     {
+//         id: 2,
+//         name: "bambou",
+//         latin: "sino bambou",
+//         description: "yum says the panda !",
+//         createdAt: Date(),
+//     },
+//     {
+//         id: 3,
+//         name: "chêne",
+//         latin: "chenus",
+//         description: "feuillu",
+//         createdAt: Date(),
+//     }]
 
 const pubPlants: Plant[] = [
     {
@@ -56,5 +57,7 @@ const pubPlants: Plant[] = [
         createdAt: Date(),
     }]
 
-export const getPlants = () => plants;
+// export const getPlants = () => plants;
 export const getPubPlants = () => pubPlants;
+export const getPlants = () => fetch(uri)
+    .then(plants => plants.json());
