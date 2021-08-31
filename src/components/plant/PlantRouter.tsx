@@ -1,14 +1,34 @@
-import { Route } from 'react-router-dom';
-import { IonRouterOutlet, IonHeader, IonToolbar, IonTitle, IonSegment, IonSegmentButton, IonLabel } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import {
+    IonPage,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonContent
+} from '@ionic/react';
 import { useState } from 'react';
+
+import Plantlist from './PlantList';
+
+import { getPlants, getPubPlants, Plant } from "./PlantService";
 
 const PlantRouter: React.FC = () => {
 
-    const [state, setstate] = useState("personnel")
+    const [state, setstate] = useState<string>("personnel")
+    const [lists, setlists] = useState<Plant[]>([])
+
+    const changee = (e: any) => {
+        if (e.detail.value !== undefined) {
+            setstate(e.detail.value);
+            if (e.detail.value === "personnel") { setlists(getPlants()); }
+            else { setlists(getPubPlants()); }
+        }
+    }
 
     return (
-        <div>
+        <IonPage>
 
             <IonHeader translucent>
                 <IonToolbar>
@@ -16,9 +36,7 @@ const PlantRouter: React.FC = () => {
                 </IonToolbar>
                 <IonToolbar>
                     <IonSegment
-                        onIonChange={e => {
-                            if (e.detail.value !== undefined) setstate(e.detail.value);
-                        }}
+                        onIonChange={changee}
                         value={state}>
                         <IonSegmentButton value="personnel">
                             <IonLabel>Personnel</IonLabel>
@@ -30,22 +48,22 @@ const PlantRouter: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
 
-            {
-                state === "personnel" ? (
-                    <p>perso</p>
-                ) : (
-                    <p>pub</p>
-                )
-            }
-            {/* <Route exact path="/plants/public">
-                <p>PUBLIC ZZZ</p>
-            </Route>
-            <Route exact path="/plants/perso">
-                <p>PERSONAL YYY</p>
-            </Route> */}
-            {/* <IonRouterOutlet>
-            </IonRouterOutlet> */}
-        </div>
+            <IonContent>
+                {
+                    state === "personnel" ? (
+                        <div>
+                            <p>perso</p>
+                            <Plantlist plantProps={lists} />
+                        </div>
+                    ) : (
+                        <div>
+                            <p>pub</p>
+                            <Plantlist plantProps={lists} />
+                        </div>
+                    )
+                }
+            </IonContent>
+        </IonPage>
     );
 };
 

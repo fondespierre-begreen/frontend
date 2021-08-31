@@ -12,25 +12,49 @@ export interface Plant {
 
 const plants: Plant[] = [
     {
-    id: 1,
-    name: "string",
-    latin: "string",
-    description: "string",
-    createdAt: Date(),
-},
+        id: 1,
+        name: "rose",
+        latin: "rosa",
+        description: "une jolie fleur",
+        createdAt: Date(),
+    },
     {
-    id: 2,
-    name: "string",
-    latin: "string",
-    description: "string",
-    createdAt: Date(),
-},
+        id: 2,
+        name: "bambou",
+        latin: "sino bambou",
+        description: "yum says the panda !",
+        createdAt: Date(),
+    },
     {
-    id: 3,
-    name: "string",
-    latin: "string",
-    description: "string",
-    createdAt: Date(),
-}] 
+        id: 3,
+        name: "chêne",
+        latin: "chenus",
+        description: "feuillu",
+        createdAt: Date(),
+    }]
+
+const pubPlants: Plant[] = [
+    {
+        id: 1,
+        name: "vigne",
+        latin: "vinus",
+        description: "vinasse",
+        createdAt: Date(),
+    },
+    {
+        id: 2,
+        name: "sapin",
+        latin: "sapinus",
+        description: "conifère",
+        createdAt: Date(),
+    },
+    {
+        id: 3,
+        name: "lotus",
+        latin: "lotus",
+        description: "elexir de vie",
+        createdAt: Date(),
+    }]
 
 export const getPlants = () => plants;
+export const getPubPlants = () => pubPlants;

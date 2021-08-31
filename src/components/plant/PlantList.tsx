@@ -1,31 +1,17 @@
-import { IonContent, IonHeader, IonList, IonPage, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import { IonList } from "@ionic/react";
+
 import PlantItem from "./PlantItem";
-import { getPlants, Plant } from "./PlantService";
 
-const Plantlist: React.FC = () => {
-    const [plants, setPlants] = useState<Plant[]>([]);
+import { Plant } from "./PlantService";
 
-    useEffect(() => {
-        setPlants(getPlants());
-    }, [])
+const Plantlist: React.FC<{ plantProps: Plant[] | undefined }> = ({ plantProps }) => {
 
     return (
-        <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Plants</IonTitle>
-                </IonToolbar>
-            </IonHeader>
-            <IonContent>
-                <IonList>
-                    {
-                        plants.map((plant, id) => <PlantItem key={id} plant={plant} />)
-                    }
-
-                </IonList>
-            </IonContent>
-        </IonPage>
+        <IonList>
+            {
+                plantProps !== undefined && plantProps.map((plant, id) => <PlantItem key={id} plant={plant} />)
+            }
+        </IonList>
     )
 }
 
