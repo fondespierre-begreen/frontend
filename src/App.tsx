@@ -37,19 +37,15 @@ const App: React.FC = () => (
         <IonTabBar slot="bottom">
           <IonTabButton tab="home" href="/home">
             <IonIcon icon={home}></IonIcon>
-            <IonLabel>Home</IonLabel>
           </IonTabButton>
           <IonTabButton tab="plants" href="/plants">
             <IonIcon icon={leaf}></IonIcon>
-            <IonLabel>Plantes</IonLabel>
           </IonTabButton>
           <IonTabButton tab="series" href="/series">
             <IonIcon icon={school}></IonIcon>
-            <IonLabel>QCM</IonLabel>
           </IonTabButton>
           <IonTabButton tab="parametres" href="/settings">
             <IonIcon icon={settingsSharp}></IonIcon>
-            <IonLabel>Paramètres</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
