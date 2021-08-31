@@ -17,15 +17,10 @@ const Series: React.FC = () => {
 
   const [series, setSeries] = useState<Serie[]>([]);
 
-//   useIonViewWillEnter(() => {
-//     const srs = getSeries();
-//     srs !== undefined && srs.then(datas => setSeries(datas))
-//   });
-
-    useIonViewWillEnter(() => {
-        const srs = getSeries();
-        setSeries(srs);
-    });
+  useIonViewWillEnter(() => {
+    const srs = getSeries();
+    srs !== undefined && srs.then(datas => setSeries(datas))
+  });
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
