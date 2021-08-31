@@ -30,9 +30,9 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/" component={Plants}></Route>
         <Route exact path="/plants" component={Plants}/>
-        
-        <Route exact path="/private/:id" component={PlantDetail}/>
-        <Route exact path="/public/:id" component={PlantDetail}/>
+
+        <Route exact path="/plants/personnal/:id" component={PlantDetail}/>
+        <Route exact path="/plants/public/:id" component={PlantDetail}/>
 
       </IonRouterOutlet>
     </IonReactRouter>

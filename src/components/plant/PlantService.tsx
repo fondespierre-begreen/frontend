@@ -26,22 +26,22 @@ const pubPlants =  fetch('http://localhost:9090/plants')
 const privPlants: Plant[] = [
     {
     id: 1,
-    name: "string",
-    latin: "string",
+    name: "string1",
+    latin: "string1",
     description: "string",
     createdAt: Date(),
 },
     {
     id: 2,
-    name: "string",
-    latin: "string",
+    name: "string2",
+    latin: "string2",
     description: "string",
     createdAt: Date(),
 },
     {
     id: 3,
-    name: "string",
-    latin: "string",
+    name: "string3",
+    latin: "string3",
     description: "string",
     createdAt: Date(),
 }] 
@@ -50,7 +50,7 @@ const pubPlantById = fetch('http://localhost:9090/plants/'+currentid)
 .then(response => response.json())
 .catch(error => console.log(error));
 
-export const getPrivPlantById = (id: number ) => privPlants.filter((plant)=> plant.id = id)
+export const getPrivPlantById = (id: number ) => privPlants.find(plant=> plant.id = id)
 
 
 

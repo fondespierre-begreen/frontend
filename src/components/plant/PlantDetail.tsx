@@ -4,10 +4,19 @@ import { currentid, getPrivPlantById, getPubPlantById, uriList } from "./PlantSe
 
 const PlantDetail: React.FC = () => {
 
-    const [plant, setPlant] = useState<any>();
-    if(uriList == "personnal") setPlant(getPrivPlantById(currentid))
-    if(uriList == "public") getPubPlantById().then(response => setPlant(response));
-    console.log(uriList, getPrivPlantById(currentid), getPubPlantById().then(response => setPlant(response)));
+    const [plant, setPlant] = useState<any>({});
+
+    useEffect(() => {
+        if(uriList === "public") {
+            getPubPlantById().then(response => setPlant(response));
+        }else{
+            setPlant(getPrivPlantById(currentid))
+        }
+
+    }, [{}]);
+
+
+    console.log(plant);
 
     // console.log(plant);
     return (
