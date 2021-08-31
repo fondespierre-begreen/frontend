@@ -1,6 +1,6 @@
 import { IonAvatar, IonItem, IonLabel } from "@ionic/react";
 import React from "react";
-import { Plant } from "./plantService";
+import { Plant } from "./PlantService";
 
 
 const PlantItem: React.FC<{plant: Plant}> = (props) => {

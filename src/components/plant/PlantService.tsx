@@ -33,4 +33,28 @@ const plants: Plant[] = [
     createdAt: Date(),
 }] 
 
+const number : Plant[] = [
+    {
+    id: 1,
+    name: "number",
+    latin: "number",
+    description: "number",
+    createdAt: Date(),
+},
+    {
+    id: 2,
+    name: "number",
+    latin: "number",
+    description: "number",
+    createdAt: Date(),
+},
+    {
+    id: 3,
+    name: "number",
+    latin: "number",
+    description: "number",
+    createdAt: Date(),
+}] 
+
 export const getPlants = () => plants;
+export const getPrivate = () => number;
