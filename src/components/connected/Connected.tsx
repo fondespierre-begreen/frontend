@@ -12,9 +12,10 @@ import { Redirect, Route, useRouteMatch } from 'react-router-dom';
 
 /* Components */
 import Home from '../home/Home';
-import PlantRouter from '../plant/PlantRouter';
 import SeriesList from '../series/SeriesList';
 import Parameter from '../parameter/Parameter';
+import Plants from '../plant/Plants';
+import PlantDetail from '../plant/PlantDetail';
 
 
 /**
@@ -36,7 +37,7 @@ const Connected: React.FC = () => {
                     </Route>
 
                     <Route exact path={`${path}/plants`}>
-                        <PlantRouter />
+                        <Plants />
                     </Route>
 
                     <Route exact path={`${path}/home`}>

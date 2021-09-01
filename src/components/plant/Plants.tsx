@@ -1,18 +1,18 @@
 import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRouterLink, IonRouterOutlet, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import Plantlist from "./PlantList";
-import {getPrivPlants, getPubPlants, Plant } from "./PlantService";
+import { getPrivPlants, getPubPlants, Plant } from "./PlantService";
 
 const Plants: React.FC = () => {
 
     const privPlants: any = getPrivPlants();
     let temp: any = localStorage.getItem('pubPlants')
-    var pubPlants: any = JSON.parse(temp);
+    const pubPlants: any = JSON.parse(temp);
 
-    const [value, setValue] = useState<string>("personnel");
+    const [value, setValue] = useState<string>("personnal");
     const [lists, setLists] = useState<Plant[]>([]);
 
-    useIonViewWillEnter(()=> {
+    useEffect(() => {
         setLists(privPlants); //init private list
     }, [])
 
@@ -22,12 +22,12 @@ const Plants: React.FC = () => {
      */
     const checkChanges = (e: any) => {
         const val: string = e.detail.value; //result from clicking on different labels (personnal, public)
-        if(val !== undefined) {
+        if (val !== undefined) {
             setValue(val);
-           val === "personnal" ? setLists(pubPlants) : setLists(privPlants); //?? something wrong but working
+            val === "personnal" ? setLists(pubPlants) : setLists(privPlants); //?? something wrong but working
         }
-    } 
-    
+    }
+
 
     return (
         <div>
@@ -47,12 +47,13 @@ const Plants: React.FC = () => {
                 <IonContent>
                     {
                         value === "personnal" ? (
-                            <section><Plantlist val={value} listProps={lists} /></section>) : ( <div><Plantlist val={value} listProps={lists} /></div> 
-                            )
+                            <section><Plantlist val={value} listProps={lists} /></section>) : (<div><Plantlist val={value} listProps={lists} /></div>
+                        )
                     }
+                    {/* <Plantlist val={value} listProps={lists} /> */}
                 </IonContent>
             </IonPage>
-            
+
         </div>
     );
 }

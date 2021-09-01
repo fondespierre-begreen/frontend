@@ -1,19 +1,24 @@
-import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonPage } from "@ionic/react";
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonPage, IonRouterLink } from "@ionic/react";
 import React, { useEffect, useState } from "react";
+import { useRouteMatch } from "react-router-dom";
 import { currentid, getPrivPlantById, getPubPlantById, uriList } from "./PlantService";
 
 const PlantDetail: React.FC = () => {
 
     const [plant, setPlant] = useState<any>({});
 
+    let { path, url } = useRouteMatch();
+
     useEffect(() => {
-        if(uriList === "public") {
+        if (uriList === "public") {
             getPubPlantById().then(response => setPlant(response));
             console.log(plant);
-        }else{
+        } else {
             setPlant(getPrivPlantById(currentid))
         }
         console.log(uriList);
+        console.log(path);
+        console.log(url);
 
     }, [{}]);
 
@@ -21,6 +26,9 @@ const PlantDetail: React.FC = () => {
     return (
         <IonPage>
             <IonContent>
+                <IonRouterLink href="/connected/quiz">
+                    <IonButton>back</IonButton>
+                </IonRouterLink>
                 <IonCard>
                     <img src="" />
                     <IonCardHeader>

@@ -41,6 +41,8 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonContent>
         <IonRouterOutlet>
+          <Route exact path="/plants/personnal/:id" component={PlantDetail} />
+          <Route exact path="/plants/public/:id" component={PlantDetail} />
           <Route exact path="/connected">
             <Connected />
           </Route>
