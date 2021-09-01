@@ -1,5 +1,5 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRouterLink, IonRouterOutlet, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar } from "@ionic/react";
-import React, { useState } from "react";
+import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRouterLink, IonRouterOutlet, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react";
+import React, { useEffect, useState } from "react";
 import Plantlist from "./PlantList";
 import {getPrivPlants, getPubPlants, Plant } from "./PlantService";
 
@@ -11,6 +11,10 @@ const Plants: React.FC = () => {
 
     const [value, setValue] = useState<string>("personnel");
     const [lists, setLists] = useState<Plant[]>([]);
+
+    useIonViewWillEnter(()=> {
+        setLists(privPlants); //init private list
+    }, [])
 
     /**
      * Check and define the plant list according to the user's choice (after switching is searching for data)
