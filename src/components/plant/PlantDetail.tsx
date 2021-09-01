@@ -9,6 +9,7 @@ const PlantDetail: React.FC = () => {
     useEffect(() => {
         if(uriList === "public") {
             getPubPlantById().then(response => setPlant(response));
+            console.log(plant);
         }else{
             setPlant(getPrivPlantById(currentid))
         }

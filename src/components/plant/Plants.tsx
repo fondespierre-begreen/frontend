@@ -6,7 +6,8 @@ import {getPrivPlants, getPubPlants, Plant } from "./PlantService";
 const Plants: React.FC = () => {
 
     const privPlants: any = getPrivPlants();
-    var pubPlants: any = getPubPlants().then((plants)=> pubPlants = plants)
+    let temp: any = localStorage.getItem('pubPlants')
+    var pubPlants: any = JSON.parse(temp);
 
     const [value, setValue] = useState<string>("personnel");
     const [lists, setLists] = useState<Plant[]>([]);

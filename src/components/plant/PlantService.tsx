@@ -21,6 +21,7 @@ export const uriList = find.slice(8,find.length-2);
  */
 const pubPlants =  fetch('http://localhost:9090/plants')
 .then(response => response.json())
+.then(response=> localStorage.setItem('pubPlants', JSON.stringify(response)))
 .catch(error => console.log(error));
 
 const privPlants: Plant[] = [
@@ -52,7 +53,6 @@ const pubPlantById = fetch('http://localhost:9090/plants/'+currentid)
 
 export const getPrivPlantById = (id: number ) => privPlants.find(plant=> plant.id = id)
 
-console.log(uriList)
 
 
 
