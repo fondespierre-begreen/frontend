@@ -13,7 +13,7 @@ export interface Plant {
 //informations
 const find = window.location.pathname;
 export const currentid = parseInt(find.slice(-1));
-export const uriList = find.slice(1,find.length-2);
+export const uriList = find.slice(8,find.length-2);
 
 
 /**
@@ -51,6 +51,8 @@ const pubPlantById = fetch('http://localhost:9090/plants/'+currentid)
 .catch(error => console.log(error));
 
 export const getPrivPlantById = (id: number ) => privPlants.find(plant=> plant.id = id)
+
+console.log(uriList)
 
 
 

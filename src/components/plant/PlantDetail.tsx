@@ -12,13 +12,11 @@ const PlantDetail: React.FC = () => {
         }else{
             setPlant(getPrivPlantById(currentid))
         }
+        console.log(uriList);
 
     }, [{}]);
 
 
-    console.log(plant);
-
-    // console.log(plant);
     return (
         <IonPage>
             <IonContent>
