@@ -34,61 +34,30 @@ import './theme/variables.css';
 
 /* Components */
 import Login from './components/login/Login';
-import PlantRouter from './components/plant/PlantRouter';
-import SeriesList from './components/series/SeriesList';
-import Parameter from './components/parameter/Parameter';
+import Visitor from './components/visitor/Visitor';
+import Connected from './components/connected/Connected';
 
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonContent>
+        <IonRouterOutlet>
+          <Route exact path="/connected">
+            <Connected />
+          </Route>
 
-        <IonTabs>
-          <IonRouterOutlet>
-            <Route exact path="/parameter">
-              <Parameter />
-            </Route>
+          <Route exact path="/visitor">
+            <Visitor />
+          </Route>
 
-            <Route exact path="/quiz">
-              <SeriesList />
-            </Route>
-
-            <Route exact path="/plants">
-              <PlantRouter />
-            </Route>
-
-            <Route exact path="/home">
-              <Login />
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/home" />
-            </Route>
-          </IonRouterOutlet>
-
-          <IonTabBar slot="bottom">
-            <IonTabButton tab="home" href="/home">
-              <IonIcon icon={homeOutline} />
-              <IonLabel>Home</IonLabel>
-              <IonBadge>6</IonBadge>
-            </IonTabButton>
-
-            <IonTabButton tab="plants" href="/plants">
-              <IonIcon icon={leafOutline} />
-              <IonLabel>Plants</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="quiz" href="/quiz">
-              <IonIcon icon={schoolOutline} />
-              <IonLabel>Quiz</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="parameter" href="/parameter">
-              <IonIcon icon={settingsOutline} />
-              <IonLabel>Parameter</IonLabel>
-            </IonTabButton>
-          </IonTabBar>
-        </IonTabs>
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+        </IonRouterOutlet>
       </IonContent>
 
     </IonReactRouter>
