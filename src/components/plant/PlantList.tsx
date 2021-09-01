@@ -1,20 +1,21 @@
 import { IonList } from "@ionic/react";
-
+import React, { useEffect, useState } from "react";
 import PlantItem from "./PlantItem";
 import { Plant } from "./PlantService";
+import './plantcss.css';
 
+const Plantlist: React.FC<{ listProps: Plant[], val: string }> = (props) => {
 
-/**
- * 
- * @param plantProps Le tableau d'objet Plant
- * @returns La liste de toute les plantes.
- */
-const Plantlist: React.FC<{ plantProps: Plant[] | undefined }> = ({ plantProps }) => {
+    const [plants, setPlants] = useState<Plant[]>([]);
+
+    useEffect(() => {
+        setPlants(props.listProps);
+    }, [])
 
     return (
         <IonList>
             {
-                plantProps !== undefined && plantProps.map((plant, id) => <PlantItem key={id} plant={plant} />)
+                plants.map((plant, id) => <PlantItem val={props.val} key={id} plant={plant} />)
             }
         </IonList>
     )

@@ -24,6 +24,8 @@ import '@ionic/react/css/typography.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Plants from './components/plant/Plants';
+import PlantDetail from './components/plant/PlantDetail';
 
 /* Components */
 import Login from './components/login/Login';

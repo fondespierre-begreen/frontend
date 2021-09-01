@@ -1,3 +1,6 @@
+/**
+ * Model
+ */
 export interface Plant {
     id: number;
     name: string;
@@ -7,57 +10,56 @@ export interface Plant {
     createdAt: string;
 }
 
-// const plants = fetch(uri).then(plants => plants.json());
-const uri = "http://localhost:9090/plants";
+//informations
+const find = window.location.pathname;
+export const currentid = parseInt(find.slice(-1));
+export const uriList = find.slice(8,find.length-2);
 
 
-// const plants: Plant[] = [
-//     {
-//         id: 1,
-//         name: "rose",
-//         latin: "rosa",
-//         description: "une jolie fleur",
-//         createdAt: Date(),
-//     },
-//     {
-//         id: 2,
-//         name: "bambou",
-//         latin: "sino bambou",
-//         description: "yum says the panda !",
-//         createdAt: Date(),
-//     },
-//     {
-//         id: 3,
-//         name: "chêne",
-//         latin: "chenus",
-//         description: "feuillu",
-//         createdAt: Date(),
-//     }]
+/**
+ * Repository
+ */
+const pubPlants =  fetch('http://localhost:9090/plants')
+.then(response => response.json())
+.then(response=> localStorage.setItem('pubPlants', JSON.stringify(response)))
+.catch(error => console.log(error));
 
-const pubPlants: Plant[] = [
+const privPlants: Plant[] = [
     {
-        id: 1,
-        name: "vigne",
-        latin: "vinus",
-        description: "vinasse",
-        createdAt: Date(),
-    },
+    id: 1,
+    name: "string1",
+    latin: "string1",
+    description: "string",
+    createdAt: Date(),
+},
     {
-        id: 2,
-        name: "sapin",
-        latin: "sapinus",
-        description: "conifère",
-        createdAt: Date(),
-    },
+    id: 2,
+    name: "string2",
+    latin: "string2",
+    description: "string",
+    createdAt: Date(),
+},
     {
-        id: 3,
-        name: "lotus",
-        latin: "lotus",
-        description: "elexir de vie",
-        createdAt: Date(),
-    }]
+    id: 3,
+    name: "string3",
+    latin: "string3",
+    description: "string",
+    createdAt: Date(),
+}] 
 
-// export const getPlants = () => plants;
+const pubPlantById = fetch('http://localhost:9090/plants/'+currentid)
+.then(response => response.json())
+.catch(error => console.log(error));
+
+export const getPrivPlantById = (id: number ) => privPlants.find(plant=> plant.id = id)
+
+
+
+
+
+
+
 export const getPubPlants = () => pubPlants;
-export const getPlants = () => fetch(uri)
-    .then(plants => plants.json());
+export const getPrivPlants = () => privPlants;
+export const getPubPlantById = () => pubPlantById;
+// export const getPrivPlantById = (id: number) => privPlanById;
