@@ -1,0 +1,14 @@
+ion-tab-button::part(a) {
+    --color: #7cb342 !important;
+    --color-selected: #7cb342 !important;
+    --ion-color-primary: #7cb342 !important;
+    color: #7cb342 !important;
+}
+
+.button-inner {
+    color: #7bc342;
+}
+
+ion-icon {
+    color: #7bc342;
+}
