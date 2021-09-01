@@ -11,9 +11,12 @@ import {
 import { useEffect, useState } from 'react';
 
 import Plantlist from './PlantList';
-
 import { getPlants, getPubPlants, Plant } from "./PlantService";
 
+
+/**
+ * @returns Soit la liste public ou la liste de l'apprenant.
+ */
 const PlantRouter: React.FC = () => {
 
     const [state, setstate] = useState<string>("personnel")
@@ -33,7 +36,6 @@ const PlantRouter: React.FC = () => {
 
     return (
         <IonPage>
-
             <IonHeader translucent>
                 <IonToolbar>
                     <IonSegment

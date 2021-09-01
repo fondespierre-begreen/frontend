@@ -1,7 +1,4 @@
 import {
-    IonApp,
-    IonButton,
-    IonContent,
     IonIcon,
     IonLabel,
     IonRouterOutlet,
@@ -12,25 +9,22 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import { schoolOutline, settingsOutline, leafOutline, homeOutline } from 'ionicons/icons';
 import { Redirect, Route, useRouteMatch } from 'react-router-dom';
-import Home from '../home/Home';
-
 
 /* Components */
-import Login from '../login/Login';
-import Parameter from '../parameter/Parameter';
+import Home from '../home/Home';
 import PlantRouter from '../plant/PlantRouter';
 import SeriesList from '../series/SeriesList';
+import Parameter from '../parameter/Parameter';
 
 
+/**
+ * @returns Routeur interne (l'app de Begreen) et la barre de navigation.
+ */
 const Connected: React.FC = () => {
     let { path, url } = useRouteMatch();
-    console.log("path : ", path);
-    console.log("url : ", url);
-
 
     return (
         <IonReactRouter>
-
             <IonTabs>
                 <IonRouterOutlet>
                     <Route exact path={`${path}/parameter`}>
@@ -61,7 +55,7 @@ const Connected: React.FC = () => {
 
                     <IonTabButton tab="plants" href={`${url}/plants`}>
                         <IonIcon icon={leafOutline} />
-                        <IonLabel>Plants</IonLabel>
+                        <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="quiz" href={`${url}/quiz`}>
@@ -71,11 +65,10 @@ const Connected: React.FC = () => {
 
                     <IonTabButton tab="parameter" href={`${url}/parameter`}>
                         <IonIcon icon={settingsOutline} />
-                        <IonLabel>Parameter</IonLabel>
+                        <IonLabel>Paramètre</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
-
         </IonReactRouter>
     )
 };

@@ -1,16 +1,9 @@
 import {
   IonApp,
-  IonBadge,
   IonContent,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs
+  IonRouterOutlet
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { schoolOutline, settingsOutline, leafOutline, homeOutline } from 'ionicons/icons';
 import { Redirect, Route } from 'react-router-dom';
 
 /* Core CSS required for Ionic components to work properly */
@@ -38,6 +31,9 @@ import Visitor from './components/visitor/Visitor';
 import Connected from './components/connected/Connected';
 
 
+/**
+ * @returns routeur externe dirige vers l'app du promeneur ou bien vers la connection begreen
+ */
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
@@ -59,7 +55,6 @@ const App: React.FC = () => (
           </Route>
         </IonRouterOutlet>
       </IonContent>
-
     </IonReactRouter>
   </IonApp>
 );

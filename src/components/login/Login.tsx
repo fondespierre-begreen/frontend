@@ -3,14 +3,16 @@ import {
     IonHeader,
     IonTitle,
     IonContent,
-    IonToolbar,
     IonImg,
     IonButton
 } from "@ionic/react";
-import { useRouteMatch } from "react-router";
 
 import "./login.css";
 
+
+/**
+ * @returns La toute première page.
+ */
 const Login: React.FC = () => {
     return (
         <IonPage>

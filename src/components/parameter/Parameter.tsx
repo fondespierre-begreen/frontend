@@ -1,5 +1,9 @@
 import { IonContent, IonPage } from "@ionic/react";
 
+
+/**
+ * @returns Le menu des paramètres
+ */
 const Parameter: React.FC = () => {
     return (
         <IonPage>

@@ -13,19 +13,23 @@ import {
   useIonViewWillEnter
 } from '@ionic/react';
 
+
+/**
+ * @returns La liste des tests en mode lecture.
+ */
 const Series: React.FC = () => {
 
   const [series, setSeries] = useState<Serie[]>([]);
 
-//   useIonViewWillEnter(() => {
-//     const srs = getSeries();
-//     srs !== undefined && srs.then(datas => setSeries(datas))
-//   });
+  //   useIonViewWillEnter(() => {
+  //     const srs = getSeries();
+  //     srs !== undefined && srs.then(datas => setSeries(datas))
+  //   });
 
-    useIonViewWillEnter(() => {
-        const srs = getSeries();
-        setSeries(srs);
-    });
+  useIonViewWillEnter(() => {
+    const srs = getSeries();
+    setSeries(srs);
+  });
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
@@ -40,6 +44,7 @@ const Series: React.FC = () => {
           <IonTitle>QCM</IonTitle>
         </IonToolbar>
       </IonHeader>
+
       <IonContent fullscreen>
         <IonRefresher slot="fixed" onIonRefresh={refresh}>
           <IonRefresherContent></IonRefresherContent>

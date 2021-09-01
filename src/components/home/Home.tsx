@@ -1,6 +1,9 @@
 import { IonButton, IonContent, IonPage } from "@ionic/react"
 
 
+/**
+ * @returns La page Home de l'apprenant.
+ */
 const Home: React.FC = () => {
     console.log("home")
     return (

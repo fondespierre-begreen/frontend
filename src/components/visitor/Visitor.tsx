@@ -1,6 +1,9 @@
 import { IonButton } from "@ionic/react"
 
 
+/**
+ * @returns L'app du visiteur.
+ */
 const Visitor: React.FC = () => {
     return (
         <div>
