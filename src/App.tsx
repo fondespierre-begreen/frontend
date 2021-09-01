@@ -43,14 +43,6 @@ import Parameter from './components/parameter/Parameter';
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/" component={Plants}></Route>
-        <Route exact path="/plants" component={Plants}/>
-
-        <Route exact path="/plants/personnal/:id" component={PlantDetail}/>
-        <Route exact path="/plants/public/:id" component={PlantDetail}/>
-
-      </IonRouterOutlet>
       <IonContent>
 
         <IonTabs>
@@ -73,6 +65,10 @@ const App: React.FC = () => (
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
+
+          <Route exact path="/plants/personnal/:id" component={PlantDetail}/>
+          <Route exact path="/plants/public/:id" component={PlantDetail}/>
+
           </IonRouterOutlet>
 
           <IonTabBar slot="bottom">
