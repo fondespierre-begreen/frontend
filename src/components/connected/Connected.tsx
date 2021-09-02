@@ -17,6 +17,7 @@ import SeriesList from '../series/SeriesList';
 import Parameter from '../parameter/Parameter';
 import Plants from '../plant/Plants';
 import PlantDetail from '../plant/PlantDetail';
+import PlantCreateCard from '../plant/PlantCreateCard';
 
 
 /**
@@ -30,6 +31,8 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                    <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
+
                     <Route exact path={`${match.url}/parameter`}>
                         <Parameter />
                     </Route>
@@ -38,9 +41,10 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <SeriesList />
                     </Route>
 
-                    <Route exact path={`${match.url}/plants`}>
+                    {/* <Route exact path={`${match.url}/plants`}>
                         <Plants />
-                    </Route>
+                    </Route> */}
+                    <Route exact path={`${match.url}/plants`} render={(props) => <Plants {...props} />} />
 
                     <Route exact path={`${match.url}/home`}>
                         <Home />

@@ -1,9 +1,16 @@
-import { IonCol, IonContent, IonGrid, IonHeader, IonLabel, IonPage, IonRouterLink, IonRouterOutlet, IonRow, IonSegment, IonSegmentButton, IonTitle, IonToolbar, useIonViewWillEnter } from "@ionic/react";
-import React, { useEffect, useState } from "react";
-import Plantlist from "./PlantList";
-import { getPrivPlants, getPubPlants, Plant } from "./PlantService";
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
+// import { add } from "ionicons/icons"
+import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 
-const Plants: React.FC = () => {
+import React, { useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router";
+
+import Plantlist from "./PlantList";
+import { getPrivPlants, Plant } from "./PlantService";
+
+const Plants: React.FC<RouteComponentProps> = ({ match }) => {
+    console.log("You entered a plant, you naughty boy !!!");
+
 
     const privPlants: any = getPrivPlants();
     let temp: any = localStorage.getItem('pubPlants')
@@ -47,7 +54,18 @@ const Plants: React.FC = () => {
                 <IonContent>
                     {
                         value === "personnal" ? (
-                            <section><Plantlist val={value} listProps={lists} /></section>) : (<div><Plantlist val={value} listProps={lists} /></div>
+                            <section>
+                                <Plantlist val={value} listProps={lists} />
+                                <IonFab horizontal="end" vertical="bottom" slot="fixed">
+                                    <IonFabButton color="success" routerLink={`${match.url}/create`}>
+                                        <IonIcon name={arrowBackCircle}></IonIcon>
+                                    </IonFabButton>
+                                </IonFab>
+                            </section>
+                        ) : (
+                            <div>
+                                <Plantlist val={value} listProps={lists} />
+                            </div>
                         )
                     }
                     {/* <Plantlist val={value} listProps={lists} /> */}
