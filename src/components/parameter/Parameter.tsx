@@ -1,6 +1,5 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonRefresher, IonRefresherContent, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { chevronBack, chevronForward, helpCircleOutline, informationCircleOutline, personCircleOutline } from "ionicons/icons";
-import { Link } from "react-router-dom";
 import "./parameter.css";
 
 
