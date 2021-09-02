@@ -41,7 +41,7 @@ const Series: React.FC = () => {
     <IonPage id="series-page">
       <IonHeader>
         <IonToolbar>
-          <IonTitle>QCM</IonTitle>
+          <IonTitle color="success">QCM</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -52,7 +52,7 @@ const Series: React.FC = () => {
 
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle size="large">
+            <IonTitle size="large" color="success">
               QCM
             </IonTitle>
           </IonToolbar>
