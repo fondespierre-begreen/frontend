@@ -5,7 +5,9 @@ import { Plant } from "./PlantService";
 
 const PlantItem: React.FC<{ plant: Plant, val: string }> = (props) => {
 
-  const uri: string = "plants/" + (props.val) + "/" + (props.plant.id).toString();
+  // const uri: string = "plants/" + (props.val) + "/" + (props.plant.id).toString();
+  const uri: string = `plants/${props.val}/${props.plant.id}`;
+
   return (
     <IonRouterLink color="white" href={uri}>
       <IonItem>

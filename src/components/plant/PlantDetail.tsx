@@ -14,10 +14,14 @@ const PlantDetail: React.FC = () => {
             getPubPlantById().then(response => setPlant(response));
             console.log(plant);
         } else {
+            console.log(currentid);
             setPlant(getPrivPlantById(currentid))
         }
+        // personnal
         console.log(uriList);
+        // /plants/personnal/:id
         console.log(path);
+        // /plants/personnal/2
         console.log(url);
 
     }, [{}]);
@@ -26,7 +30,7 @@ const PlantDetail: React.FC = () => {
     return (
         <IonPage>
             <IonContent>
-                <IonRouterLink href="/connected/quiz">
+                <IonRouterLink href="/login">
                     <IonButton>back</IonButton>
                 </IonRouterLink>
                 <IonCard>

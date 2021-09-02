@@ -24,7 +24,7 @@ const Plants: React.FC = () => {
         const val: string = e.detail.value; //result from clicking on different labels (personnal, public)
         if (val !== undefined) {
             setValue(val);
-            val === "personnal" ? setLists(pubPlants) : setLists(privPlants); //?? something wrong but working
+            val === "personnal" ? setLists(privPlants) : setLists(pubPlants);
         }
     }
 

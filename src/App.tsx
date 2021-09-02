@@ -39,26 +39,26 @@ import Connected from './components/connected/Connected';
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonContent>
-        <IonRouterOutlet>
-          <Route exact path="/plants/personnal/:id" component={PlantDetail} />
-          <Route exact path="/plants/public/:id" component={PlantDetail} />
-          <Route exact path="/connected">
-            <Connected />
-          </Route>
+      {/* <IonContent> */}
+      <IonRouterOutlet>
+        <Route exact path="/plants/personnal/:id" component={PlantDetail} />
+        <Route exact path="/plants/public/:id" component={PlantDetail} />
+        <Route exact path="/connected" render={(props) => <Connected {...props} />} />
+        {/* <Connected />
+          </Route> */}
 
-          <Route exact path="/visitor">
-            <Visitor />
-          </Route>
+        <Route exact path="/visitor">
+          <Visitor />
+        </Route>
 
-          <Route exact path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/login" />
-          </Route>
-        </IonRouterOutlet>
-      </IonContent>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+      </IonRouterOutlet>
+      {/* </IonContent> */}
     </IonReactRouter>
   </IonApp>
 );

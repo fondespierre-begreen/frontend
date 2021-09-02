@@ -1,6 +1,7 @@
 import {
     IonIcon,
     IonLabel,
+    IonPage,
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
@@ -8,7 +9,7 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { schoolOutline, settingsOutline, leafOutline, homeOutline } from 'ionicons/icons';
-import { Redirect, Route, useRouteMatch } from 'react-router-dom';
+import { Redirect, Route, RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
 /* Components */
 import Home from '../home/Home';
@@ -21,50 +22,53 @@ import PlantDetail from '../plant/PlantDetail';
 /**
  * @returns Routeur interne (l'app de Begreen) et la barre de navigation.
  */
-const Connected: React.FC = () => {
-    let { path, url } = useRouteMatch();
+const Connected: React.FC<RouteComponentProps> = ({ match }) => {
+    // let { path, url } = useRouteMatch();
+    console.log(match);
 
     return (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
-                    <Route exact path={`${path}/parameter`}>
+                    <Route exact path={`${match.url}/parameter`}>
                         <Parameter />
                     </Route>
 
-                    <Route exact path={`${path}/quiz`}>
+                    <Route exact path={`${match.url}/quiz`}>
                         <SeriesList />
                     </Route>
 
-                    <Route exact path={`${path}/plants`}>
+                    <Route exact path={`${match.url}/plants`}>
                         <Plants />
                     </Route>
 
-                    <Route exact path={`${path}/home`}>
+                    <Route exact path={`${match.url}/home`}>
                         <Home />
                     </Route>
-                    <Route exact path={`${path}/`}>
-                        <Redirect to={`${path}/home`} />
+                    <Route exact path={`${match.url}/`}>
+                        <Redirect to={`${match.url}/home`} />
                     </Route>
+
+                    {/* <Route render={() => <Redirect to={match.url} />} /> */}
                 </IonRouterOutlet>
 
                 <IonTabBar slot="bottom">
-                    <IonTabButton tab="home" href={`${url}/home`}>
+                    <IonTabButton tab="home" href={`${match.url}/home`}>
                         <IonIcon icon={homeOutline} />
                         <IonLabel>Home</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="plants" href={`${url}/plants`}>
+                    <IonTabButton tab="plants" href={`${match.url}/plants`}>
                         <IonIcon icon={leafOutline} />
                         <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="quiz" href={`${url}/quiz`}>
+                    <IonTabButton tab="quiz" href={`${match.url}/quiz`}>
                         <IonIcon icon={schoolOutline} />
                         <IonLabel>Quiz</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="parameter" href={`${url}/parameter`}>
+                    <IonTabButton tab="parameter" href={`${match.url}/parameter`}>
                         <IonIcon icon={settingsOutline} />
                         <IonLabel>Paramètre</IonLabel>
                     </IonTabButton>

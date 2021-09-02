@@ -6,16 +6,10 @@ import './plantcss.css';
 
 const Plantlist: React.FC<{ listProps: Plant[], val: string }> = (props) => {
 
-    const [plants, setPlants] = useState<Plant[]>([]);
-
-    useEffect(() => {
-        setPlants(props.listProps);
-    }, [])
-
     return (
         <IonList>
             {
-                plants.map((plant, id) => <PlantItem val={props.val} key={id} plant={plant} />)
+                props.listProps.map((plant, id) => <PlantItem val={props.val} key={id} plant={plant} />)
             }
         </IonList>
     )
