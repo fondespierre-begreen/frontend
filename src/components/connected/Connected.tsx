@@ -22,10 +22,9 @@ import PlantDetail from '../plant/PlantDetail';
 /**
  * @returns Routeur interne (l'app de Begreen) et la barre de navigation.
  */
-const Connected: React.FC<RouteComponentProps> = ({ match }, props) => {
+const Connected: React.FC<RouteComponentProps> = ({ match }) => {
     // let { path, url } = useRouteMatch();
     console.log(match);
-    console.log(props);
     
 
     return (

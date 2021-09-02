@@ -65,9 +65,7 @@ const SerieTest: React.FC = () => {
             </IonList>
 
 
-            question.forEach(element => element {
-                
-            });
+
             <IonButton color="success" fill="solid">Retour</IonButton> {/*routerLink={`/series/${serie[0].id}/${getQuestion()[0].id}`*/}
             <IonButton color="success" fill="solid">Suivant</IonButton> {/*routerLink={`/series/${serie[0].id}/${getQuestion()[0].id}`*/}
             

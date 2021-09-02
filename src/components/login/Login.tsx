@@ -6,6 +6,7 @@ import {
     IonImg,
     IonButton
 } from "@ionic/react";
+import { Link } from "react-router-dom";
 
 import "./login.css";
 
@@ -23,6 +24,7 @@ const Login: React.FC = () => {
                 <IonImg className="login-img" src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/AdobeStock_202538386-1024x683.jpeg?raw=true"></IonImg>
                 <IonButton href="/visitor">Visitor</IonButton>
                 <IonButton href="/connected">Connexion</IonButton>
+                {/* <Link to="/connected">Connexion</Link> */}
             </IonContent>
         </IonPage>
     )
