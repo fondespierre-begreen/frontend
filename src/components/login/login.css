@@ -1,7 +1,12 @@
-.login-img {
-    height: 200px;
+.background-container {
+    /* height: 200px; */
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    background: url("../../assets/AdobeStock_202538386-1024x683.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50%;
+    
 }
 
-ion-content {
-    --background: url(../../public/assets/images/AdobeStock_202538386-1024x683.jpeg) no-repeat center/cover fixed;
-  }
