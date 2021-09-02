@@ -32,12 +32,12 @@ const Home: React.FC = () => {
 
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle size="large">
+                        <IonTitle size="large" color="success">
                             Accueil
                         </IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonButton href="/">back</IonButton>
+                <IonButton href="/">Login page</IonButton>
                 <IonCard>
                     <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
                     <IonCardHeader>
@@ -47,7 +47,6 @@ const Home: React.FC = () => {
 
                     <IonCardContent>
                         <IonButton href="#" expand="block" color="success">Voir plus</IonButton>
-
                     </IonCardContent>
                 </IonCard>
 
