@@ -1,7 +1,7 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonPage, IonRouterLink } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { useRouteMatch, useParams } from "react-router-dom";
-import { IPlantParams, getPrivPlantById, getPubPlantById, uriList } from "./PlantService";
+import { IPlantParams, getPrivPlantById, getPubPlantById } from "./PlantService";
 
 
 const PlantDetail: React.FC = () => {
@@ -11,10 +11,10 @@ const PlantDetail: React.FC = () => {
     let { path, url, params } = useRouteMatch();
     let p: IPlantParams = params as IPlantParams;
 
-    // console.log({ toto: (params as IPlantParams).id });
+    console.log(path);
 
     useEffect(() => {
-        if (uriList === "public/") {
+        if (path === "/plants/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
             console.log(plant);
             console.log(parseInt(p.id));

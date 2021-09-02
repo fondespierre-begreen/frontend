@@ -15,9 +15,9 @@ export interface IPlantParams {
 }
 
 //informations
-const find = window.location.pathname;
-export const currentid = parseInt(find.slice(-1));
-export const uriList = find.slice(8, find.length - 2);
+// const find = window.location.pathname;
+// export const currentid = parseInt(find.slice(-1));
+// export const uriList = find.slice(8, find.length - 2);
 
 const URL = "http://localhost:9090";
 
@@ -33,20 +33,20 @@ const pubPlants = fetch(`${URL}/plants`)
 const privPlants: Plant[] = [
     {
         id: 1,
-        name: "string1",
-        latin: "string1",
+        name: "My own Rose",
+        latin: "Flos mea",
         description: "string"
     },
     {
         id: 2,
-        name: "string2",
-        latin: "string2",
+        name: "My own tree",
+        latin: "Mea arbor",
         description: "string"
     },
     {
         id: 3,
-        name: "string3",
-        latin: "string3",
+        name: "My own mushroom",
+        latin: "Fungus mea",
         description: "string"
     }]
 
