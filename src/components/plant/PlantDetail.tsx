@@ -1,48 +1,57 @@
 import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonPage, IonRouterLink } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
-import { currentid, getPrivPlantById, getPubPlantById, uriList } from "./PlantService";
+import { useRouteMatch, useParams } from "react-router-dom";
+import { IPlantParams, getPrivPlantById, getPubPlantById, uriList } from "./PlantService";
+
 
 const PlantDetail: React.FC = () => {
 
     const [plant, setPlant] = useState<any>({});
 
-    let { path, url } = useRouteMatch();
+    let { path, url, params } = useRouteMatch();
+    let p: IPlantParams = params as IPlantParams;
+
+    // console.log({ toto: (params as IPlantParams).id });
 
     useEffect(() => {
-        if (uriList === "public") {
-            getPubPlantById().then(response => setPlant(response));
+        if (uriList === "public/") {
+            getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
             console.log(plant);
+            console.log(parseInt(p.id));
         } else {
-            console.log(currentid);
-            setPlant(getPrivPlantById(currentid))
+            // console.log(p.id);
+            setPlant(getPrivPlantById(parseInt(p.id)))
         }
-        // personnal
-        console.log(uriList);
-        // /plants/personnal/:id
-        console.log(path);
-        // /plants/personnal/2
-        console.log(url);
+        // // personnal
+        // console.log(uriList);
+        // // /plants/personnal/:id
+        // console.log(path);
+        // // /plants/personnal/2
+        // console.log(url);
 
-    }, [{}]);
+    }, []);
 
 
     return (
         <IonPage>
             <IonContent>
-                <IonRouterLink href="/login">
+                <IonRouterLink routerLink="/connected">
                     <IonButton>back</IonButton>
                 </IonRouterLink>
-                <IonCard>
-                    <img src="" />
-                    <IonCardHeader>
-                        <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
-                        <IonCardTitle>{plant.name}</IonCardTitle>
-                    </IonCardHeader>
-                    <IonCardContent>
-                        {plant.description !== null && plant.description}
-                    </IonCardContent>
-                </IonCard>
+                {
+                    plant !== undefined && (
+                        <IonCard>
+                            <img src="" />
+                            <IonCardHeader>
+                                <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
+                                <IonCardTitle>{plant.name}</IonCardTitle>
+                            </IonCardHeader>
+                            <IonCardContent>
+                                {plant.description !== null && plant.description}
+                            </IonCardContent>
+                        </IonCard>
+                    )
+                }
             </IonContent>
         </IonPage>
     )

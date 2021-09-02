@@ -31,6 +31,7 @@ import PlantDetail from './components/plant/PlantDetail';
 import Login from './components/login/Login';
 import Visitor from './components/visitor/Visitor';
 import Connected from './components/connected/Connected';
+import PlantCreateCard from './components/plant/PlantCreateCard';
 
 
 /**
@@ -43,6 +44,9 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/plants/personnal/:id" component={PlantDetail} />
         <Route exact path="/plants/public/:id" component={PlantDetail} />
+
+        {/* <Route exact path="/connected/plants/create" component={PlantCreateCard} /> */}
+
         <Route exact path="/connected" render={(props) => <Connected {...props} />} />
         {/* <Connected />
           </Route> */}

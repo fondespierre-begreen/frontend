@@ -7,6 +7,7 @@ const PlantItem: React.FC<{ plant: Plant, val: string }> = (props) => {
 
   // const uri: string = "plants/" + (props.val) + "/" + (props.plant.id).toString();
   const uri: string = `plants/${props.val}/${props.plant.id}`;
+  console.log(uri)
 
   return (
     <IonRouterLink color="white" href={uri}>
@@ -17,7 +18,6 @@ const PlantItem: React.FC<{ plant: Plant, val: string }> = (props) => {
         <IonLabel>
           <h2>{props.plant.name}</h2>
           <h3>{props.plant.latin}</h3>
-          <p>{props.plant.createdAt}</p>
         </IonLabel>
       </IonItem>
     </IonRouterLink>
