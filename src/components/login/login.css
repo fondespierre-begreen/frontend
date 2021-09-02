@@ -1,3 +1,7 @@
 .login-img {
-    max-height: 100px;
+    height: 200px;
 }
+
+ion-content {
+    --background: url(../../public/assets/images/AdobeStock_202538386-1024x683.jpeg) no-repeat center/cover fixed;
+  }
