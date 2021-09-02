@@ -44,7 +44,7 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
 
   return (
-    <IonItem routerLink={`/series/${serie.id}`} detail={false}>
+    <IonItem routerLink={`/quiz/${serie.id}`} detail={false}>
       {displayIconColor()}
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
