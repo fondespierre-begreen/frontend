@@ -16,7 +16,6 @@ const Parameter: React.FC = () => {
     <IonPage>
       <IonToolbar>
         <IonButton routerLink="/login" routerDirection="back" fill="clear">
-          <IonIcon slot="start" icon={chevronBack} size="large" />
         </IonButton>
         <IonTitle color="success" slot="secondary">Paramètres</IonTitle>
       </IonToolbar>
