@@ -1,14 +1,13 @@
 import {
     IonIcon,
     IonLabel,
-    IonPage,
     IonRouterOutlet,
     IonTabBar,
     IonTabButton,
     IonTabs
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { schoolOutline, settingsOutline, leafOutline, homeOutline } from 'ionicons/icons';
+import { home, leaf, school, settingsSharp } from 'ionicons/icons';
 import { Redirect, Route, RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
 /* Components */
@@ -58,22 +57,22 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
 
                 <IonTabBar slot="bottom">
                     <IonTabButton tab="home" href={`${match.url}/home`}>
-                        <IonIcon icon={homeOutline} />
+                        <IonIcon icon={home} />
                         <IonLabel>Home</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="plants" href={`${match.url}/plants`}>
-                        <IonIcon icon={leafOutline} />
+                        <IonIcon icon={leaf} />
                         <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="quiz" href={`${match.url}/quiz`}>
-                        <IonIcon icon={schoolOutline} />
+                        <IonIcon icon={school} />
                         <IonLabel>Quiz</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="parameter" href={`${match.url}/parameter`}>
-                        <IonIcon icon={settingsOutline} />
+                        <IonIcon icon={settingsSharp} />
                         <IonLabel>Paramètre</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
