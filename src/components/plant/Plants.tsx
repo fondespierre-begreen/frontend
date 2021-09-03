@@ -1,6 +1,6 @@
 import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
 // import { add } from "ionicons/icons"
-import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
+import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter, closeOutline, addOutline } from 'ionicons/icons';
 
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
@@ -58,7 +58,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                                 <Plantlist val={value} listProps={lists} />
                                 <IonFab horizontal="end" vertical="bottom" slot="fixed">
                                     <IonFabButton color="success" routerLink={`${match.url}/create`}>
-                                        <IonIcon name={arrowBackCircle}></IonIcon>
+                                        <IonIcon icon={addOutline}></IonIcon>
                                     </IonFabButton>
                                 </IonFab>
                             </section>
