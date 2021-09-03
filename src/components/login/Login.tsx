@@ -5,7 +5,8 @@ import {
     IonContent,
     IonImg,
     IonButton,
-    IonToolbar
+    IonToolbar,
+    IonButtons
 } from "@ionic/react";
 
 import "./login.css";
@@ -23,9 +24,11 @@ const Login: React.FC = () => {
                     <IonTitle>Page de connexion</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent  fullscreen>
-                <IonButton href="/visitor" color="success" expand="block">Visiteurs</IonButton>
-                <IonButton href="/connected" fill="clear" color="success" expand="block">Connexion</IonButton>
+            <IonContent fullscreen >
+                <IonToolbar className="container-buttons">
+                        <IonButton href="/visitor" color="success" expand="block">Visiteurs</IonButton>
+                        <IonButton href="/connected" fill="clear" color="success" expand="block">Connexion</IonButton>
+                </IonToolbar>
             </IonContent>
         </IonPage>
     )
