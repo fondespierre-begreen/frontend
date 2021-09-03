@@ -37,7 +37,6 @@ const Home: React.FC = () => {
                         </IonTitle>
                     </IonToolbar>
                 </IonHeader>
-                <IonButton href="/">Login page</IonButton>
                 <IonCard>
                     <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
                     <IonCardHeader>
