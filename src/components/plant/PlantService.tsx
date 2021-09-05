@@ -73,21 +73,24 @@ export const getPubPlantById = (plantId: number) => {
 
 
 export const postPlant = (data: Plant) => {
-    fetch(`${URL}/plants`, {
+    const prom = fetch(`${URL}/plants`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
     })
-        .then(resp => resp.json())
-        .then(plantResp => {
-            const prevPlants = localStorage.getItem('pubPlants');
-            let oldPlants: Plant[] = [];
-            if (prevPlants !== null) {
-                oldPlants = JSON.parse(prevPlants);
-                oldPlants.push(plantResp)
-            }
-            localStorage.setItem('pubPlants', JSON.stringify(oldPlants))
-        });
+        .then(resp => resp.json());
+
+    prom.then(plantResp => {
+        const prevPlants = localStorage.getItem('pubPlants');
+        let oldPlants: Plant[] = [];
+        if (prevPlants !== null) {
+            oldPlants = JSON.parse(prevPlants);
+            oldPlants.push(plantResp)
+        }
+        localStorage.setItem('pubPlants', JSON.stringify(oldPlants))
+    });
+
+    return prom;
 }

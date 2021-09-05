@@ -24,12 +24,14 @@ import PlantCreateCard from '../plant/PlantCreateCard';
  */
 const Connected: React.FC<RouteComponentProps> = ({ match }) => {
     // let { path, url } = useRouteMatch();
-    console.log(match);
+    // console.log(match);
 
     return (
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                    <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
+                    <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
 
                     <Route exact path={`${match.url}/parameter`}>

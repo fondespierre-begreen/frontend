@@ -1,43 +1,63 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonPage, IonRouterLink } from "@ionic/react";
+import {
+    IonButton,
+    IonButtons,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonPage,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
+import { arrowBack } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
-import { useRouteMatch, useParams } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { IPlantParams, getPrivPlantById, getPubPlantById } from "./PlantService";
 
 
+/**
+ * @returns La fiche complète de la plante sélectionnée
+ */
 const PlantDetail: React.FC = () => {
 
     const [plant, setPlant] = useState<any>({});
 
-    let { path, url, params } = useRouteMatch();
+    let { path, params } = useRouteMatch();
     let p: IPlantParams = params as IPlantParams;
 
-    console.log(path);
-
     useEffect(() => {
-        if (path === "/plants/public/:id") {
+        if (path === "/connected/plants/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
-            console.log(plant);
-            console.log(parseInt(p.id));
         } else {
-            // console.log(p.id);
             setPlant(getPrivPlantById(parseInt(p.id)))
         }
-        // // personnal
-        // console.log(uriList);
-        // // /plants/personnal/:id
-        // console.log(path);
-        // // /plants/personnal/2
-        // console.log(url);
-
     }, []);
 
+    // // personnal
+    // console.log(uriList);
+    // // /plants/personnal/:id
+    // console.log(path);
+    // // /plants/personnal/2
+    // console.log(url);
 
     return (
         <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                            <IonIcon icon={arrowBack} />
+                        </IonButton>
+                    </IonButtons>
+                    <IonTitle>plantys ...</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+
             <IonContent>
-                <IonRouterLink routerLink="/connected">
-                    <IonButton>back</IonButton>
-                </IonRouterLink>
                 {
                     plant !== undefined && (
                         <IonCard>

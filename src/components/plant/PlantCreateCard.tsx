@@ -1,23 +1,55 @@
-import { IonButton, IonContent, IonInput, IonItem, IonLabel, IonPage, IonTextarea } from "@ionic/react"
+import {
+    IonButton,
+    IonButtons,
+    IonContent,
+    IonHeader,
+    IonIcon,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonPage,
+    IonTextarea,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react"
+import { arrowBack } from "ionicons/icons";
+
 import { RouteComponentProps } from "react-router";
 import { useForm } from "react-hook-form";
+
 import { Plant, postPlant } from "./PlantService";
 
 
-const PlantCreateCard: React.FC<RouteComponentProps> = ({ match }) => {
-    console.log("hello new plant")
-    console.log(match.url);
+/**
+ * 
+ * @param history l'historique du routeur
+ * @returns Le formulaire d'ajout d'une plante
+ */
+const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
 
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data: Plant) => {
-        postPlant(data);
+    const { register, handleSubmit, reset } = useForm();
+
+    const onSubmit = async (data: Plant) => {
+        const result = await postPlant(data);
+        reset(result);
+        history.push("/connected/plants");
     };
 
     return (
         <IonPage>
+            <IonHeader>
+                <IonToolbar>
+                    <IonButtons slot="start">
+                        {/* <IonBackButton defaultHref="/connected/plants" /> */}
+                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                            <IonIcon icon={arrowBack} />
+                        </IonButton>
+                    </IonButtons>
+                    <IonTitle>Ajout d'une plante</IonTitle>
+                </IonToolbar>
+            </IonHeader>
+
             <IonContent>
-                <IonButton routerDirection="back" routerLink="/connected/plants">Back to login</IonButton>
-                <p>Here comes a form to create a new plant card</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <IonItem>
                         <IonLabel>Nom commun</IonLabel>

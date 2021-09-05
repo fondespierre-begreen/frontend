@@ -5,7 +5,7 @@ import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, Ion
  * @returns La page Home de l'apprenant.
  */
 const Home: React.FC = () => {
-    console.log("home")
+    // console.log("home")
 
 
     const refresh = (e: CustomEvent) => {
