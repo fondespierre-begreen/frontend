@@ -1,4 +1,4 @@
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonRouterOutlet, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonRouterOutlet, IonSearchbar, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
 // import { add } from "ionicons/icons"
 import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter, closeOutline, addOutline } from 'ionicons/icons';
 
@@ -18,10 +18,16 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
     const [value, setValue] = useState<string>(PERSONNAL);
     const [lists, setLists] = useState<Plant[]>([]);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLists(privPlants); //init private list
-    }, [])
+        let tempSearchResult = lists.filter(ele => {
+            return ele.name.toLowerCase().indexOf(searchQuery) > -1;
+            // ele.name.includes(searchQuery)
+        })
+        setLists([...tempSearchResult])
+    }, [searchQuery])
 
     /**
      * Check and define the plant list according to the user's choice (after switching is searching for data)
@@ -49,6 +55,10 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                                 <IonLabel>Public</IonLabel>
                             </IonSegmentButton>
                         </IonSegment>
+                    </IonToolbar>
+                    <IonToolbar>
+                        {/* https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator */}
+                        <IonSearchbar value={searchQuery} onIonChange={e => setSearchQuery(e.detail.value!)} />
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
