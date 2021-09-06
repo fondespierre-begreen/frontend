@@ -1,10 +1,9 @@
-import { IonAvatar, IonItem, IonLabel, IonRouterLink } from "@ionic/react";
-import { } from "process";
+import { IonAvatar, IonItem, IonLabel } from "@ionic/react";
 import React from "react";
 import { useRouteMatch } from "react-router-dom";
-import { Plant } from "./PlantService";
+import { IPlant } from "./plantService";
 
-const PlantItem: React.FC<{ plant: Plant, val: string }> = (props) => {
+const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
 
   let { url } = useRouteMatch();
 

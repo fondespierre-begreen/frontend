@@ -1,6 +1,6 @@
 import SeriesItems from '../series/SeriesItems';
 import { useState } from 'react';
-import { Serie, getSeries } from '../series/SeriesService';
+import { ISerie, getSeries } from './seriesService';
 import {
   IonContent,
   IonHeader,
@@ -19,7 +19,7 @@ import {
  */
 const Series: React.FC = () => {
 
-  const [series, setSeries] = useState<Serie[]>([]);
+  const [series, setSeries] = useState<ISerie[]>([]);
 
   //   useIonViewWillEnter(() => {
   //     const srs = getSeries();

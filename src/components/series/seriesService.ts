@@ -1,4 +1,4 @@
-export interface Serie {
+export interface ISerie {
     id: number;
     total: number | null;
     createdat: string;
@@ -7,7 +7,7 @@ export interface Serie {
 // const series = fetch(`http://localhost:8888/series`)
 //                     .then(res => res.json())
 
-const series: Serie[] = [
+const series: ISerie[] = [
     {
         id: 1,
         total: null,

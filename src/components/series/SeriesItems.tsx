@@ -5,11 +5,11 @@ import {
 } from '@ionic/react';
 
 import { ellipseOutline, checkmarkCircle, removeCircle, closeCircle } from 'ionicons/icons';
-import { Serie } from '../series/SeriesService';
+import { ISerie } from './seriesService';
 import './SeriesItems.css'
 
 interface SerieItemsProps {
-  serie: Serie;
+  serie: ISerie;
 }
 
 
