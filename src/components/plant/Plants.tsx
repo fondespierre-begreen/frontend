@@ -26,8 +26,6 @@ import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
  */
 const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
-    console.log("Let's watch a tree grow !!!");
-
     const privPlants: any = getPrivPlants();
     const pubPlants = getPubPlants();
     const PERSONNAL = "personnal";
@@ -37,12 +35,12 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        // setLists(privPlants); //init private list
+        setLists(privPlants); //init private list
         let tempSearchResult = lists.filter(ele => {
             return ele.name.toLowerCase().indexOf(searchQuery) > -1;
         })
-        if (tempSearchResult === []) setLists(privPlants);
-        else setLists([...tempSearchResult]);
+        // if (tempSearchResult === []) setLists(privPlants);
+        // else setLists([...tempSearchResult]);
     }, [setLists, searchQuery])
 
     /**

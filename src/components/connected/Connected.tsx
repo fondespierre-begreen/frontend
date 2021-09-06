@@ -23,8 +23,6 @@ import PlantCreateCard from '../plant/PlantCreateCard';
  * @returns Routeur interne (l'app de Begreen) et la barre de navigation.
  */
 const Connected: React.FC<RouteComponentProps> = ({ match }) => {
-    // let { path, url } = useRouteMatch();
-    // console.log(match);
 
     return (
         <IonReactRouter>

@@ -1,12 +1,8 @@
 import {
     IonPage,
     IonHeader,
-    IonTitle,
     IonContent,
-    IonImg,
-    IonButton,
-    IonToolbar,
-    IonButtons
+    IonButton
 } from "@ionic/react";
 
 import "./login.css";
@@ -24,7 +20,7 @@ const Login: React.FC = () => {
             <IonContent fullscreen className="background">
                 <div className="back container-buttons">
                     <IonButton href="/visitor" fill="solid" color="success" expand="block">Visiteurs</IonButton>
-                    <IonButton href="/connected"  fill="outline" color="light" expand="block">Connexion</IonButton>
+                    <IonButton href="/connected" fill="outline" color="light" expand="block">Connexion</IonButton>
                 </div>
             </IonContent>
         </IonPage>

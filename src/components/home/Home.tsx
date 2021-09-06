@@ -22,9 +22,6 @@ import { getPubPlants, IPlant } from "../plant/plantService";
  * @returns La page Home de l'apprenant.
  */
 const Home: React.FC = () => {
-    console.log("I'm HOME !!!");
-
-
     const pubPlants: IPlant[] = getPubPlants();
 
     return (
@@ -37,7 +34,6 @@ const Home: React.FC = () => {
 
             <IonContent fullscreen>
                 <IonSlides>
-                    {/* {pubPlants !== undefined && } */}
                     {
                         pubPlants!.map((plant, index) => (
                             <IonSlide key={index}>
