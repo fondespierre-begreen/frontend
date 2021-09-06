@@ -1,11 +1,10 @@
 .parametres-img {
-    /* margin: 7em 0em 1em 0em; */
     height: 200px;
+    margin-bottom: 20px;
 }
-.dorine {
+.flexe {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     justify-content: space-between;
     height: 100%;
 }

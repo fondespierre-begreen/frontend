@@ -21,7 +21,7 @@ const Parameter: React.FC = () => {
       </IonToolbar>
 
       <IonContent fullscreen>  
-        <div className="dorine">
+        <div className="flexe">
           <div>
             <IonList>
                 <IonItem routerLink="/settings/account" detail={false}>
@@ -56,8 +56,8 @@ const Parameter: React.FC = () => {
               </IonList>
           </div>
           <div>
-            <IonImg className="parametres-img" src="https://github.com/fondespierre-begreen/documentation/blob/main/logos/beGreenSigle.png?raw=true"></IonImg>
-            <IonButton href="https://fondespierre.com/nos-poles-de-competences/begreen/" className="site-begreen" fill="clear" expand="block">Site web Fondespierre BeGreen</IonButton>
+            <IonImg className="parametres-img" src="https://github.com/fondespierre-begreen/documentation/blob/main/logos/beGreenSigle.png?raw=true"/>
+            <IonButton href="https://fondespierre.com/nos-poles-de-competences/begreen/" fill="clear" expand="block">Site web Fondespierre BeGreen</IonButton>
             <IonButton href="#" fill="clear" expand="block" color="danger">Déconnexion</IonButton>
           </div>
         </div>
