@@ -13,7 +13,7 @@ import {
 } from "@ionic/react";
 import { addOutline } from 'ionicons/icons';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { RouteComponentProps } from "react-router";
 
 import Plantlist from "./PlantList";
@@ -31,17 +31,41 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
-    const [lists, setLists] = useState<IPlant[]>([]);
-    const [searchQuery, setSearchQuery] = useState('');
+
+    const initialState = {
+        lists: privPlants,
+        query: ""
+    }
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const handleChange = (e: any) => {
+        let tempLists = value === PERSONNAL ? privPlants : pubPlants;
+        dispatch({
+            type: 'updateQuery', payload: {
+                lists: [...tempLists],
+                query: e.detail.value!
+            }
+        });
+    };
+
+    function reducer(state: any, action: any) {
+        switch (action.type) {
+            case 'updateList':
+                return { ...state, lists: action.payload };
+            case 'updateQuery':
+                return { ...action.payload };
+            default:
+                throw new Error();
+        }
+    }
 
     useEffect(() => {
-        setLists(privPlants); //init private list
-        let tempSearchResult = lists.filter(ele => {
-            return ele.name.toLowerCase().indexOf(searchQuery) > -1;
-        })
-        // if (tempSearchResult === []) setLists(privPlants);
-        // else setLists([...tempSearchResult]);
-    }, [setLists, searchQuery])
+        let tempSearchResult = state.lists.filter((ele: any) => {
+            return ele.name.toLowerCase().indexOf(state.query) > -1;
+        });
+
+        dispatch({ type: 'updateList', payload: [...tempSearchResult] });
+    }, [state.query]);
 
     /**
      * Check and define the plant list according to the user's choice (after switching is searching for data)
@@ -51,7 +75,9 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
         const val: string = e.detail.value; //result from clicking on different labels (personnal, public)
         if (val !== undefined) {
             setValue(val);
-            val === PERSONNAL ? setLists(privPlants) : setLists(pubPlants);
+            val === PERSONNAL ?
+                dispatch({ type: 'updateList', payload: [...privPlants] }) :
+                dispatch({ type: 'updateList', payload: [...pubPlants] });
         }
     }
 
@@ -71,15 +97,14 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                         </IonSegment>
                     </IonToolbar>
                     <IonToolbar>
-                        {/* https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-0.html#non-null-assertion-operator */}
-                        <IonSearchbar value={searchQuery} onIonChange={e => setSearchQuery(e.detail.value!)} />
+                        <IonSearchbar value={state.query} onIonChange={handleChange} />
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
                     {
                         value === PERSONNAL ? (
                             <section>
-                                <Plantlist val={value} listProps={lists} />
+                                <Plantlist val={value} listProps={state.lists} />
                                 <IonFab horizontal="end" vertical="bottom" slot="fixed">
                                     <IonFabButton color="success" routerLink={`${match.url}/create`}>
                                         <IonIcon icon={addOutline}></IonIcon>
@@ -88,7 +113,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                             </section>
                         ) : (
                             <div>
-                                <Plantlist val={value} listProps={lists} />
+                                <Plantlist val={value} listProps={state.lists} />
                             </div>
                         )
                     }
