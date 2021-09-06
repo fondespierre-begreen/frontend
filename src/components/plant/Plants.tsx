@@ -1,10 +1,9 @@
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonRouterOutlet, IonSearchbar, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
-// import { add } from "ionicons/icons"
-import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter, closeOutline, addOutline } from 'ionicons/icons';
+import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
+
+import { addOutline } from 'ionicons/icons';
 
 import React, { useEffect, useState } from "react";
-import { Route, RouteComponentProps } from "react-router";
-import PlantDetail from "./PlantDetail";
+import { RouteComponentProps } from "react-router";
 
 import Plantlist from "./PlantList";
 import { getPrivPlants, Plant } from "./PlantService";
