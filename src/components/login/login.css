@@ -1,13 +1,11 @@
-.background-container {
-    /* height: 200px; */
-    background-image: url("../../assets/AdobeStock_202538386-1024x683.jpeg");
-    background-repeat: no-repeat;
-    background-size: cover;
+.background {
+    --background: url('./assets/login.jpeg') no-repeat center/cover fixed;
 }
-
-.container-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.back {
+    width: 70%;
+    margin: auto;
+    margin-top: 400px
+}
+img {
+    background: none;
 }

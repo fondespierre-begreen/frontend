@@ -17,18 +17,15 @@ import "./login.css";
  */
 const Login: React.FC = () => {
     return (
-        <IonPage >
-            <IonImg className="background-container"></IonImg>
+        <IonPage>
             <IonHeader>
-                <IonToolbar>
-                    <IonTitle>Page de connexion</IonTitle>
-                </IonToolbar>
+                <img src="http://image.noelshack.com/fichiers/2021/36/1/1630920868-begreenblancweb.png" alt="begreen" />
             </IonHeader>
-            <IonContent fullscreen >
-                <IonToolbar className="container-buttons">
-                        <IonButton href="/visitor" color="success" expand="block">Visiteurs</IonButton>
-                        <IonButton href="/connected" fill="clear" color="success" expand="block">Connexion</IonButton>
-                </IonToolbar>
+            <IonContent fullscreen className="background">
+                <div className="back container-buttons">
+                    <IonButton href="/visitor" fill="solid" color="success" expand="block">Visiteurs</IonButton>
+                    <IonButton href="/connected"  fill="outline" color="light" expand="block">Connexion</IonButton>
+                </div>
             </IonContent>
         </IonPage>
     )
