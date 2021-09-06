@@ -6,16 +6,13 @@
     margin: auto;
     margin-top: 80%
 }
-img {
-    background: none;
-}
-.dorine {
+.flex {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    justify-content: space-around;
+    height: 90%;
+
 }
 .btn {
-    width: 70%;
-    margin-left: 15%;
+    width: 60%;
+    margin-left: 17%;
 }

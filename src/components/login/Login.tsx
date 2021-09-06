@@ -14,8 +14,8 @@ import "./login.css";
 const Login: React.FC = () => {
     return (
         <IonPage>
-            <IonContent fullscreen scrollEvents={false}  className="background">
-                <div className="dorine" >
+            <IonContent fullscreen className="background">
+                <div className="flex">
                         <img src="http://image.noelshack.com/fichiers/2021/36/1/1630920868-begreenblancweb.png" alt="begreen" />
                         <div className="btn">
                             <IonButton href="/visitor" fill="solid" color="success" expand="block">Visiteurs</IonButton>
