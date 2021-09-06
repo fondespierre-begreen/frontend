@@ -6,7 +6,7 @@ import {
 
 import { ellipseOutline, checkmarkCircle, removeCircle, closeCircle } from 'ionicons/icons';
 import { ISerie } from './seriesService';
-import './SeriesItems.css'
+import './seriesItems.css'
 
 interface SerieItemsProps {
   serie: ISerie;
