@@ -25,7 +25,7 @@ const URL = "http://localhost:9090";
 /**
  * Repository
  */
-const pubPlants = fetch(`${URL}/plants`)
+fetch(`${URL}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
     .catch(error => console.log(error));
@@ -56,14 +56,14 @@ const privPlants: IPlant[] = [
 
 export const getPrivPlantById = (id: number) => privPlants.find(plant => plant.id === id)
 
+export const getPubPlants = () => {
+    let temp: any = localStorage.getItem('pubPlants')
+    const pubPlants: any = JSON.parse(temp);
+    return pubPlants;
+};
 
-
-
-
-
-
-export const getPubPlants = () => pubPlants;
 export const getPrivPlants = () => privPlants;
+
 export const getPubPlantById = (plantId: number) => {
     return fetch(`${URL}/plants/${plantId}`)
         .then(response => response.json())

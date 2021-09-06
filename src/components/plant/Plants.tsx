@@ -1,18 +1,35 @@
-import { IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonLabel, IonPage, IonSearchbar, IonSegment, IonSegmentButton, IonToolbar } from "@ionic/react";
-
+import {
+    IonContent,
+    IonFab,
+    IonFabButton,
+    IonHeader,
+    IonIcon,
+    IonLabel,
+    IonPage,
+    IonSearchbar,
+    IonSegment,
+    IonSegmentButton,
+    IonToolbar
+} from "@ionic/react";
 import { addOutline } from 'ionicons/icons';
 
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 
 import Plantlist from "./PlantList";
-import { getPrivPlants, IPlant } from "./plantService";
+import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
 
+
+/**
+ * @param RouteComponentProps donne accès à l'URL
+ * @returns La page des listes de plantes pour l'apprenant; la personnelle et la publique.
+ */
 const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
+    console.log("Let's watch a tree grow !!!");
+
     const privPlants: any = getPrivPlants();
-    let temp: any = localStorage.getItem('pubPlants')
-    const pubPlants: any = JSON.parse(temp);
+    const pubPlants = getPubPlants();
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
@@ -20,13 +37,13 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
-        setLists(privPlants); //init private list
+        // setLists(privPlants); //init private list
         let tempSearchResult = lists.filter(ele => {
             return ele.name.toLowerCase().indexOf(searchQuery) > -1;
-            // ele.name.includes(searchQuery)
         })
-        setLists([...tempSearchResult])
-    }, [searchQuery])
+        if (tempSearchResult === []) setLists(privPlants);
+        else setLists([...tempSearchResult]);
+    }, [setLists, searchQuery])
 
     /**
      * Check and define the plant list according to the user's choice (after switching is searching for data)
@@ -61,11 +78,6 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                     </IonToolbar>
                 </IonHeader>
                 <IonContent>
-                    {/* <IonRouterOutlet>
-                    <Route path={`${match.url}/personnal/:id`} component={PlantDetail} />
-                    <Route path={`${match.url}/public/:id`} component={PlantDetail} />
-                    <Route path={`${match.url}/:pSlug`} render={(props) => <Plantlist val={value} listProps={lists} {...props} />} />
-                </IonRouterOutlet> */}
                     {
                         value === PERSONNAL ? (
                             <section>
