@@ -19,7 +19,7 @@ export interface IPlantParams {
 // export const currentid = parseInt(find.slice(-1));
 // export const uriList = find.slice(8, find.length - 2);
 
-const URL = "http://localhost:9090";
+const URL = "http://192.168.1.46:9090";
 
 
 /**

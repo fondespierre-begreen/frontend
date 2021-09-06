@@ -17,6 +17,7 @@ import Parameter from '../parameter/Parameter';
 import Plants from '../plant/Plants';
 import PlantDetail from '../plant/PlantDetail';
 import PlantCreateCard from '../plant/PlantCreateCard';
+import SerieDetail from '../series/SerieDetail';
 
 
 /**
@@ -31,12 +32,13 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                     <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
+                    <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
 
                     <Route exact path={`${match.url}/parameter`}>
                         <Parameter />
                     </Route>
 
-                    <Route exact path={`${match.url}/quiz`}>
+                    <Route exact path={`${match.url}/series`}>
                         <SeriesList />
                     </Route>
 
@@ -66,7 +68,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="quiz" href={`${match.url}/quiz`}>
+                    <IonTabButton tab="quiz" href={`${match.url}/series`}>
                         <IonIcon icon={school} />
                         <IonLabel>Quiz</IonLabel>
                     </IonTabButton>

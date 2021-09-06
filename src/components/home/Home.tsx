@@ -35,7 +35,7 @@ const Home: React.FC = () => {
             <IonContent fullscreen>
                 <IonSlides>
                     {
-                        pubPlants!.map((plant, index) => (
+                        pubPlants !== undefined && pubPlants.map((plant, index) => (
                             <IonSlide key={index}>
                                 <IonCard>
                                     <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
