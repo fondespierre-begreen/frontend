@@ -1,10 +1,31 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonHeader, IonImg, IonPage, IonRefresher, IonRefresherContent, IonSlide, IonSlides, IonTitle, IonToolbar } from "@ionic/react"
+import {
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonContent,
+    IonHeader,
+    IonImg,
+    IonPage,
+    IonSlide,
+    IonSlides,
+    IonTitle,
+    IonToolbar
+} from "@ionic/react";
+
+import { getPubPlants, IPlant } from "../plant/plantService";
 
 
 /**
  * @returns La page Home de l'apprenant.
  */
 const Home: React.FC = () => {
+    console.log("I'm HOME !!!");
+
+
+    const pubPlants: IPlant[] = getPubPlants();
 
     return (
         <IonPage>
@@ -16,23 +37,27 @@ const Home: React.FC = () => {
 
             <IonContent fullscreen>
                 <IonSlides>
-                    <IonSlide>
-                        <IonCard>
-                            <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
-                            <IonCardHeader>
-                                <IonCardSubtitle>Nom latin plante</IonCardSubtitle>
-                                <IonCardTitle>Nom plante</IonCardTitle>
-                            </IonCardHeader>
+                    {/* {pubPlants !== undefined && } */}
+                    {
+                        pubPlants!.map((plant, index) => (
+                            <IonSlide key={index}>
+                                <IonCard>
+                                    <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
+                                    <IonCardHeader>
+                                        <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
+                                        <IonCardTitle>{plant.name}</IonCardTitle>
+                                    </IonCardHeader>
 
-                            <IonCardContent>
-                                <IonButton href="#" expand="block" color="success">Voir plus</IonButton>
-                            </IonCardContent>
-                        </IonCard>
-                    </IonSlide>
+                                    <IonCardContent>
+                                        <IonButton routerLink={`/connected/plants/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton>
+                                    </IonCardContent>
+                                </IonCard>
+                            </IonSlide>
+                        ))
+                    }
                 </IonSlides>
             </IonContent>
         </IonPage>
-
     );
 };
 

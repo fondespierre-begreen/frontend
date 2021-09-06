@@ -1,4 +1,5 @@
 import {
+    IonBackButton,
     IonButton,
     IonButtons,
     IonCard,
@@ -15,14 +16,14 @@ import {
 } from "@ionic/react";
 import { arrowBack } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 import { IPlantParams, getPrivPlantById, getPubPlantById } from "./plantService";
 
 
 /**
  * @returns La fiche complète de la plante sélectionnée
  */
-const PlantDetail: React.FC = () => {
+const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
 
     const [plant, setPlant] = useState<any>({});
 
@@ -49,6 +50,8 @@ const PlantDetail: React.FC = () => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
+                        {/* <IonBackButton /> */}
+                        {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
                         <IonButton routerDirection="back" routerLink="/connected/plants">
                             <IonIcon icon={arrowBack} />
                         </IonButton>
