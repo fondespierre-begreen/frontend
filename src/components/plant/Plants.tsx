@@ -26,7 +26,7 @@ import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
  */
 const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
-    const privPlants: any = getPrivPlants();
+    const privPlants: IPlant[] = getPrivPlants();
     const pubPlants = getPubPlants();
     const PERSONNAL = "personnal";
 

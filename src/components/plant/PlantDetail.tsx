@@ -34,7 +34,8 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
         if (path === "/connected/plants/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
         } else {
-            setPlant(getPrivPlantById(parseInt(p.id)))
+            // getPrivPlantById(parseInt(p.id)).then((response: any) => setPlant(response));
+            setPlant(getPrivPlantById(parseInt(p.id)));
         }
     }, []);
 

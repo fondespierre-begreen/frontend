@@ -31,7 +31,13 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
 
     const onSubmit = async (data: IPlant) => {
         const result = await postPlant(data);
-        reset(result);
+
+        // /!\ IMPORTANT /!\
+
+        // DO NOT FORGET TO UNCOMMENT FOLLOWING LINE
+        // WHEN postPlant IS AN ACTUAL fetch AGAIN
+        // reset(result);
+
         history.push("/connected/plants");
     };
 
