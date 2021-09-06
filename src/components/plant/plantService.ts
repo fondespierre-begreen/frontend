@@ -1,7 +1,7 @@
 /**
  * Model
  */
-export interface Plant {
+export interface IPlant {
     id?: number;
     name: string;
     latin: string;
@@ -30,7 +30,7 @@ const pubPlants = fetch(`${URL}/plants`)
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
     .catch(error => console.log(error));
 
-const privPlants: Plant[] = [
+const privPlants: IPlant[] = [
     {
         id: 1,
         name: "My own Rose",
@@ -72,7 +72,7 @@ export const getPubPlantById = (plantId: number) => {
 // export const getPrivPlantById = (id: number) => privPlanById;
 
 
-export const postPlant = (data: Plant) => {
+export const postPlant = (data: IPlant) => {
     const prom = fetch(`${URL}/plants`, {
         method: "POST",
         headers: {
@@ -84,7 +84,7 @@ export const postPlant = (data: Plant) => {
 
     prom.then(plantResp => {
         const prevPlants = localStorage.getItem('pubPlants');
-        let oldPlants: Plant[] = [];
+        let oldPlants: IPlant[] = [];
         if (prevPlants !== null) {
             oldPlants = JSON.parse(prevPlants);
             oldPlants.push(plantResp)

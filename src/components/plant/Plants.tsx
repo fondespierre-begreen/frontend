@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 
 import Plantlist from "./PlantList";
-import { getPrivPlants, Plant } from "./PlantService";
+import { getPrivPlants, IPlant } from "./plantService";
 
 const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
@@ -16,7 +16,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
-    const [lists, setLists] = useState<Plant[]>([]);
+    const [lists, setLists] = useState<IPlant[]>([]);
     const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {

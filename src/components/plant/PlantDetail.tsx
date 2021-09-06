@@ -16,7 +16,7 @@ import {
 import { arrowBack } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
-import { IPlantParams, getPrivPlantById, getPubPlantById } from "./PlantService";
+import { IPlantParams, getPrivPlantById, getPubPlantById } from "./plantService";
 
 
 /**

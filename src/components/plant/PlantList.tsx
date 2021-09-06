@@ -1,10 +1,10 @@
 import { IonList } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PlantItem from "./PlantItem";
-import { Plant } from "./PlantService";
+import { IPlant } from "./plantService";
 import './plantcss.css';
 
-const Plantlist: React.FC<{ listProps: Plant[], val: string }> = (props) => {
+const Plantlist: React.FC<{ listProps: IPlant[], val: string }> = (props) => {
 
     return (
         <IonList>
