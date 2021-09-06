@@ -1,8 +1,10 @@
 .parametres-img {
-    /* margin: 7em 0em 1em 0em; */
     height: 200px;
+    margin-bottom: 20px;
 }
-
-.site-begreen {
-    /* margin-bottom: 7em; */
+.flexe {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }

@@ -6,6 +6,13 @@
     margin: auto;
     margin-top: 80%
 }
-img {
-    background: none;
+.flex {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+
+}
+.btn {
+    width: 60%;
+    margin-left: 20%;
 }
