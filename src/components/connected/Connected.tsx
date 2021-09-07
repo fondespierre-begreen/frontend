@@ -17,6 +17,7 @@ import Parameter from '../parameter/Parameter';
 import Plants from '../plant/Plants';
 import PlantDetail from '../plant/PlantDetail';
 import PlantCreateCard from '../plant/PlantCreateCard';
+import PlantEditCard from '../plant/PlantEditCard';
 
 
 /**
@@ -31,6 +32,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                     <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
+                    <Route path={`${match.url}/plants/edit/:id`} render={(props) => <PlantEditCard {...props} />} />
 
                     <Route exact path={`${match.url}/parameter`}>
                         <Parameter />

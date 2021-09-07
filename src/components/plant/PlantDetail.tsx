@@ -1,5 +1,4 @@
 import {
-    IonBackButton,
     IonButton,
     IonButtons,
     IonCard,
@@ -8,22 +7,26 @@ import {
     IonCardSubtitle,
     IonCardTitle,
     IonContent,
+    IonFab,
+    IonFabButton,
     IonHeader,
     IonIcon,
     IonPage,
     IonTitle,
     IonToolbar
 } from "@ionic/react";
-import { arrowBack } from 'ionicons/icons';
+import { arrowBack, pencilOutline } from 'ionicons/icons';
+
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
+
 import { IPlantParams, getPrivPlantById, getPubPlantById } from "./plantService";
 
 
 /**
  * @returns La fiche complète de la plante sélectionnée
  */
-const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
+const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
 
     const [plant, setPlant] = useState<any>({});
 
@@ -57,7 +60,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>plantys ...</IonTitle>
+                    <IonTitle>{plant.name}</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
@@ -65,7 +68,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
                 {
                     plant !== undefined && (
                         <IonCard>
-                            <img src="" />
+                            <img src={plant.img} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>
@@ -76,6 +79,11 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ history }) => {
                         </IonCard>
                     )
                 }
+                <IonFab horizontal="end" vertical="bottom" slot="fixed">
+                    <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
+                        <IonIcon icon={pencilOutline}></IonIcon>
+                    </IonFabButton>
+                </IonFab>
             </IonContent>
         </IonPage>
     )
