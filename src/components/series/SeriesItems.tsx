@@ -42,7 +42,6 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
   let { url } = useRouteMatch();
 
-  console.log(url);
   
 
   return (
