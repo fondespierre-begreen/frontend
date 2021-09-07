@@ -47,7 +47,7 @@ export interface Choices {
 }
 
   
-  const questions: IQuest[] = [
+export const questions: IQuest[] = [
     {
       id: 1,
       description: 'Question 1 ?',
@@ -56,25 +56,25 @@ export interface Choices {
       idplant: 5,
       choices: [{
         id: 1,
-        description: 'Choix 1',
+        description: 'YO 1',
         idquestion: 1,
         idplant: 3
       },
       {
         id: 2,
-        description: 'Choix 2',
+        description: 'Salut 2',
         idquestion: 1,
         idplant: 5
       },
       {
         id: 3,
-        description: 'Choix 3',
+        description: 'Fo 3',
         idquestion: 1,
         idplant: 7
       },
       {
         id: 4,
-        description: 'Choix 4',
+        description: 'Fa 4',
         idquestion: 1,
         idplant: 9
       }]

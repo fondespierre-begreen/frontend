@@ -16,12 +16,17 @@ import {
   IonLabel,
   IonList,
   IonRadio,
-  IonRadioGroup
+  IonRadioGroup,
+  IonIcon,
 } from '@ionic/react';
+import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
 import { IQuest, getquestions } from './seriesService';
+import "./seriedetail.css"
+import { useForm } from "react-hook-form";
+
 
 interface IQuizParams {
   qId: string;
@@ -30,9 +35,11 @@ interface IQuizParams {
 
 const SerieDetail: React.FC<RouteComponentProps> = () => {
   let { params } = useRouteMatch();
+  const { register, handleSubmit, reset } = useForm();
 
   let seriesId: IQuizParams = params as IQuizParams;
   let questId: IQuizParams = params as IQuizParams;
+
 
   const tId = parseInt(seriesId.tId);
   const qId = parseInt(questId.qId);
@@ -41,22 +48,62 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   const [selected, setSelected] = useState<string>('biff');
 
+  let choices = getquestions(tId)[qId].choices
+
+  let serieQuestions = getquestions(tId)
 
   useEffect(() => {
     setQuiz(getquestions(tId));
-    console.log(quiz);
   }, []);
 
-  let { url } = useRouteMatch();
-  
+
+
+
+  /**
+   * 
+   * @param qIdCurrent Id courant de la question
+   * @param questions Liste des questions
+   * @returns Les boutons nécessaires à la navigation entre les questions
+   */
+  function displayButtons(qIdCurrent: number, questions: IQuest[]) {
+    if (qIdCurrent == 0) {
+      return (
+        <div className="button-next">
+          <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+        </div>
+      )
+
+    } else if (qIdCurrent == questions.length - 1) {
+      return (
+        <div className="buttons">
+          <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
+        </div>
+      )
+
+    } else {
+      return (
+        <div className="buttons">
+          <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+        </div>
+      )
+    }
+  }
+
+
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/connected/series" />
+            {/* <IonBackButton /> */}
+            {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
+            <IonButton size="large" routerDirection="back" routerLink="/connected/series">
+              <IonIcon icon={chevronBack} />
+            </IonButton>
           </IonButtons>
-          <IonTitle>QCM n°{tId}</IonTitle>
+          <IonTitle color="success">QCM n°{tId}</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -68,19 +115,23 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
           </IonCardHeader>
 
           <IonCardContent>
-          <IonList>
-          <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <IonList>
+                <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
 
+                  {choices.map((c, i) => (
+                    <IonItem key={i}>
+                      <IonLabel>{c.description}</IonLabel>
+                      <IonRadio color="success" slot="start" value={c.description} />
+                    </IonItem>
+                  ))}
+                </IonRadioGroup>
+            </IonList>
+            
+            {/* Affiches les boutons nécessaires à la navigation entre les questions */}
+            {displayButtons(qId, serieQuestions)}
 
-            <IonItem>
-              <IonLabel>Biff {quiz !== undefined && <p>{quiz[qId].description}</p>}</IonLabel>
-              <IonRadio slot="start" value="biff" />
-            </IonItem>
-
-          </IonRadioGroup>
-        </IonList>
-            <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Previous</IonButton>
-            <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Next</IonButton>
+            </form>
           </IonCardContent>
         </IonCard>
 

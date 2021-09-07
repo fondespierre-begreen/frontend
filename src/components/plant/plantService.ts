@@ -19,16 +19,16 @@ export interface IPlantParams {
 // export const currentid = parseInt(find.slice(-1));
 // export const uriList = find.slice(8, find.length - 2);
 
-const URL = "http://192.168.1.46:9090";
+// const URL = "http://192.168.1.46:9090";
 
 
 /**
  * Repository
  */
-fetch(`${URL}/plants`)
-    .then(response => response.json())
-    .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
-    .catch(error => console.log(error));
+// fetch(`${URL}/plants`)
+//     .then(response => response.json())
+//     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
+//     .catch(error => console.log(error));
 
 const privPlants: IPlant[] = [
     {
