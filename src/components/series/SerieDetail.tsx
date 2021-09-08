@@ -35,7 +35,6 @@ interface IQuizParams {
 
 const SerieDetail: React.FC<RouteComponentProps> = () => {
   let { params } = useRouteMatch();
-  const { register, handleSubmit, reset } = useForm();
 
   let seriesId: IQuizParams = params as IQuizParams;
   let questId: IQuizParams = params as IQuizParams;
@@ -51,10 +50,26 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   let choices = getquestions(tId)[qId].choices
 
   let serieQuestions = getquestions(tId)
+  
+  
 
   useEffect(() => {
     setQuiz(getquestions(tId));
+    console.log(value);
+    console.log(serieQuestions);
+    
+    
   }, []);
+
+
+  const [value, setvalue] = useState<string>()
+
+
+
+  function registerValue(e: any) {
+    let test = localStorage.getItem('test')   
+
+  }
 
 
 
@@ -66,10 +81,13 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    * @returns Les boutons nécessaires à la navigation entre les questions
    */
   function displayButtons(qIdCurrent: number, questions: IQuest[]) {
+
+
+
     if (qIdCurrent == 0) {
       return (
         <div className="button-next">
-          <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+          <IonButton onClick={registerValue}  color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
 
@@ -77,7 +95,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
+          <IonButton type="submit" color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
         </div>
       )
 
@@ -85,12 +103,16 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+          <IonButton  color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
     }
   }
 
+  const {register, handleSubmit} = useForm()
+
+
+  const onSubmit = (d: Array<[]>) => console.log(JSON.stringify(d))
 
   return (
     <IonPage>
@@ -119,10 +141,10 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
             <IonList>
                 <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
 
-                  {choices.map((c, i) => (
+                  {choices.map((c: any, i: any) => (
                     <IonItem key={i}>
                       <IonLabel>{c.description}</IonLabel>
-                      <IonRadio color="success" slot="start" value={c.description} />
+                      <IonRadio className="choices" color="success" slot="end" {...register("description")} value={c.description} />
                     </IonItem>
                   ))}
                 </IonRadioGroup>
