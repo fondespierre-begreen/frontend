@@ -1,6 +1,7 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { arrowBack } from "ionicons/icons";
 import React from "react";
+import './parameter.css';
 
 const About: React.FC = () => (
     <IonPage>
@@ -11,11 +12,13 @@ const About: React.FC = () => (
                         <IonIcon icon={arrowBack} />
                     </IonButton>
                 </IonButtons>
-                <IonTitle color="success">Account</IonTitle>
+                <IonTitle color="success">À props</IonTitle>
             </IonToolbar>
         </IonHeader>
         <IonContent>
-            <p>Bienveue mes merdes</p>
+            <div className="cage">
+                <p>Concéption et création de l'application <strong>BeGreen</strong> par <strong>BeWeb École du numérique</strong></p>
+            </div>
         </IonContent>
     </IonPage>
 )
