@@ -23,7 +23,7 @@ import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
-import { IQuest, getquestions } from './seriesService';
+import { getquestions } from './seriesService';
 import "./seriedetail.css"
 import { useForm } from "react-hook-form";
 
@@ -43,21 +43,19 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   const tId = parseInt(seriesId.tId);
   const qId = parseInt(questId.qId);
 
-  const [quiz, setQuiz] = useState<IQuest[]>();
+  const [quiz, setQuiz] = useState<any>();
 
   const [selected, setSelected] = useState<string>('biff');
 
-  let choices = getquestions(tId)[qId].choices
+  // let choices = getquestions(tId)[qId].choices
 
-  let serieQuestions = getquestions(tId)
+  // let serieQuestions = getquestions(tId)
   
   
 
   useEffect(() => {
-    setQuiz(getquestions(tId));
-    console.log(value);
-    console.log(serieQuestions);
-    
+    // setQuiz(getquestions(tId));
+    console.log(quiz);
     
   }, []);
 
@@ -69,6 +67,9 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   function registerValue(e: any) {
     let test = localStorage.getItem('test')   
 
+    console.log(test + "register");
+    
+    
   }
 
 
@@ -80,7 +81,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    * @param questions Liste des questions
    * @returns Les boutons nécessaires à la navigation entre les questions
    */
-  function displayButtons(qIdCurrent: number, questions: IQuest[]) {
+  function displayButtons(qIdCurrent: number, questions: any) {
 
 
 
@@ -116,48 +117,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            {/* <IonBackButton /> */}
-            {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
-            <IonButton size="large" routerDirection="back" routerLink="/connected/series">
-              <IonIcon icon={chevronBack} />
-            </IonButton>
-          </IonButtons>
-          <IonTitle color="success">QCM n°{tId}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
 
-      <IonContent>
-        <IonCard>
-          <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
-          <IonCardHeader>
-            <IonCardTitle>{quiz !== undefined && <p>{quiz[qId].description}</p>}</IonCardTitle>
-          </IonCardHeader>
-
-          <IonCardContent>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <IonList>
-                <IonRadioGroup value={selected} onIonChange={e => setSelected(e.detail.value)}>
-
-                  {choices.map((c: any, i: any) => (
-                    <IonItem key={i}>
-                      <IonLabel>{c.description}</IonLabel>
-                      <IonRadio className="choices" color="success" slot="end" {...register("description")} value={c.description} />
-                    </IonItem>
-                  ))}
-                </IonRadioGroup>
-            </IonList>
-            
-            {/* Affiches les boutons nécessaires à la navigation entre les questions */}
-            {displayButtons(qId, serieQuestions)}
-
-            </form>
-          </IonCardContent>
-        </IonCard>
-
-      </IonContent>
     </IonPage>
   );
 };

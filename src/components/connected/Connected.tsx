@@ -32,7 +32,6 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                     <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
-                    <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
 
                     <Route exact path={`${match.url}/parameter`}>
                         <Parameter />
@@ -41,6 +40,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                     <Route exact path={`${match.url}/series`}>
                         <SeriesList />
                     </Route>
+                    <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
 
                     {/* <Route exact path={`${match.url}/plants`}>
                         <Plants />

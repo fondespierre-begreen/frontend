@@ -10,14 +10,15 @@ export interface ISerie {
 export const getSerieById = (id: number) => {
   fetch(`http://192.168.1.46:9090/series/${id}`)
   .then(res => res.json())
+  .then(res => console.log(res))
   .then(data => {
     let test = localStorage.getItem('test')
-    test = data
+    test = data!;
     localStorage.setItem('test', JSON.stringify(test))
 
   })
-  const lc = localStorage.getItem('test')
-  const currentTest = JSON.parse(lc!)
+  const ls = localStorage.getItem('test')
+  const currentTest = JSON.parse(ls!)
   return currentTest
 }
 
@@ -46,21 +47,21 @@ const series: ISerie[] = [
     }
 ]
 
-export interface IQuest {
-    id: number;
-    description: string;
-    plantfield: string;
-    idserie: number;
-    idplant: number;
-    choices: Choices[];
-}
+// export interface IQuest {
+//     id: number;
+//     description: string;
+//     plantfield: string;
+//     idserie: number;
+//     idplant: number;
+//     choices: Choices[];
+// }
 
-export interface Choices {
-  id: number;
-  description: string;
-  idquestion: number;
-  idplant: number;
-}
+// export interface Choices {
+//   id: number;
+//   description: string;
+//   idquestion: number;
+//   idplant: number;
+// }
 
 
 
@@ -68,9 +69,12 @@ export const getSeries = () => series;
 
 export const getquestions = (id: number) => {
 
-  const lc = localStorage.getItem('test')
+  const ls = localStorage.getItem('test')
+  console.log(ls+"service");
+  
+  const serie = JSON.parse(ls!)
+  console.log(serie+"service");
 
-  const serie = JSON.parse(lc!)
   return serie.questions
 
 } 
