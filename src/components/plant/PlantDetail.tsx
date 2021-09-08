@@ -68,7 +68,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                 {
                     plant !== undefined && (
                         <IonCard>
-                            <img src={plant.img} />
+                            <img src={plant.photos! ? plant.photos[0].url : ""} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>

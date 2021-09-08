@@ -45,7 +45,12 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
 
         data.id = parseInt(p.id);
         // choix d'écraser va disparaitre
-        data.img = "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true";
+        data.photos = [
+            {
+                id: 1,
+                url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"
+            }
+        ];
         console.log(data);
 
         const result = await putPlant(data);

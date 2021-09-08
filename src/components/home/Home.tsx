@@ -38,7 +38,7 @@ const Home: React.FC = () => {
                         pubPlants !== undefined && pubPlants.map((plant, index) => (
                             <IonSlide key={index}>
                                 <IonCard>
-                                    <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
+                                    <IonImg src={plant.photos!.length > 0 ? plant.photos![0].url : ""}></IonImg>
                                     <IonCardHeader>
                                         <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                         <IonCardTitle>{plant.name}</IonCardTitle>
