@@ -13,7 +13,7 @@ const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
   return (
     <IonItem routerLink={uri}>
       <IonAvatar slot="start">
-        {/* <img src={(props.plant.photos !== undefined) ? props.plant.photos[0].url : ""} /> */}
+        <img src={props.plant.photos !== undefined && props.plant.photos!.length > 0 ? props.plant.photos[0].url : ""} />
       </IonAvatar>
       <IonLabel>
         <h2>{props.plant.name}</h2>

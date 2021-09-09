@@ -68,7 +68,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                 {
                     plant !== undefined && (
                         <IonCard>
-                            <img src={plant.photos! ? plant.photos[0].url : ""} />
+                            <img src={plant.photos !== undefined && plant.photos!.length > 0 ? plant.photos[0].url : ""} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>
@@ -79,11 +79,15 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                         </IonCard>
                     )
                 }
-                <IonFab horizontal="end" vertical="bottom" slot="fixed">
-                    <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
-                        <IonIcon icon={pencilOutline}></IonIcon>
-                    </IonFabButton>
-                </IonFab>
+                {
+                    path === "/connected/plants/personnal/:id" && (
+                        <IonFab horizontal="end" vertical="bottom" slot="fixed">
+                            <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
+                                <IonIcon icon={pencilOutline}></IonIcon>
+                            </IonFabButton>
+                        </IonFab>
+                    )
+                }
             </IonContent>
         </IonPage>
     )

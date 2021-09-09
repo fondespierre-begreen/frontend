@@ -40,16 +40,11 @@ import PlantCreateCard from './components/plant/PlantCreateCard';
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      {/* <IonContent> */}
-      <IonRouterOutlet>
-        {/* <Route exact path="/plants/personnal/:id" component={PlantDetail} />
-        <Route exact path="/plants/public/:id" component={PlantDetail} /> */}
 
-        {/* <Route exact path="/connected/plants/create" component={PlantCreateCard} /> */}
+      <IonRouterOutlet>
+        <Route path={`/visitor/plants/public/:id`} component={PlantDetail} />
 
         <Route exact path="/connected" render={(props) => <Connected {...props} />} />
-        {/* <Connected />
-          </Route> */}
 
         <Route exact path="/visitor">
           <Visitor />
@@ -62,7 +57,7 @@ const App: React.FC = () => (
           <Redirect to="/login" />
         </Route>
       </IonRouterOutlet>
-      {/* </IonContent> */}
+
     </IonReactRouter>
   </IonApp>
 );

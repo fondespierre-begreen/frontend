@@ -73,7 +73,10 @@ const ALEX_ = "http://192.168.1.46:9090";
 fetch(`${ALEX_}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
-    .catch(error => console.log(error));
+    .catch(error => {
+        console.log(error);
+        localStorage.setItem('pubPlants', JSON.stringify([]));
+    });
 
 /**
  * WILL NEED TO BE CHANGED FOR A fetch TO DB
