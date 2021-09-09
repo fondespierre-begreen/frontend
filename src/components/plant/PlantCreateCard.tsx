@@ -2,6 +2,7 @@ import {
     IonButton,
     IonButtons,
     IonContent,
+    IonFabButton,
     IonHeader,
     IonIcon,
     IonInput,
@@ -12,10 +13,12 @@ import {
     IonTitle,
     IonToolbar
 } from "@ionic/react"
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, image } from "ionicons/icons";
 
 import { RouteComponentProps } from "react-router";
 import { useForm } from "react-hook-form";
+
+import { Camera, CameraResultType } from "@capacitor/camera"
 
 import { IPlant, postPlant } from "./plantService";
 
@@ -26,6 +29,19 @@ import { IPlant, postPlant } from "./plantService";
  * @returns Le formulaire d'ajout d'une plante
  */
 const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
+
+    const takeNudePic = async () => {
+        const image = await Camera.getPhoto({
+            quality: 90,
+            allowEditing: true,
+            resultType: CameraResultType.Uri
+        })
+
+        const imgUrl = image.webPath
+
+        console.log(imgUrl);
+
+    }
 
     const { register, handleSubmit, reset } = useForm();
 
@@ -56,6 +72,7 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
             </IonHeader>
 
             <IonContent>
+                <IonIcon icon={image}></IonIcon>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <IonItem>
                         <IonLabel>Nom commun</IonLabel>
@@ -71,6 +88,8 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
                     </IonItem>
                     <IonButton color="success" type="submit">Envoyez</IonButton>
                 </form>
+
+                <IonFabButton color="success" onClick={takeNudePic} />
             </IonContent>
         </IonPage>
     );

@@ -70,7 +70,7 @@ const ALEX_ = "http://192.168.1.46:9090";
 /**
  * Initialise le localStorage pour la liste de plante publique
  */
-fetch(`${ALEX_}/plants`)
+fetch(`${URL}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
     .catch(error => {
@@ -89,7 +89,7 @@ fetch(`${ALEX_}/plants`)
 // const initPrivPlant = (privPlants: IPlant[]) => localStorage.setItem('privPlants', JSON.stringify(privPlants));
 // initPrivPlant(privPlants);
 
-fetch(`${ALEX_}/learners/1/plants`)
+fetch(`${URL}/learners/1/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('privPlants', JSON.stringify(response)))
     .catch(error => console.log(error));
@@ -109,7 +109,7 @@ export const getPrivPlants = () => {
 };
 
 export const getPubPlantById = (plantId: number) => {
-    return fetch(`${ALEX_}/plants/${plantId}`)
+    return fetch(`${URL}/plants/${plantId}`)
         .then(response => response.json())
         .catch(error => console.log(error));
 };
@@ -164,7 +164,7 @@ export const postPlant = (data: IPlant) => {
     data.photos = [
         { url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true" }
     ];
-    const prom = fetch(`${ALEX_}/plants/add/1`, {
+    const prom = fetch(`${URL}/plants/add/1`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
