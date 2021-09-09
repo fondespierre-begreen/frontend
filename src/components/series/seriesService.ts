@@ -1,13 +1,7 @@
-export interface ISerie {
-  id: number;
-  total: number | null;
-  createdat: string;
-}
-
 // const series = fetch(`http://192.168.1.46:9090/series`)
 //                     .then(res => res.json())
 
-fetch(`http://192.168.1.46:9090/series`)
+fetch(`http://localhost:8080/series`)
   .then(res => res.json())
   .then(data => {
     localStorage.getItem('test')
@@ -15,6 +9,13 @@ fetch(`http://192.168.1.46:9090/series`)
     localStorage.setItem('test', JSON.stringify(data))
   })
 
+
+
+export interface ISerie {
+  id: number;
+  total: number | null;
+  createdat: string;
+}
 
 const series: ISerie[] = [
   {
@@ -66,13 +67,15 @@ export const getSeries = () => series;
  */
 export const getquestions = (tId: number) => {
 
-  const ls = localStorage.getItem('test')
-  console.log(ls + "service");
+  const serie = JSON.parse(localStorage.getItem('test')!)
 
-  const serie = JSON.parse(ls!)
-  console.log(serie![tId - 1].questions, "service");
+  // console.log(serie![tId].questions, "serv");
+  
+  const test = serie!.filter((s: any) => s.id == tId)
 
+  console.log(test);
+  
   // index à 0 serie id est 1
-  return serie[tId - 1].questions
+  return test[0].questions
 
 }

@@ -56,7 +56,6 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   useEffect(() => {
     setQuiz(getquestions(tId));
     // index à 0 et qId est ..
-    console.log("quiz : ", quiz);
   }, []);
 
 
