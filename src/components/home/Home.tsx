@@ -33,7 +33,7 @@ const Home: React.FC = () => {
             </IonHeader>
 
             <IonContent fullscreen>
-                <IonSlides>
+                {/* <IonSlides>
                     {
                         pubPlants !== undefined && pubPlants.map((plant, index) => (
                             <IonSlide key={index}>
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
                             </IonSlide>
                         ))
                     }
-                </IonSlides>
+                </IonSlides> */}
             </IonContent>
         </IonPage>
     );

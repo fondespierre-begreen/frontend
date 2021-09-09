@@ -21,10 +21,10 @@ const Series: React.FC = () => {
 
   const [series, setSeries] = useState<ISerie[]>([]);
 
-    // useIonViewWillEnter(() => {
-    //   const srs = getSeries();
-    //   srs !== undefined && srs.then(datas => setSeries(datas))
-    // });
+  // useIonViewWillEnter(() => {
+  //   const srs = getSeries();
+  //   srs !== undefined && srs.then(datas => setSeries(datas))
+  // });
 
   useIonViewWillEnter(() => {
     const srs = getSeries();
@@ -36,7 +36,7 @@ const Series: React.FC = () => {
       e.detail.complete();
     }, 3000);
   };
-  console.log(series);
+  // console.log(series);
 
   return (
     <IonPage id="series-page">
@@ -60,7 +60,7 @@ const Series: React.FC = () => {
         </IonHeader>
 
         <IonList>
-          
+
           {series.map(s => <SeriesItems key={s.id} serie={s} />)}
         </IonList>
       </IonContent>

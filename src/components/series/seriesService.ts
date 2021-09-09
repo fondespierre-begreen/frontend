@@ -1,50 +1,42 @@
 export interface ISerie {
-    id: number;
-    total: number | null;
-    createdat: string;
+  id: number;
+  total: number | null;
+  createdat: string;
 }
 
 // const series = fetch(`http://192.168.1.46:9090/series`)
 //                     .then(res => res.json())
 
-export const getSerieById = (id: number) => {
-  fetch(`http://192.168.1.46:9090/series/${id}`)
+fetch(`http://192.168.1.46:9090/series`)
   .then(res => res.json())
-  .then(res => console.log(res))
   .then(data => {
-    let test = localStorage.getItem('test')
-    test = data!;
-    localStorage.setItem('test', JSON.stringify(test))
-
+    localStorage.getItem('test')
+    console.log(data);
+    localStorage.setItem('test', JSON.stringify(data))
   })
-  const ls = localStorage.getItem('test')
-  const currentTest = JSON.parse(ls!)
-  return currentTest
-}
-
 
 
 const series: ISerie[] = [
-    {
-        id: 1,
-        total: null,
-        createdat: "12 janvier 2021"
-    },
-    {
-        id: 2,
-        total: 90,
-        createdat: "12 janvier 2021"
-    },
-    {
-        id: 3,
-        total: 70,
-        createdat: "12 janvier 2021"
-    },
-    {
-        id: 4,
-        total: 40,
-        createdat: "12 janvier 2021"
-    }
+  {
+    id: 1,
+    total: null,
+    createdat: "12 janvier 2021"
+  },
+  {
+    id: 2,
+    total: 90,
+    createdat: "12 janvier 2021"
+  },
+  {
+    id: 3,
+    total: 70,
+    createdat: "12 janvier 2021"
+  },
+  {
+    id: 4,
+    total: 40,
+    createdat: "12 janvier 2021"
+  }
 ]
 
 // export interface IQuest {
@@ -67,14 +59,20 @@ const series: ISerie[] = [
 
 export const getSeries = () => series;
 
-export const getquestions = (id: number) => {
+/**
+ * 
+ * @param tId 
+ * @returns tableau d'objets question
+ */
+export const getquestions = (tId: number) => {
 
   const ls = localStorage.getItem('test')
-  console.log(ls+"service");
-  
+  console.log(ls + "service");
+
   const serie = JSON.parse(ls!)
-  console.log(serie+"service");
+  console.log(serie![tId - 1].questions, "service");
 
-  return serie.questions
+  // index à 0 serie id est 1
+  return serie[tId - 1].questions
 
-} 
+}

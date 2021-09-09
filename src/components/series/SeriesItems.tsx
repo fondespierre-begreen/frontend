@@ -5,7 +5,7 @@ import {
 } from '@ionic/react';
 
 import { ellipseOutline, checkmarkCircle, removeCircle, closeCircle } from 'ionicons/icons';
-import { getSerieById, ISerie } from './seriesService';
+import { ISerie } from './seriesService';
 import './seriesItems.css'
 import { useRouteMatch } from "react-router-dom";
 
@@ -42,14 +42,9 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
   let { url } = useRouteMatch();
 
-  function addStorage() {
-    localStorage.setItem('test', JSON.stringify([]))
-    getSerieById(serie.id)
-  }
-  
 
   return (
-    <IonItem onClick={addStorage}  routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
+    <IonItem routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
       {displayIconColor()}
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
