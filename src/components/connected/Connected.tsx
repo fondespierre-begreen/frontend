@@ -21,6 +21,7 @@ import PlantEditCard from '../plant/PlantEditCard';
 import Account from '../parameter/Account';
 import Help from '../parameter/Help';
 import About from '../parameter/About';
+import SerieDetail from '../series/SerieDetail';
 
 
 /**
@@ -45,9 +46,10 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <Parameter />
                     </Route>
 
-                    <Route exact path={`${match.url}/quiz`}>
+                    <Route exact path={`${match.url}/series`}>
                         <SeriesList />
                     </Route>
+                    <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
 
                     {/* <Route exact path={`${match.url}/plants`}>
                         <Plants />
@@ -75,7 +77,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="quiz" href={`${match.url}/quiz`}>
+                    <IonTabButton tab="quiz" href={`${match.url}/series`}>
                         <IonIcon icon={school} />
                         <IonLabel>Quiz</IonLabel>
                     </IonTabButton>

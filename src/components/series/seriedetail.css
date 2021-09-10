@@ -1,0 +1,11 @@
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3em;
+}
+
+.button-next {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3em;
+}

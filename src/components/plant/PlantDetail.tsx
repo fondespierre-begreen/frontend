@@ -15,8 +15,8 @@ import {
     IonTitle,
     IonToolbar
 } from "@ionic/react";
-import { arrowBack, pencilOutline } from 'ionicons/icons';
 
+import { arrowBack, chevronBack, pencilOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
@@ -65,8 +65,8 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     <IonButtons slot="start">
                         {/* <IonBackButton /> */}
                         {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
-                        <IonButton routerDirection="back" routerLink={url}>
-                            <IonIcon icon={arrowBack} />
+                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                            <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>
                     <IonTitle>{plant.name}</IonTitle>
