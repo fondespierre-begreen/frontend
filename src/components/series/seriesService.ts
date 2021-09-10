@@ -1,11 +1,10 @@
 // const series = fetch(`http://192.168.1.46:9090/series`)
 //                     .then(res => res.json())
 
-fetch(`http://localhost:8080/series`)
+fetch(`http://localhost:9090/series`)
   .then(res => res.json())
   .then(data => {
     localStorage.getItem('test')
-    console.log(data);
     localStorage.setItem('test', JSON.stringify(data))
   })
 
@@ -73,7 +72,6 @@ export const getquestions = (tId: number) => {
   
   const test = serie!.filter((s: any) => s.id == tId)
 
-  console.log(test);
   
   // index à 0 serie id est 1
   return test[0].questions

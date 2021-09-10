@@ -9,7 +9,6 @@ import {
   IonTitle,
   IonHeader,
   IonButtons,
-  IonBackButton,
   IonButton,
   IonImg,
   IonItem,
@@ -66,13 +65,16 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   function registerValue(e: any) {
     let test = localStorage.getItem('test')
 
-    console.log(test + "register");
+    let choiceValue = document.querySelector('ion-radio-group');
+    let choices: Array<[]> = []
 
+    if (choiceValue?.value !== undefined) {
 
-  }
-
-
-
+      choices = [...choices, choiceValue.value]
+      console.log(choices);
+      
+    }
+  };
 
   /**
    * 
@@ -81,8 +83,6 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    * @returns Les boutons nécessaires à la navigation entre les questions
    */
   function displayButtons(qIdCurrent: number, questions: any) {
-
-
 
     if (qIdCurrent == 0) {
       return (
@@ -103,7 +103,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+          <IonButton onClick={registerValue} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
     }
@@ -112,7 +112,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   const { register, handleSubmit } = useForm()
 
 
-  const onSubmit = (d: Array<[]>) => console.log(JSON.stringify(d))
+  const onSubmit = (choiceCheck: Array<[]>) => console.log(choiceCheck)
 
   return (
     <IonPage>
@@ -139,7 +139,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
           <IonCardContent>
             <form onSubmit={handleSubmit(onSubmit)}>
               <IonList>
-                <IonRadioGroup>
+                <IonRadioGroup allow-empty-selection>
 
                   {quiz !== undefined && quiz[qId].choices.map((c: any, I: any) => (
                     <IonItem key={I}>
