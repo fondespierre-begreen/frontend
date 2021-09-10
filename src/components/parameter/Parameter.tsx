@@ -24,32 +24,26 @@ const Parameter: React.FC = () => {
         <div className="flexe">
           <div>
             <IonList>
-                <IonItem routerLink="/settings/account" detail={false}>
+                <IonItem routerLink="/connected/parameter/account" detail={false}>
                   <IonIcon slot="start" icon={personCircleOutline} size="large" />
                   <IonLabel className="ion-text-wrap">
-                    <h2>
-                      Account
-                    </h2>
+                    <h2>Account</h2>
                   </IonLabel>
                   <IonIcon slot="end" icon={chevronForward} size="default" />
                 </IonItem>
 
-                <IonItem routerLink="/settings/help" detail={false}>
+                <IonItem routerLink="/connected/parameter/help" detail={false}>
                   <IonIcon slot="start" icon={helpCircleOutline} size="large" />
                   <IonLabel className="ion-text-wrap">
-                    <h2>
-                      Aide
-                    </h2>
+                    <h2>Aide</h2>
                   </IonLabel>
                   <IonIcon slot="end" icon={chevronForward} size="default" />
                 </IonItem>
 
-                <IonItem routerLink="/settings/about" detail={false}>
+                <IonItem routerLink="/connected/parameter/about" detail={false}>
                   <IonIcon slot="start" icon={informationCircleOutline} size="large" />
                   <IonLabel className="ion-text-wrap">
-                    <h2>
-                      À propos
-                    </h2>
+                    <h2>À propos</h2>
                   </IonLabel>
                   <IonIcon slot="end" icon={chevronForward} size="default" />
                 </IonItem>

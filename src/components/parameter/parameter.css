@@ -8,3 +8,9 @@
     justify-content: space-between;
     height: 100%;
 }
+.cage {
+    margin: 30px;
+}
+p {
+    font-size: large;
+}
