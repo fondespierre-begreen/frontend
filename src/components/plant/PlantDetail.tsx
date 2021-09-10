@@ -30,17 +30,26 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
 
     const [plant, setPlant] = useState<any>({});
 
+    const [url, setUrl] = useState<any>({});
+
     let { path, params } = useRouteMatch();
     let p: IPlantParams = params as IPlantParams;
 
     useEffect(() => {
-        if (path === "/connected/plants/public/:id") {
+        if (path === "/connected/plants/public/:id" || path === "/visitor/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
+            setUrl(path.slice(0, -11))
         } else {
             // getPrivPlantById(parseInt(p.id)).then((response: any) => setPlant(response));
             setPlant(getPrivPlantById(parseInt(p.id)));
+            const actualpath = path.slice(0, -11)
+            setUrl(path.slice(0,-14));
         }
+
     }, []);
+
+
+
 
     // // personnal
     // console.log(uriList);
@@ -56,7 +65,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     <IonButtons slot="start">
                         {/* <IonBackButton /> */}
                         {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
-                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                        <IonButton routerDirection="back" routerLink={url}>
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>

@@ -42,7 +42,7 @@ const App: React.FC = () => (
     <IonReactRouter>
 
       <IonRouterOutlet>
-        <Route path={`/visitor/plants/public/:id`} component={PlantDetail} />
+        <Route path={`/visitor/public/:id`} component={PlantDetail} />
 
         <Route exact path="/connected" render={(props) => <Connected {...props} />} />
 
