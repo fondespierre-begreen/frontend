@@ -15,11 +15,19 @@ interface SerieItemsProps {
 }
 
 
+
 /**
  * @param Serie Un objet contenant les infos de chaque test
  * @returns La liste des tests.
  */
 const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
+
+
+  localStorage.setItem('checkedChoices', JSON.stringify([]))
+
+
+
+
   /**
    * Intègre l'icone et la couleur correspond au QCM
    * @returns 

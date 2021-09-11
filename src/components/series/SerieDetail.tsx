@@ -66,14 +66,18 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     let test = localStorage.getItem('test')
 
     let choiceValue = document.querySelector('ion-radio-group');
-    let choices: Array<[]> = []
 
     if (choiceValue?.value !== undefined) {
 
-      choices = [...choices, choiceValue.value]
-      console.log(choices);
+      localStorage.getItem('checkedChoices')
+      localStorage.setItem('checkedChoices', choiceValue.value)
+      
+      // choices = [...choices, choiceValue.value]
+      // console.log(choices);
       
     }
+    console.log(localStorage.getItem('checkedChoices'));
+    
   };
 
   /**

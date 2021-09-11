@@ -4,7 +4,6 @@
 fetch(`http://localhost:9090/series`)
   .then(res => res.json())
   .then(data => {
-    localStorage.getItem('test')
     localStorage.setItem('test', JSON.stringify(data))
   })
 
