@@ -70,7 +70,7 @@ const ALEX_ = "http://192.168.1.46:9090";
 /**
  * Initialise le localStorage pour la liste de plante publique
  */
-fetch(`${ALEX_}/plants`)
+fetch(`${URL}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
     .catch(error => {
@@ -89,7 +89,7 @@ fetch(`${ALEX_}/plants`)
 // const initPrivPlant = (privPlants: IPlant[]) => localStorage.setItem('privPlants', JSON.stringify(privPlants));
 // initPrivPlant(privPlants);
 
-fetch(`${ALEX_}/learners/1/plants`)
+fetch(`${URL}/learners/1/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('privPlants', JSON.stringify(response)))
     .catch(error => console.log(error));
@@ -109,7 +109,7 @@ export const getPrivPlants = () => {
 };
 
 export const getPubPlantById = (plantId: number) => {
-    return fetch(`${ALEX_}/plants/${plantId}`)
+    return fetch(`${URL}/plants/${plantId}`)
         .then(response => response.json())
         .catch(error => console.log(error));
 };
@@ -120,59 +120,29 @@ export const getPubPlantById = (plantId: number) => {
  */
 export const getPrivPlantById = (id: number) => getPrivPlants().find((plant: IPlant) => plant.id === id);
 
+
 /**
- * MOCK-UP
- * POST TO FAKE DB
- * THEN localStorage.setItem privPlants
- * @param data 
- * @returns 
- * /!\ TO BE DELETED /!\
+ * Getting the last id of plants[]
  */
-// export const postPlant = (data: IPlant) => {
-//     const prom = new Promise((resolve, reject) => {
-//         console.log("data is fetch POST to DB !");
-//         const idData: IPlant = data;
-//         idData.id = getPrivPlants().length + 1;
-//         idData.img = "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true";
-//         console.log(idData);
+export var lastId: any = fetch(`${URL}/lastPlant`, { method: "GET"}).then(data => data.json()).then(data => lastId = data);
 
-//         resolve(idData);
-//     }).then(resp => {
-//         console.log(".json() part", resp);
-//         return resp;
-//     });
 
-//     prom.then((plantResp: any) => {
-//         const prevPlants = localStorage.getItem('privPlants');
-//         let oldPlants: IPlant[] = [];
-//         if (prevPlants !== null) {
-//             oldPlants = JSON.parse(prevPlants);
-//         }
-//         oldPlants.push(plantResp)
-//         localStorage.setItem('privPlants', JSON.stringify(oldPlants))
-//     });
-
-//     return prom;
-// }
 
 /**
  * Ajoute une plante à la liste publique en DB
  * puis ajoute l'objet retourné au localStorage pubPlants
  * @param data 
  */
-export const postPlant = (data: IPlant) => {
-    data.photos = [
-        { url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true" }
-    ];
-    const prom = fetch(`${ALEX_}/plants/add/1`, {
+export const postPlant = (data: any) => {
+
+    const prom = fetch(`${URL}/plants/add/1`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': '*/*',
         },
-        body: JSON.stringify(data)
-    })
-        .then(resp => resp.json());
-
+        body: data
+    }).then(resp => resp.json())
+    
     prom.then(plantResp => {
         const prevPlants = localStorage.getItem('privPlants');
         let oldPlants: IPlant[] = [];
@@ -183,7 +153,7 @@ export const postPlant = (data: IPlant) => {
         localStorage.setItem('privPlants', JSON.stringify(oldPlants))
     });
 
-    return prom;
+    return prom;    
 }
 
 /**

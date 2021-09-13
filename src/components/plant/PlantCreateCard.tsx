@@ -17,7 +17,7 @@ import { arrowBack } from "ionicons/icons";
 import { RouteComponentProps } from "react-router";
 import { useForm } from "react-hook-form";
 
-import { IPlant, postPlant } from "./plantService";
+import { IPlant, lastId, postPlant } from "./plantService";
 
 
 /**
@@ -29,16 +29,20 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
 
     const { register, handleSubmit, reset } = useForm();
 
-    const onSubmit = async (data: IPlant) => {
-        const result = await postPlant(data);
+    const onSubmit = async (data: any) => {
+        await console.log(lastId)
 
-        // /!\ IMPORTANT /!\
+        const form = new FormData();
+        form.append('id', lastId+1)
+        form.append('name',data.name)
+        form.append('latin',data.latin)
+        form.append('file',data.file[0])
+        form.append('description',data.description)
+        
+        const result = await postPlant(form);
+        reset(form);
 
-        // DO NOT FORGET TO UNCOMMENT FOLLOWING LINE
-        // WHEN postPlant IS AN ACTUAL fetch AGAIN
-        // reset(result);
-
-        history.push("/connected/plants");
+       await history.push("/connected/plants");
     };
 
     return (
@@ -46,7 +50,6 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        {/* <IonBackButton defaultHref="/connected/plants" /> */}
                         <IonButton routerDirection="back" routerLink="/connected/plants">
                             <IonIcon icon={arrowBack} />
                         </IonButton>
@@ -56,7 +59,10 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
             </IonHeader>
 
             <IonContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
+                    <IonItem>
+                        <input type="file" {...register("file")} />
+                    </IonItem>
                     <IonItem>
                         <IonLabel>Nom commun</IonLabel>
                         <IonInput {...register("name")} />
