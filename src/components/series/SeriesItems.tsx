@@ -23,11 +23,6 @@ interface SerieItemsProps {
 const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
 
-  localStorage.setItem('checkedChoices', JSON.stringify([]))
-
-
-
-
   /**
    * Intègre l'icone et la couleur correspond au QCM
    * @returns 

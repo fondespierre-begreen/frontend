@@ -22,9 +22,8 @@ import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
-import { getquestions } from './seriesService';
+import { getquestions, getTest } from './seriesService';
 import "./seriedetail.css"
-import { useForm } from "react-hook-form";
 
 
 interface IQuizParams {
@@ -62,22 +61,45 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
 
 
-  function registerValue(e: any) {
-    let test = localStorage.getItem('test')
+  function registerValue() {
+    localStorage.getItem('test')
 
     let choiceValue = document.querySelector('ion-radio-group');
 
     if (choiceValue?.value !== undefined) {
 
-      localStorage.getItem('checkedChoices')
-      localStorage.setItem('checkedChoices', choiceValue.value)
+      const arrayEmpty = localStorage.getItem('checkedChoices')
+      const arrayParse = JSON.parse(arrayEmpty!)
       
+      arrayParse[qId] = choiceValue.value
+      
+      localStorage.setItem('checkedChoices', JSON.stringify(arrayParse))
       // choices = [...choices, choiceValue.value]
-      // console.log(choices);
-      
     }
-    console.log(localStorage.getItem('checkedChoices'));
+
+    const test = getTest(tId)
+
     
+    let arrChoices = test.questions[qId].choices
+
+    let arrChoicesChecked: any = JSON.parse(localStorage.getItem('checkedChoices')!)
+
+    
+    arrChoices.map((choice: any) => {
+      if (choice.description === arrChoicesChecked[qId]) {
+
+        test.questions[qId].answers[0] = {id: choice.id}
+        console.log(test);
+
+      }
+    }) 
+    
+
+  
+    // console.log(idAnswers);
+    
+
+
   };
 
   /**
@@ -99,7 +121,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton type="submit" color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
+          <IonButton color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
         </div>
       )
 
@@ -113,10 +135,8 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     }
   }
 
-  const { register, handleSubmit } = useForm()
 
 
-  const onSubmit = (choiceCheck: Array<[]>) => console.log(choiceCheck)
 
   return (
     <IonPage>
@@ -141,14 +161,13 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
           </IonCardHeader>
 
           <IonCardContent>
-            <form onSubmit={handleSubmit(onSubmit)}>
               <IonList>
                 <IonRadioGroup allow-empty-selection>
 
                   {quiz !== undefined && quiz[qId].choices.map((c: any, I: any) => (
                     <IonItem key={I}>
                       <IonLabel>{c.description}</IonLabel>
-                      <IonRadio className="choices" color="success" slot="end" {...register("description")} value={c.description} />
+                      <IonRadio className="choices" color="success" slot="end" name="description" value={c.description} />
                     </IonItem>
                   ))}
                 </IonRadioGroup>
@@ -157,7 +176,6 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
               {/* Affiches les boutons nécessaires à la navigation entre les questions */}
               {displayButtons(qId, quiz)}
 
-            </form>
           </IonCardContent>
         </IonCard>
 
