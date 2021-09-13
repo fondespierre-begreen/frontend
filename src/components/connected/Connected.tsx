@@ -22,6 +22,8 @@ import Account from '../parameter/Account';
 import Help from '../parameter/Help';
 import About from '../parameter/About';
 import SerieDetail from '../series/SerieDetail';
+import SerieCreateOne from '../series/SerieCreateOne';
+import SerieCreateTwo from '../series/SerieCreateTwo';
 
 
 /**
@@ -46,10 +48,12 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <Parameter />
                     </Route>
 
-                    <Route exact path={`${match.url}/series`}>
-                        <SeriesList />
-                    </Route>
+                    <Route exact path={`${match.url}/series`} render={(props) => <SeriesList {...props} />} />
+
                     <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
+
+                    <Route path={`${match.url}/series/create/one/:qId`} render={(props) => <SerieCreateOne {...props} />} />
+                    <Route path={`${match.url}/series/create/two/:qId`} render={(props) => <SerieCreateTwo {...props} />} />
 
                     {/* <Route exact path={`${match.url}/plants`}>
                         <Plants />

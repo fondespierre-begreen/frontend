@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { ISerie, getSeries } from './seriesService';
 import {
   IonContent,
+  IonFab,
+  IonFabButton,
   IonHeader,
+  IonIcon,
   IonList,
   IonPage,
   IonRefresher,
@@ -12,12 +15,14 @@ import {
   IonToolbar,
   useIonViewWillEnter
 } from '@ionic/react';
+import { addOutline } from 'ionicons/icons';
+import { match, RouteComponentProps } from 'react-router-dom';
 
 
 /**
  * @returns La liste des tests en mode lecture.
  */
-const Series: React.FC = () => {
+const Series: React.FC<RouteComponentProps> = ({ match }) => {
 
   const [series, setSeries] = useState<ISerie[]>([]);
 
@@ -63,6 +68,11 @@ const Series: React.FC = () => {
 
           {series.map(s => <SeriesItems key={s.id} serie={s} />)}
         </IonList>
+        <IonFab horizontal="end" vertical="bottom" slot="fixed">
+          <IonFabButton color="success" routerLink={`${match.url}/create/one/0`}>
+            <IonIcon icon={addOutline}></IonIcon>
+          </IonFabButton>
+        </IonFab>
       </IonContent>
     </IonPage>
   );

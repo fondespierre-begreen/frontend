@@ -69,11 +69,47 @@ export const getquestions = (tId: number) => {
   const serie = JSON.parse(localStorage.getItem('test')!)
 
   // console.log(serie![tId].questions, "serv");
-  
+
   const test = serie!.filter((s: any) => s.id == tId)
 
-  
+
   // index à 0 serie id est 1
   return test[0].questions
 
 }
+
+export interface ISeriesParams {
+  qId: string
+}
+
+const initialCreateTest = {
+  total: null,
+  questions: []
+};
+
+const initialCreateQuestion = {
+  description: "",
+  plant: {
+    name: "",
+    latin: "",
+    description: "",
+    photos: [
+      {
+        url: ""
+      }
+    ]
+  },
+  choices: [
+    {
+      description: ""
+    }
+  ]
+};
+
+localStorage.setItem('createTest', JSON.stringify(initialCreateTest));
+
+export const getCreateTest = () => JSON.parse(localStorage.getItem('createTest')!);
+
+export const toTheLocalStorage = (test: any) => {
+  localStorage.setItem("createTest", JSON.stringify(test));
+};
