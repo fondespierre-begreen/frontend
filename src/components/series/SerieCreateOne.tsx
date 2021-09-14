@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { RouteComponentProps, useRouteMatch } from "react-router-dom";
+import { RouteComponentProps, useLocation, useRouteMatch } from "react-router-dom";
 
 import { IonAvatar, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonPage, IonSearchbar, IonTitle, IonToolbar } from "@ionic/react";
 import { chevronBack } from "ionicons/icons";
@@ -15,18 +15,21 @@ import "./serieCreate.css";
  * @param props navigation
  * @returns La première partie de la création de test (le choix de la plante sur laquelle se basera la question)
  */
-const SerieCreateOne: React.FC<RouteComponentProps> = (props) => {
+const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
     const { params } = useRouteMatch();
     const p: ISeriesParams = params as ISeriesParams;
 
     const plantLists = getPubPlants();
 
     const [color, setColor] = useState<number>()
+    const [quiz, setQuiz] = useState()
 
     const handlePlantChoice = (id: number, plant: IPlant) => {
         setColor(id);
 
         const createTest = getCreateTest();
+
+        console.log("createTest ", createTest)
 
         createTest.questions[p.qId] = { plant: plant };
         toTheLocalStorage(createTest);
@@ -58,13 +61,21 @@ const SerieCreateOne: React.FC<RouteComponentProps> = (props) => {
         }
     }
 
+    const location = useLocation();
+
     useEffect(() => {
         let tempSearchResult = state.lists.filter((ele: any) => {
             return ele.name.toLowerCase().indexOf(state.query) > -1;
         });
 
         dispatch({ type: 'updateList', payload: [...tempSearchResult] });
-    }, [state.query])
+
+        console.log("getCreateTest() ", getCreateTest())
+
+        setQuiz(() => getCreateTest())
+        console.log("quiz ", quiz);
+
+    }, [state.query, location])
 
     return (
         <IonPage>
@@ -102,9 +113,11 @@ const SerieCreateOne: React.FC<RouteComponentProps> = (props) => {
                     </IonList>
                     <div className="create-test-btn-to-par-two">
                         <IonButton
-                            onClick={() => console.log("plant")}
+                            onClick={() => {
+                                setColor(0)
+                                history.push(`/connected/series/create/two/${p.qId}`)
+                            }}
                             fill="solid"
-                            routerLink={`/connected/series/create/two/${p.qId}`}
                             disabled={color === undefined && true}>
                             Suivant
                         </IonButton>
