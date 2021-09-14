@@ -124,7 +124,12 @@ export const getPrivPlantById = (id: number) => getPrivPlants().find((plant: IPl
 /**
  * Getting the last id of plants[]
  */
-export var lastId: any = fetch(`${URL}/lastPlant`, { method: "GET"}).then(data => data.json()).then(data => lastId = data);
+export const lastId = () => {
+
+    return fetch(`${URL}/lastPlant`, { method: "GET"})
+    .then(data => data.json());
+
+}
 
 
 

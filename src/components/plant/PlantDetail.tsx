@@ -20,13 +20,24 @@ import { arrowBack, pencilOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
-import { IPlantParams, getPrivPlantById, getPubPlantById } from "./plantService";
+import { IPlantParams, getPrivPlantById, getPubPlantById, lastId } from "./plantService";
+import useForceUpdate from 'use-force-update';
+
+
 
 
 /**
  * @returns La fiche complète de la plante sélectionnée
  */
 const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
+
+    const forceUpdate = useForceUpdate();
+
+    const handleClick = React.useCallback(() => {
+      alert('I will re-render now.');
+      forceUpdate();
+    }, [forceUpdate]);
+
 
     const [plant, setPlant] = useState<any>({});
 

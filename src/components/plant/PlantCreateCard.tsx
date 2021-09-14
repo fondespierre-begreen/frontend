@@ -16,8 +16,7 @@ import { arrowBack } from "ionicons/icons";
 
 import { RouteComponentProps } from "react-router";
 import { useForm } from "react-hook-form";
-
-import { IPlant, lastId, postPlant } from "./plantService";
+import { lastId, postPlant } from "./plantService";
 
 
 /**
@@ -30,19 +29,21 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
     const { register, handleSubmit, reset } = useForm();
 
     const onSubmit = async (data: any) => {
-        await console.log(lastId)
+        
+        let n = 0;
+        await lastId().then(id => n = id);
 
         const form = new FormData();
-        form.append('id', lastId+1)
+        form.append('id', (n+1).toString())
         form.append('name',data.name)
         form.append('latin',data.latin)
         form.append('file',data.file[0])
         form.append('description',data.description)
-        
+
         const result = await postPlant(form);
         reset(form);
 
-       await history.push("/connected/plants");
+        await history.push("/connected/plants");
     };
 
     return (

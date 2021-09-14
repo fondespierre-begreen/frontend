@@ -15,6 +15,7 @@ import { addOutline } from 'ionicons/icons';
 
 import React, { useEffect, useReducer, useState } from "react";
 import { RouteComponentProps } from "react-router";
+import useForceUpdate from "use-force-update";
 
 import Plantlist from "./PlantList";
 import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
