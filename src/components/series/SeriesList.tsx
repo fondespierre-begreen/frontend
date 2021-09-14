@@ -1,6 +1,6 @@
-import SeriesItems from '../series/SeriesItems';
 import { useState } from 'react';
-import { ISerie, getSeries } from './seriesService';
+import { RouteComponentProps } from 'react-router-dom';
+
 import {
   IonContent,
   IonFab,
@@ -16,13 +16,15 @@ import {
   useIonViewWillEnter
 } from '@ionic/react';
 import { addOutline } from 'ionicons/icons';
-import { match, RouteComponentProps } from 'react-router-dom';
+
+import SeriesItems from '../series/SeriesItems';
+import { ISerie, getSeries, toTheLocalStorage, initialCreateTest } from './seriesService';
 
 
 /**
  * @returns La liste des tests en mode lecture.
  */
-const Series: React.FC<RouteComponentProps> = ({ match }) => {
+const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
 
   const [series, setSeries] = useState<ISerie[]>([]);
 
@@ -69,7 +71,10 @@ const Series: React.FC<RouteComponentProps> = ({ match }) => {
           {series.map(s => <SeriesItems key={s.id} serie={s} />)}
         </IonList>
         <IonFab horizontal="end" vertical="bottom" slot="fixed">
-          <IonFabButton color="success" routerLink={`${match.url}/create/one/0`}>
+          <IonFabButton color="success" onClick={() => {
+            toTheLocalStorage(initialCreateTest)
+            history.push(`${match.url}/create/one/0`);
+          }}>
             <IonIcon icon={addOutline}></IonIcon>
           </IonFabButton>
         </IonFab>

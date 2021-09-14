@@ -21,15 +21,12 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
 
     const plantLists = getPubPlants();
 
-    const [color, setColor] = useState<number>()
-    const [quiz, setQuiz] = useState()
+    const [color, setColor] = useState<number>();
 
     const handlePlantChoice = (id: number, plant: IPlant) => {
         setColor(id);
 
         const createTest = getCreateTest();
-
-        console.log("createTest ", createTest)
 
         createTest.questions[p.qId] = { plant: plant };
         toTheLocalStorage(createTest);
@@ -72,9 +69,6 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
 
         console.log("getCreateTest() ", getCreateTest())
 
-        setQuiz(() => getCreateTest())
-        console.log("quiz ", quiz);
-
     }, [state.query, location])
 
     return (
@@ -114,7 +108,7 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
                     <div className="create-test-btn-to-par-two">
                         <IonButton
                             onClick={() => {
-                                setColor(0)
+                                setColor(-1)
                                 history.push(`/connected/series/create/two/${p.qId}`)
                             }}
                             fill="solid"

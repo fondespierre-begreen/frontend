@@ -30,21 +30,20 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const p: ISeriesParams = params as ISeriesParams;
 
     const [test, setTest] = useState<ITest>();
-    const [photos, setPhotos] = useState<any>([]);
+    const [photos, setPhotos] = useState<IPhoto[]>();
 
-    const { handleSubmit, register } = useForm();
+    const { handleSubmit, register, reset } = useForm();
 
     const location = useLocation();
 
     useEffect(() => {
         setTest(getCreateTest());
-        console.log("getCreateTest() ", getCreateTest())
         console.log("test ", test);
-        setPhotos(getCreateTest().questions[parseInt(p.qId)].plant.photos)
+        // setPhotos(test.questions[parseInt(p.qId)].plant.photos)
+        // console.log(photos)
     }, [location]);
 
     const handleNextQuestion = (data: any) => {
-        console.log("test ", test);
         console.log("p.qId ", p.qId)
 
         let filledTest = test;
@@ -52,6 +51,8 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
             const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter(photo => photo.id === data.photo);
 
             filledTest!.questions[parseInt(p.qId)].plant.photos = thePhoto;
+        } else {
+            delete filledTest!.questions[parseInt(p.qId)].plant.photos;
         }
 
         filledTest!.questions[parseInt(p.qId)].description = data.description;
@@ -60,7 +61,10 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         console.log("filledTest ", filledTest);
         console.log("data ", data);
 
-        toTheLocalStorage(filledTest);
+        toTheLocalStorage(filledTest)
+
+        // RESET DOES NOT WORK
+        // reset()
 
         history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
     };
@@ -74,23 +78,24 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
+                {test !== undefined && (<p>bah voilà</p>)}
                 <form onSubmit={handleSubmit(handleNextQuestion)}>
                     <div className="flexy-content">
                         <IonList lines="full">
                             {
-                                photos.length === 0 ? (
+                                (test !== undefined) && (test!.questions[parseInt(p.qId)]!.plant.photos === undefined || test!.questions[parseInt(p.qId)]!.plant.photos!.length === 0 ? (
                                     <p>No image available</p>
                                 ) : (
                                     <IonItem>
                                         <IonLabel position="stacked">Choix de la photo (facultatif)</IonLabel>
-                                        <IonRadioGroup className="centered">
+                                        <IonRadioGroup {...register("photo")} className="centered">
                                             <IonGrid>
                                                 <IonRow>
                                                     {
-                                                        photos.map((photo: any, i: number) => (
+                                                        test!.questions[parseInt(p.qId)]!.plant.photos!.map((photo: any, i: number) => (
                                                             <IonCol key={i} size="6">
                                                                 <IonItem>
-                                                                    <IonRadio {...register("photo")} slot="end" value={photo.id} />
+                                                                    <IonRadio slot="end" value={photo.id} />
                                                                     <IonThumbnail>
                                                                         <IonImg className="photo" src={photo.url} />
                                                                     </IonThumbnail>
@@ -102,8 +107,11 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                                             </IonGrid>
                                         </IonRadioGroup>
                                     </IonItem>
-                                )
+                                ))
                             }
+                            {/* {
+                                
+                            } */}
 
                             <IonItem>
                                 <IonLabel position="floating">Question</IonLabel>

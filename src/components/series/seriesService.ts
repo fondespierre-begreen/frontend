@@ -1,6 +1,8 @@
 // const series = fetch(`http://192.168.1.46:9090/series`)
 //                     .then(res => res.json())
 
+import { resolve } from "dns";
+
 fetch(`http://localhost:9090/series`)
   .then(res => res.json())
   .then(data => {
@@ -82,7 +84,7 @@ export interface ISeriesParams {
   qId: string
 }
 
-const initialCreateTest = {
+export const initialCreateTest = {
   total: null,
   questions: []
 };
