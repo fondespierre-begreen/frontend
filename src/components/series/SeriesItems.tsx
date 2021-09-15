@@ -42,9 +42,10 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
   let { url } = useRouteMatch();
 
+  const testUrl = serie.total === null ? `${url}/${serie.id}/quest/0` : `${url}/review/${serie.id}`;
 
   return (
-    <IonItem routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
+    <IonItem routerLink={testUrl} detail={false}>
       {displayIconColor()}
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
