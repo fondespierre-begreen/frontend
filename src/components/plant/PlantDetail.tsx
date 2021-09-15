@@ -43,7 +43,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
             // getPrivPlantById(parseInt(p.id)).then((response: any) => setPlant(response));
             setPlant(getPrivPlantById(parseInt(p.id)));
             const actualpath = path.slice(0, -11)
-            setUrl(path.slice(0,-14));
+            setUrl(path.slice(0, -14));
         }
 
     }, []);
@@ -65,7 +65,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     <IonButtons slot="start">
                         {/* <IonBackButton /> */}
                         {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
-                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                        <IonButton routerDirection="back" routerLink={url}>
                             <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>

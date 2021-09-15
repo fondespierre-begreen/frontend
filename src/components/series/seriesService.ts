@@ -112,6 +112,22 @@ localStorage.setItem('createTest', JSON.stringify(initialCreateTest));
 
 export const getCreateTest = () => JSON.parse(localStorage.getItem('createTest')!);
 
-export const toTheLocalStorage = (test: any) => {
+export const toTheLocalStorage = (test: any): string => {
   localStorage.setItem("createTest", JSON.stringify(test));
+  return "done"
+};
+
+const URL = "http://localhost:9090";
+
+// NEED THE URL
+export const postNewTest = () => {
+  fetch(`${URL}`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(getCreateTest())
+  })
+    .then(resp => resp.json())
+    .then(console.log)
 };

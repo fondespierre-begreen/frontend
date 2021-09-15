@@ -21,7 +21,7 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
 
     const plantLists = getPubPlants();
 
-    const [color, setColor] = useState<number>();
+    const [color, setColor] = useState<number>(-1);
 
     const handlePlantChoice = (id: number, plant: IPlant) => {
         setColor(id);
@@ -112,7 +112,7 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
                                 history.push(`/connected/series/create/two/${p.qId}`)
                             }}
                             fill="solid"
-                            disabled={color === undefined && true}>
+                            disabled={color === -1 && true}>
                             Suivant
                         </IonButton>
                     </div>

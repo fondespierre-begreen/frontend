@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { IonButton, IonCol, IonContent, IonGrid, IonHeader, IonImg, IonInput, IonItem, IonLabel, IonList, IonPage, IonRadio, IonRadioGroup, IonRow, IonThumbnail, IonTitle, IonToolbar } from "@ionic/react";
 
-import { getCreateTest, ISeriesParams, toTheLocalStorage } from "./seriesService";
+import { getCreateTest, ISeriesParams, postNewTest, toTheLocalStorage } from "./seriesService";
 import { IPhoto, IPlant } from "../plant/plantService";
 
 import "./serieCreate.css";
@@ -32,7 +32,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const [test, setTest] = useState<ITest>();
     const [photos, setPhotos] = useState<IPhoto[]>();
 
-    const { handleSubmit, register, reset } = useForm();
+    const { handleSubmit, register, reset, setValue } = useForm();
 
     const location = useLocation();
 
@@ -65,6 +65,12 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
         // RESET DOES NOT WORK
         // reset()
+        setValue("choice-1", "");
+        setValue("choice-2", "");
+        setValue("choice-3", "");
+        setValue("choice-4", "");
+        setValue("description", "");
+        setValue("photo", -1);
 
         history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
     };
@@ -78,7 +84,6 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                {test !== undefined && (<p>bah voilà</p>)}
                 <form onSubmit={handleSubmit(handleNextQuestion)}>
                     <div className="flexy-content">
                         <IonList lines="full">
@@ -88,17 +93,17 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                                 ) : (
                                     <IonItem>
                                         <IonLabel position="stacked">Choix de la photo (facultatif)</IonLabel>
-                                        <IonRadioGroup {...register("photo")} className="centered">
+                                        <IonRadioGroup className="centered">
                                             <IonGrid>
                                                 <IonRow>
                                                     {
-                                                        test!.questions[parseInt(p.qId)]!.plant.photos!.map((photo: any, i: number) => (
+                                                        getCreateTest()!.questions[parseInt(p.qId)]!.plant.photos!.map((photo: any, i: number) => (
                                                             <IonCol key={i} size="6">
                                                                 <IonItem>
-                                                                    <IonRadio slot="end" value={photo.id} />
-                                                                    <IonThumbnail>
-                                                                        <IonImg className="photo" src={photo.url} />
-                                                                    </IonThumbnail>
+                                                                    <IonRadio {...register("photo")} slot="end" value={photo.id} />
+                                                                    {/* <IonThumbnail> */}
+                                                                    <IonImg className="photo" src={photo.url} />
+                                                                    {/* </IonThumbnail> */}
                                                                 </IonItem>
                                                             </IonCol>
                                                         ))
@@ -132,7 +137,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                                 {/* Envoie vers SerieCreateOne */}
                                 <IonButton type="submit" color="success">Question suivante</IonButton>
                                 {/* Envoie test */}
-                                <IonButton fill="outline" color="danger">Terminer</IonButton>
+                                <IonButton onClick={postNewTest} fill="outline" color="danger">Terminer</IonButton>
                             </article>
                         </section>
                     </div>
