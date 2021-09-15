@@ -22,7 +22,7 @@ import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, useRouteMatch } from 'react-router-dom';
 
-import { getquestions, getTest } from './seriesService';
+import { getquestions, getTest, postSerie } from './seriesService';
 import "./seriedetail.css"
 
 
@@ -60,10 +60,10 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   const [value, setvalue] = useState<string>()
 
 
-
+  /**
+   * Enregistre le choice checked
+   */
   function registerValue() {
-    localStorage.getItem('test')
-
     let choiceValue = document.querySelector('ion-radio-group');
 
     if (choiceValue?.value !== undefined) {
@@ -71,36 +71,74 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       const arrayEmpty = localStorage.getItem('checkedChoices')
       const arrayParse = JSON.parse(arrayEmpty!)
       
+      // Ajoute ou écrase la check value au même index que la question dans un tableau
       arrayParse[qId] = choiceValue.value
       
       localStorage.setItem('checkedChoices', JSON.stringify(arrayParse))
       // choices = [...choices, choiceValue.value]
+      console.log(arrayParse);
+      
     }
-
-    const test = getTest(tId)
-
-    
-    let arrChoices = test.questions[qId].choices
-
-    let arrChoicesChecked: any = JSON.parse(localStorage.getItem('checkedChoices')!)
-
-    
-    arrChoices.map((choice: any) => {
-      if (choice.description === arrChoicesChecked[qId]) {
-
-        test.questions[qId].answers[0] = {id: choice.id}
-        console.log(test);
-
-      }
-    }) 
-    
-
-  
-    // console.log(idAnswers);
-    
+  }
 
 
+
+  /**
+   * Enregistre le choice checked au bouton suivant
+   */
+  function registerNext() {
+    registerValue()
   };
+
+
+
+  /**
+   * Supprime les id des propriétés serie, questions et choices afin de push le tableau dans le back qui va rajouter les id incrémentés
+   * @param serie tableau serie
+   */
+  function cleanSerie(serie: any) {
+    delete serie.id
+    serie.questions.map((q: any) => delete q.id)
+    serie.questions.map((q: any) => q.choices.map((c: any) => delete c.id))
+  }
+
+  const sendTest = () => {
+
+    // Enregistre le choice checked de la dernière question
+    registerValue()
+
+    const serie = getTest(tId)
+
+    
+    // Liste des choix checked
+    let arrChoicesChecked: any = JSON.parse(localStorage.getItem('checkedChoices')!)
+    console.log(arrChoicesChecked);
+    
+        // Ajout de l'id du choix correspondant à la réponse de l'user
+        serie.questions.map((question: any, i: number) => {
+          question.choices.map((choice: any) => {
+            if (choice.description === arrChoicesChecked[i]) {
+              question.answers[0] = {id: choice.id}
+              console.log(choice.id);
+              
+              // localStorage.setItem('result', JSON.stringify(serie))
+            }
+          })
+        }) 
+
+        // Supprime les id du tableau
+        cleanSerie(serie)
+        console.log(serie);
+        
+        
+        // console.log(JSON.stringify(serie));
+        let currentSerie = {}
+        postSerie(serie)
+        .then(serie => currentSerie = serie)
+          
+  }
+
+
 
   /**
    * 
@@ -113,7 +151,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     if (qIdCurrent == 0) {
       return (
         <div className="button-next">
-          <IonButton onClick={registerValue} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+          <IonButton onClick={registerNext} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
 
@@ -121,7 +159,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
+          <IonButton onClick={sendTest} color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
         </div>
       )
 
@@ -129,7 +167,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       return (
         <div className="buttons">
           <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
-          <IonButton onClick={registerValue} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
+          <IonButton onClick={registerNext} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
     }

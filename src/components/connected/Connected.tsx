@@ -69,22 +69,18 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                 <IonTabBar slot="bottom">
                     <IonTabButton tab="home" href={`${match.url}/home`}>
                         <IonIcon icon={home} />
-                        <IonLabel>Home</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="plants" href={`${match.url}/plants`}>
                         <IonIcon icon={leaf} />
-                        <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="quiz" href={`${match.url}/series`}>
                         <IonIcon icon={school} />
-                        <IonLabel>Quiz</IonLabel>
                     </IonTabButton>
 
                     <IonTabButton tab="parameter" href={`${match.url}/parameter`}>
                         <IonIcon icon={settingsSharp} />
-                        <IonLabel>Paramètre</IonLabel>
                     </IonTabButton>
                 </IonTabBar>
             </IonTabs>
