@@ -36,7 +36,9 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
     let p: IPlantParams = params as IPlantParams;
 
     useEffect(() => {
-        if (path === "/connected/plants/public/:id" || path === "/visitor/public/:id") {
+        if (path === "/connected/plants/public/:id" ||
+            path === "/connected/home/public/:id" ||
+            path === "/visitor/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
             setUrl(path.slice(0, -11))
         } else {

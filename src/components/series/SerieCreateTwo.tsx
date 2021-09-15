@@ -65,6 +65,9 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
         // RESET DOES NOT WORK
         // reset()
+
+        // STILL ISSUES WITH reset ALTERNATIVE
+        // RADIO BTN REINITIALIZES ONLY EVERY OTHER TIME
         setValue("choice-1", "");
         setValue("choice-2", "");
         setValue("choice-3", "");

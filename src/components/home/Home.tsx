@@ -14,6 +14,7 @@ import {
     IonTitle,
     IonToolbar
 } from "@ionic/react";
+import { useState, useEffect } from "react";
 
 import { getPubPlants, IPlant } from "../plant/plantService";
 
@@ -22,7 +23,15 @@ import { getPubPlants, IPlant } from "../plant/plantService";
  * @returns La page Home de l'apprenant.
  */
 const Home: React.FC = () => {
-    const pubPlants: IPlant[] = getPubPlants();
+
+    // STILL ISSUES WITH Home.tsx
+    // ONLY THE PLANT CARD HAS A PIC
+    // AFTER CHANGING TAB IT WORKS
+    const [pubPlants, setPubPlants] = useState<IPlant[]>(getPubPlants());
+
+    useEffect(() => {
+        setPubPlants(getPubPlants());
+    }, [setPubPlants])
 
     return (
         <IonPage>
@@ -45,7 +54,8 @@ const Home: React.FC = () => {
                                     </IonCardHeader>
 
                                     <IonCardContent>
-                                        <IonButton routerLink={`/connected/plants/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton>
+                                        <IonButton routerLink={`/connected/home/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton>
+                                        {/* <IonButton routerLink={`/connected/plants/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton> */}
                                     </IonCardContent>
                                 </IonCard>
                             </IonSlide>

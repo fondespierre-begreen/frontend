@@ -35,6 +35,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                    <Route path={`${match.url}/home/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
