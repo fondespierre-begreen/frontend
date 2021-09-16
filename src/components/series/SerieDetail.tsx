@@ -17,6 +17,11 @@ import {
   IonRadio,
   IonRadioGroup,
   IonIcon,
+  withIonLifeCycle,
+  useIonViewWillEnter,
+  useIonViewWillLeave,
+  useIonViewDidEnter,
+  useIonViewDidLeave
 } from '@ionic/react';
 import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
@@ -78,9 +83,17 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
       // choices = [...choices, choiceValue.value]
       console.log(arrayParse);
       
+      resetRadio(choiceValue)
     }
   }
 
+  /**
+   * Reset le radio checked
+   */
+  function resetRadio(choiceValue: any) {
+    choiceValue.value = ""
+
+  }
 
 
   /**
@@ -88,7 +101,59 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    */
   function registerNext() {
     registerValue()
+
   };
+
+  function radioBack() {
+
+    let radioGroup = document.querySelector('ion-radio-group');
+    
+    const arrayEmpty = localStorage.getItem('checkedChoices')
+    const checkChoices = JSON.parse(arrayEmpty!)
+    let previousCheckChoice = checkChoices[qId - 1]
+
+    console.log(previousCheckChoice);
+    // let radios = document.querySelectorAll('ion-radio');
+    // console.log(radios);
+    resetRadio(radioGroup)
+
+    // radioGroup !== undefined && radioGroup.value = previousCheckChoice
+
+    if (radioGroup) {
+      radioGroup.value = previousCheckChoice
+      console.log(radioGroup.value);
+      
+    }
+  }
+
+  // useIonViewWillEnter(() => {
+  //   console.log('ionViewWillEnter event fired');
+  //   let radioGroup = document.querySelector('ion-radio-group');
+  //   let radios = document.querySelectorAll('ion-radio');
+  //   console.log(radios);
+
+  //   console.log(radioGroup?.value);
+    
+  // });
+
+
+  // useIonViewDidEnter(() => {
+  //   console.log("leave");
+  //   let radioGroup = document.querySelector('ion-radio-group');
+  //   const arrayEmpty = localStorage.getItem('checkedChoices')
+  //   const checkChoices = JSON.parse(arrayEmpty!)
+  //   let previousCheckChoice = checkChoices[qId - 1]
+
+  //   console.log(previousCheckChoice);
+    
+  //   if (radioGroup) {
+  //     radioGroup.value = previousCheckChoice
+  //     console.log(radioGroup.value);
+      
+  //   }
+
+  // })
+
 
 
 
@@ -158,7 +223,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     } else if (qIdCurrent == questions.length - 1) {
       return (
         <div className="buttons">
-          <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton onClick={radioBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
           <IonButton onClick={sendTest} color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
         </div>
       )
@@ -166,7 +231,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     } else {
       return (
         <div className="buttons">
-          <IonButton color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton onClick={radioBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
           <IonButton onClick={registerNext} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
@@ -195,12 +260,12 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
         <IonCard>
           <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
           <IonCardHeader>
-            <IonCardTitle>{quiz !== undefined && <p>{quiz[qId].description}</p>}</IonCardTitle>
+            <IonCardTitle>{quiz !== undefined && <p>{quiz[qId].id}. {quiz[qId].description}</p>}</IonCardTitle>
           </IonCardHeader>
 
           <IonCardContent>
               <IonList>
-                <IonRadioGroup allow-empty-selection>
+                <IonRadioGroup allowEmptySelection>
 
                   {quiz !== undefined && quiz[qId].choices.map((c: any, I: any) => (
                     <IonItem key={I}>
@@ -223,3 +288,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 };
 
 export default SerieDetail;
+function ionViewWillEnter() {
+  throw new Error('Function not implemented.');
+}
+
