@@ -29,8 +29,8 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const { params } = useRouteMatch();
     const p: ISeriesParams = params as ISeriesParams;
 
-    const [test, setTest] = useState<ITest>();
-    const radioRef = useRef<HTMLIonRadioGroupElement>(null);
+    const [test, setTest] = useState<any>();
+    const radioRef = useRef<any>(null);
 
     const { handleSubmit, register, reset, setValue } = useForm();
 
@@ -45,7 +45,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const handleSubmitQuestion = (data: any) => {
         let filledTest = test;
         if (data.photo) {
-            const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter(photo => photo.id === data.photo);
+            const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter((photo: any) => photo.id === data.photo);
 
             filledTest!.questions[parseInt(p.qId)].plant.photos = thePhoto;
         } else {
@@ -53,7 +53,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         }
 
         filledTest!.questions[parseInt(p.qId)].description = data.description;
-        filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => data[`choice-${i + 1}`]);
+        filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } });
 
         console.log("filledTest ", filledTest);
         console.log("data ", data);

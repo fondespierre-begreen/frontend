@@ -80,10 +80,11 @@ const URL = "http://localhost:9090";
 fetch(`${URL}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
-    .catch(error => {
-        console.log(error);
-        localStorage.setItem('pubPlants', JSON.stringify([]));
-    });
+// .catch(error => {
+//     console.log(error);
+//     localStorage.setItem('pubPlants', JSON.stringify([]));
+// });
+
 // fetch(`${URL}/plants`)
 //     .then(response => response.json())
 //     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))

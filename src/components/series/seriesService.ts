@@ -15,7 +15,7 @@ fetch(`http://localhost:9090/series`)
 export interface ISerie {
   id: number;
   total: number | null;
-  createdat: string;
+  createdat?: string;
 }
 
 const series: ISerie[] = [
