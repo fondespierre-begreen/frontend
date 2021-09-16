@@ -42,7 +42,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
     }, [location]);
 
-    const handleNextQuestion = (data: any) => {
+    const handleSubmitQuestion = (data: any) => {
         let filledTest = test;
         if (data.photo) {
             const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter(photo => photo.id === data.photo);
@@ -72,12 +72,19 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         setValue("description", "");
         // setValue("photo", -1);
 
-        if (radioRef !== null) {
-            radioRef.current!.value = "";
-        }
+        // if (radioRef !== null) {
+        //     radioRef.current!.value = "";
+        // }
 
-        history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
     };
+
+    const handleRedirection = () => {
+        history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
+    }
+
+    const handlePost = () => {
+        postNewTest()
+    }
 
 
     return (
@@ -88,7 +95,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <form onSubmit={handleSubmit(handleNextQuestion)}>
+                <form onSubmit={handleSubmit(handleSubmitQuestion)}>
                     <div className="flexy-content">
                         <IonList lines="full">
                             {
@@ -139,9 +146,9 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                         <section className="btn-section">
                             <article className="btn-article">
                                 {/* Envoie vers SerieCreateOne */}
-                                <IonButton type="submit" color="success">Question suivante</IonButton>
+                                <IonButton type="submit" onClick={handleRedirection} color="success">Question suivante</IonButton>
                                 {/* Envoie test */}
-                                <IonButton onClick={postNewTest} fill="outline" color="danger">Terminer</IonButton>
+                                <IonButton type="submit" onClick={handlePost} fill="outline" color="danger">Terminer</IonButton>
                             </article>
                         </section>
                     </div>

@@ -118,15 +118,18 @@ export const toTheLocalStorage = (test: any): string => {
 };
 
 const URL = "http://localhost:9090";
+// const URL = "http://192.168.1.46:9090";
 
 // NEED THE URL
 export const postNewTest = () => {
+  const data = getCreateTest()
+
   fetch(`${URL}`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(getCreateTest())
+    body: JSON.stringify(data)
   })
     .then(resp => resp.json())
     .then(console.log)
