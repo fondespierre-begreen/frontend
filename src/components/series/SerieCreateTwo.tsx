@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RouteComponentProps, useLocation, useRouteMatch } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -30,7 +30,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const p: ISeriesParams = params as ISeriesParams;
 
     const [test, setTest] = useState<ITest>();
-    const [photos, setPhotos] = useState<IPhoto[]>();
+    const radioRef = useRef<HTMLIonRadioGroupElement>(null);
 
     const { handleSubmit, register, reset, setValue } = useForm();
 
@@ -39,13 +39,10 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     useEffect(() => {
         setTest(getCreateTest());
         console.log("test ", test);
-        // setPhotos(test.questions[parseInt(p.qId)].plant.photos)
-        // console.log(photos)
+
     }, [location]);
 
     const handleNextQuestion = (data: any) => {
-        console.log("p.qId ", p.qId)
-
         let filledTest = test;
         if (data.photo) {
             const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter(photo => photo.id === data.photo);
@@ -73,7 +70,11 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         setValue("choice-3", "");
         setValue("choice-4", "");
         setValue("description", "");
-        setValue("photo", -1);
+        // setValue("photo", -1);
+
+        if (radioRef !== null) {
+            radioRef.current!.value = "";
+        }
 
         history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
     };
@@ -96,7 +97,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                                 ) : (
                                     <IonItem>
                                         <IonLabel position="stacked">Choix de la photo (facultatif)</IonLabel>
-                                        <IonRadioGroup className="centered">
+                                        <IonRadioGroup ref={radioRef} className="centered" allowEmptySelection>
                                             <IonGrid>
                                                 <IonRow>
                                                     {
