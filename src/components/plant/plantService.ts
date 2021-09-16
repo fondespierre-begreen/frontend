@@ -52,7 +52,7 @@ export interface IPlant {
     id?: number;
     name: string;
     latin: string;
-    photos?: IPhoto[];
+    photos?: any;
     description?: string;
 }
 
@@ -108,9 +108,10 @@ export const getPrivPlants = () => {
     return pubPlants;
 };
 
-export const getPubPlantById = (plantId: number) => {
-    return fetch(`${URL}/plants/${plantId}`)
+export const getPubPlantById = (id: number) => {
+    return fetch(`${URL}/plants/${id}`)
         .then(response => response.json())
+        .then(response => response.photos == null ? response.photo == "" : '')
         .catch(error => console.log(error));
 };
 
@@ -130,7 +131,6 @@ export const lastId = () => {
     .then(data => data.json());
 
 }
-
 
 
 /**
@@ -165,16 +165,15 @@ export const postPlant = (data: any) => {
  * USING MOCK-UP fetch FOR EDIT PLANT   :(
  * AND REAL localStorage.setItem    ;)
  */
-export const putPlant = (data: IPlant) => {
-    const prom = fetch(`http://192.168.1.46:9090/plants/edit`, {
+export const putPlant = (data: any) => {
+
+    const prom = fetch(`${URL}/plants/edit`, {
         method: "PATCH",
         headers: {
-            'Content-Type': 'application/json'
+            'Accept': '*/*',
         },
-        body: JSON.stringify(data)
-    })
-        .then(resp => resp.json());
-
+        body: data
+    }).then(resp => resp.json());
     // fetch-like part as above
     // const prom = new Promise((resolve, reject) => {
     //     resolve(data);
@@ -187,8 +186,6 @@ export const putPlant = (data: IPlant) => {
     prom.then((plantResp: any) => {
         const prevPlants = localStorage.getItem('privPlants');
 
-        console.log(prevPlants);
-
         let oldPlants: IPlant[] = [];
         let updatedPlants;
         if (prevPlants !== null) {
@@ -200,7 +197,6 @@ export const putPlant = (data: IPlant) => {
                 return p;
             })
         }
-        console.log("updatedPlants ", updatedPlants);
         localStorage.setItem('privPlants', JSON.stringify(updatedPlants))
     });
 };

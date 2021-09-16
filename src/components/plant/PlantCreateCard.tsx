@@ -32,15 +32,15 @@ const PlantCreateCard: React.FC<RouteComponentProps> = ({ history }) => {
         
         let n = 0;
         await lastId().then(id => n = id);
-
+        
         const form = new FormData();
+        data.file[0] === undefined ? delete data.file[0] :  form.append('file',data.file[0]);
         form.append('id', (n+1).toString())
         form.append('name',data.name)
         form.append('latin',data.latin)
-        form.append('file',data.file[0])
         form.append('description',data.description)
 
-        const result = await postPlant(form);
+        await postPlant(form);
         reset(form);
 
         await history.push("/connected/plants");

@@ -13,7 +13,9 @@ import {
     IonIcon,
     IonPage,
     IonTitle,
-    IonToolbar
+    IonToolbar,
+    useIonViewWillEnter,
+    useIonViewWillLeave
 } from "@ionic/react";
 import { arrowBack, pencilOutline } from 'ionicons/icons';
 
@@ -22,6 +24,7 @@ import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
 import { IPlantParams, getPrivPlantById, getPubPlantById, lastId } from "./plantService";
 import useForceUpdate from 'use-force-update';
+import { componentOnReady } from "@ionic/core";
 
 
 
@@ -60,35 +63,25 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
     }, []);
 
 
-
-
-    // // personnal
-    // console.log(uriList);
-    // // /plants/personnal/:id
-    // console.log(path);
-    // // /plants/personnal/2
-    // console.log(url);
-
     return (
-        <IonPage>
+        <IonPage >
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        {/* <IonBackButton /> */}
-                        {/* <IonButton routerDirection="back" onClick={() => history.goBack()}> */}
                         <IonButton routerDirection="back" routerLink={url}>
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>{plant.name}</IonTitle>
+                    <IonTitle>{(plant.name)}</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
             <IonContent>
                 {
                     plant !== undefined && (
-                        <IonCard>
-                            <img src={plant.photos !== undefined && plant.photos!.length > 0 ? plant.photos[0].url : ""} />
+                        <IonCard >
+                            {/* Bon j'ai tricher mais je vais pas y passer toute la journée, LA ça marche ! */}
+                            <img src={plant.photos === undefined ||plant.photos.length == 0 ? plant.photos = "" : getPrivPlantById(parseInt(p.id)).photos[0].url} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>

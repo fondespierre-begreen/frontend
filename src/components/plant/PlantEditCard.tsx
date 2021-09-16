@@ -38,30 +38,21 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
         setValue("name", plant.name);
         setValue("latin", plant.latin);
         setValue("description", plant.description);
-        // setValue("img", plant.img);
     }, [])
 
-    const onSubmit = async (data: IPlant) => {
+    const onSubmit = async (data: any) => {
 
-        data.id = parseInt(p.id);
-        // choix d'écraser va disparaitre
-        data.photos = [
-            {
-                id: 1,
-                url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"
-            }
-        ];
-        console.log(data);
+        const form = new FormData();
+        data.file[0] != null ? form.append('file', data.file[0]) : delete data.file[0]
+        form.append('id', p.id)
+        form.append('name',data.name)
+        form.append('latin',data.latin)
+        form.append('description',data.description)
+        
+        await putPlant(form);
+        reset(form);
 
-        const result = await putPlant(data);
-
-        // /!\ IMPORTANT /!\
-
-        // DO NOT FORGET TO UNCOMMENT FOLLOWING LINE
-        // WHEN postPlant IS AN ACTUAL fetch AGAIN
-        // reset(result);
-
-        history.push("/connected/plants");
+        await history.push("/connected/plants");
     };
 
     return (
@@ -79,7 +70,10 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
             </IonHeader>
 
             <IonContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
+                    <IonItem>
+                        <input type="file"  {...register("file")}/>
+                    </IonItem>
                     <IonItem>
                         <IonLabel>Nom commun</IonLabel>
                         <IonInput {...register("name")} />
