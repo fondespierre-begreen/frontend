@@ -1,11 +1,11 @@
 .serie-img {
     width: 100%;
-    height: 12em;
+    height: 17.7687em;
     object-fit: contain;
     /* object-position: 50%; */
     overflow: hidden;
 }
-.serie-img > img {
+.serie-img > ion-img {
     object-position: 50%;
 }
 
