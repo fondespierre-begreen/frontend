@@ -84,6 +84,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
     const handlePost = () => {
         postNewTest()
+        history.push(`/connected/series`);
     }
 
 

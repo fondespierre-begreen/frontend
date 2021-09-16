@@ -123,13 +123,16 @@ const URL = "http://localhost:9090";
 // NEED THE URL
 export const postNewTest = () => {
   const data = getCreateTest()
+  const jsonData = JSON.stringify(data)
+  console.log(jsonData);
 
-  fetch(`${URL}`, {
+
+  fetch(`${URL}/createSerie`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: jsonData
   })
     .then(resp => resp.json())
     .then(console.log)
