@@ -61,13 +61,14 @@ export interface IPlantParams {
 }
 
 const URL = "http://localhost:9090";
-// const ALEX_ = "http://192.168.1.46:9090";
+const ALEX_ = "http://192.168.1.46:9090";
+
 //informations
 // const find = window.location.pathname;
 // export const currentid = parseInt(find.slice(-1));
 // export const uriList = find.slice(8, find.length - 2);
 
-// const URL = "http://192.168.1.46:9090";
+// const ALEX_ = "http://192.168.1.46:9090";
 
 
 /**
@@ -76,14 +77,15 @@ const URL = "http://localhost:9090";
 /**
  * Initialise le localStorage pour la liste de plante publique
  */
-fetch(`${URL}/plants`)
+fetch(`${ALEX_}/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
-    .catch(error => {
-        console.log(error);
-        localStorage.setItem('pubPlants', JSON.stringify([]));
-    });
-// fetch(`${URL}/plants`)
+// .catch(error => {
+//     console.log(error);
+//     localStorage.setItem('pubPlants', JSON.stringify([]));
+// });
+
+// fetch(`${ALEX_}/plants`)
 //     .then(response => response.json())
 //     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
 //     .catch(error => console.log(error));
@@ -99,7 +101,7 @@ fetch(`${URL}/plants`)
 // const initPrivPlant = (privPlants: IPlant[]) => localStorage.setItem('privPlants', JSON.stringify(privPlants));
 // initPrivPlant(privPlants);
 
-fetch(`${URL}/learners/1/plants`)
+fetch(`${ALEX_}/learners/1/plants`)
     .then(response => response.json())
     .then(response => localStorage.setItem('privPlants', JSON.stringify(response)))
     .catch(error => console.log(error));
@@ -119,7 +121,7 @@ export const getPrivPlants = () => {
 };
 
 export const getPubPlantById = (plantId: number) => {
-    return fetch(`${URL}/plants/${plantId}`)
+    return fetch(`${ALEX_}/plants/${plantId}`)
         .then(response => response.json())
         .catch(error => console.log(error));
 };
@@ -174,7 +176,7 @@ export const postPlant = (data: IPlant) => {
     data.photos = [
         { url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true" }
     ];
-    const prom = fetch(`${URL}/plants/add/1`, {
+    const prom = fetch(`${ALEX_}/plants/add/1`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -201,7 +203,7 @@ export const postPlant = (data: IPlant) => {
  * AND REAL localStorage.setItem    ;)
  */
 export const putPlant = (data: IPlant) => {
-    const prom = fetch(`${URL}/plants/edit`, {
+    const prom = fetch(`${ALEX_}/plants/edit`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'

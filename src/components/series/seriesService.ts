@@ -15,7 +15,7 @@ fetch(`http://localhost:9090/series`)
 export interface ISerie {
   id: number;
   total: number | null;
-  createdat: string;
+  createdat?: string;
 }
 
 const series: ISerie[] = [
@@ -118,15 +118,18 @@ export const toTheLocalStorage = (test: any): string => {
 };
 
 const URL = "http://localhost:9090";
+const ALEX_ = "http://192.168.1.46:9090";
 
 // NEED THE URL
-export const postNewTest = () => {
-  fetch(`${URL}`, {
+export const postNewTest = (data: any) => {
+  console.log("service post ", data);
+
+  fetch(`${ALEX_}/createSerie`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(getCreateTest())
+    body: JSON.stringify(data)
   })
     .then(resp => resp.json())
     .then(console.log)

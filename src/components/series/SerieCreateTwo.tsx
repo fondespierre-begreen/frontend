@@ -29,8 +29,8 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     const { params } = useRouteMatch();
     const p: ISeriesParams = params as ISeriesParams;
 
-    const [test, setTest] = useState<ITest>();
-    const radioRef = useRef<HTMLIonRadioGroupElement>(null);
+    const [test, setTest] = useState<any>();
+    const radioRef = useRef<any>(null);
 
     const { handleSubmit, register, reset, setValue } = useForm();
 
@@ -42,10 +42,12 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
     }, [location]);
 
-    const handleNextQuestion = (data: any) => {
+
+
+    const handleSubmitQuestion = (data: any) => {
         let filledTest = test;
         if (data.photo) {
-            const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter(photo => photo.id === data.photo);
+            const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter((photo: any) => photo.id === data.photo);
 
             filledTest!.questions[parseInt(p.qId)].plant.photos = thePhoto;
         } else {
@@ -53,7 +55,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         }
 
         filledTest!.questions[parseInt(p.qId)].description = data.description;
-        filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => data[`choice-${i + 1}`]);
+        filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } });
 
         console.log("filledTest ", filledTest);
         console.log("data ", data);
@@ -69,12 +71,28 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
         setValue("description", "");
         // setValue("photo", -1);
 
-        if (radioRef !== null) {
-            radioRef.current!.value = "";
-        }
+        // document.querySelector('ion-radio-group')!.value = ""
+        // if (radioRef !== null) {
+        //     console.log(radioRef);
+        //     radioRef.current!.value = "";
+        //     // if (radioRef.current!.hasOwnProperty("value")) {
+        //     // }
+        // }
 
-        history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
     };
+
+    const handleRedirection = () => {
+        history.push(`/connected/series/create/one/${parseInt(p.qId) + 1}`);
+    }
+
+
+    const handlePost = () => {
+        // const data = test
+        console.log("handlePost getCT", getCreateTest());
+        console.log("handlePost test", test);
+
+        postNewTest(test);
+    }
 
 
     return (
@@ -85,7 +103,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                 </IonToolbar>
             </IonHeader>
             <IonContent fullscreen>
-                <form onSubmit={handleSubmit(handleNextQuestion)}>
+                <form onSubmit={handleSubmit(handleSubmitQuestion)}>
                     <div className="flexy-content">
                         <IonList lines="full">
                             {
@@ -136,9 +154,9 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                         <section className="btn-section">
                             <article className="btn-article">
                                 {/* Envoie vers SerieCreateOne */}
-                                <IonButton type="submit" color="success">Question suivante</IonButton>
+                                <IonButton type="submit" onClick={handleRedirection} color="success">Question suivante</IonButton>
                                 {/* Envoie test */}
-                                <IonButton onClick={postNewTest} fill="outline" color="danger">Terminer</IonButton>
+                                <IonButton type="submit" onClick={handlePost} fill="outline" color="danger">Terminer</IonButton>
                             </article>
                         </section>
                     </div>
