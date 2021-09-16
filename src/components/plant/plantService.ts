@@ -197,8 +197,7 @@ export const postPlant = (data: IPlant) => {
 }
 
 /**
- * USING MOCK-UP fetch FOR EDIT PLANT   :(
- * AND REAL localStorage.setItem    ;)
+ * patch d'une plante et mise à jour du localStorage
  */
 export const putPlant = (data: IPlant) => {
     const prom = fetch(`${URL}/plants/edit`, {
@@ -210,15 +209,6 @@ export const putPlant = (data: IPlant) => {
     })
         .then(resp => resp.json());
 
-    // fetch-like part as above
-    // const prom = new Promise((resolve, reject) => {
-    //     resolve(data);
-    // }).then(resp => {
-    //     console.log(".json() part", resp);
-    //     return resp;
-    // });
-
-    // save-to-localStorage-like part
     prom.then((plantResp: any) => {
         const prevPlants = localStorage.getItem('privPlants');
 
@@ -235,7 +225,11 @@ export const putPlant = (data: IPlant) => {
                 return p;
             })
         }
-        console.log("updatedPlants ", updatedPlants);
+
         localStorage.setItem('privPlants', JSON.stringify(updatedPlants))
+
+        return plantResp;
     });
+
+    return prom;
 };

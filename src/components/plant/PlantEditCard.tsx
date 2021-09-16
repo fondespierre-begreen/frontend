@@ -38,7 +38,9 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
         setValue("name", plant.name);
         setValue("latin", plant.latin);
         setValue("description", plant.description);
-        // setValue("img", plant.img);
+        if (plant.photos !== undefined) {
+            setValue("img", plant.photos[0].url);
+        }
     }, [])
 
     const onSubmit = async (data: IPlant) => {
@@ -53,13 +55,7 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
         ];
         console.log(data);
 
-        const result = await putPlant(data);
-
-        // /!\ IMPORTANT /!\
-
-        // DO NOT FORGET TO UNCOMMENT FOLLOWING LINE
-        // WHEN postPlant IS AN ACTUAL fetch AGAIN
-        // reset(result);
+        putPlant(data).then(resp => reset(resp));
 
         history.push("/connected/plants");
     };
@@ -74,7 +70,7 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>Ajout d'une plante</IonTitle>
+                    <IonTitle>Modifier une plante</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
