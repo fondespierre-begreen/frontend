@@ -58,7 +58,12 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   useEffect(() => {
     setQuiz(getquestions(tId));
-    // index à 0 et qId est ..
+
+
+
+
+
+
   }, []);
 
 
@@ -74,14 +79,14 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     if (choiceValue?.value !== undefined) {
 
       const arrayEmpty = localStorage.getItem('checkedChoices')
-      const arrayParse = JSON.parse(arrayEmpty!)
+      const checkChoices = JSON.parse(arrayEmpty!)
       
       // Ajoute ou écrase la check value au même index que la question dans un tableau
-      arrayParse[qId] = choiceValue.value
+      checkChoices[qId] = choiceValue.value
       
-      localStorage.setItem('checkedChoices', JSON.stringify(arrayParse))
+      localStorage.setItem('checkedChoices', JSON.stringify(checkChoices))
       // choices = [...choices, choiceValue.value]
-      console.log(arrayParse);
+      console.log(checkChoices);
       
       resetRadio(choiceValue)
     }
@@ -92,7 +97,6 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    */
   function resetRadio(choiceValue: any) {
     choiceValue.value = ""
-
   }
 
 
