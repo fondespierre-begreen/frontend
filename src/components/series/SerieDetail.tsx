@@ -25,7 +25,7 @@ import {
 } from '@ionic/react';
 import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
-import { RouteComponentProps, useRouteMatch } from 'react-router-dom';
+import { RouteComponentProps, useLocation, useRouteMatch } from 'react-router-dom';
 
 import { getquestions, getTest, postSerie } from './seriesService';
 import "./seriedetail.css"
@@ -46,7 +46,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   const tId = parseInt(seriesId.tId); // 1
   const qId = parseInt(questId.qId); // 0
 
-  const [quiz, setQuiz] = useState<any>();
+  const [quiz] = useState<any>(getquestions(tId));
 
   const [selected, setSelected] = useState<string>('biff');
 
@@ -55,16 +55,20 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   // let serieQuestions = getquestions(tId)
 
 
+  const location = useLocation()
 
+  console.log(location);
+  
   useEffect(() => {
-    setQuiz(getquestions(tId));
+
+
+    console.log("salut");
+    
 
 
 
 
-
-
-  }, []);
+  }, [location]);
 
 
   const [value, setvalue] = useState<string>()
@@ -99,65 +103,36 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     choiceValue.value = ""
   }
 
-
   /**
-   * Enregistre le choice checked au bouton suivant
+   * Enregistre le choice checked courant au bouton suivant
    */
   function registerNext() {
     registerValue()
-
   };
 
-  function radioBack() {
+  /**
+   * Enregistre le choice checked courant au bouton précédent
+   */
+  function registerBack() {
 
-    let radioGroup = document.querySelector('ion-radio-group');
+    // let radioGroup = document.querySelector('ion-radio-group');
     
-    const arrayEmpty = localStorage.getItem('checkedChoices')
-    const checkChoices = JSON.parse(arrayEmpty!)
-    let previousCheckChoice = checkChoices[qId - 1]
+    // const arrayEmpty = localStorage.getItem('checkedChoices')
+    // const checkChoices = JSON.parse(arrayEmpty!)
+    // let previousCheckChoice = checkChoices[qId - 1]
 
-    console.log(previousCheckChoice);
-    // let radios = document.querySelectorAll('ion-radio');
-    // console.log(radios);
-    resetRadio(radioGroup)
+    // console.log(previousCheckChoice);
+    
+    // resetRadio(radioGroup)
 
-    // radioGroup !== undefined && radioGroup.value = previousCheckChoice
 
-    if (radioGroup) {
-      radioGroup.value = previousCheckChoice
-      console.log(radioGroup.value);
+    // if (radioGroup) {
+    //   radioGroup.value = previousCheckChoice
+    //   console.log(radioGroup.value);
       
-    }
+    // }
+    registerValue()
   }
-
-  // useIonViewWillEnter(() => {
-  //   console.log('ionViewWillEnter event fired');
-  //   let radioGroup = document.querySelector('ion-radio-group');
-  //   let radios = document.querySelectorAll('ion-radio');
-  //   console.log(radios);
-
-  //   console.log(radioGroup?.value);
-    
-  // });
-
-
-  // useIonViewDidEnter(() => {
-  //   console.log("leave");
-  //   let radioGroup = document.querySelector('ion-radio-group');
-  //   const arrayEmpty = localStorage.getItem('checkedChoices')
-  //   const checkChoices = JSON.parse(arrayEmpty!)
-  //   let previousCheckChoice = checkChoices[qId - 1]
-
-  //   console.log(previousCheckChoice);
-    
-  //   if (radioGroup) {
-  //     radioGroup.value = previousCheckChoice
-  //     console.log(radioGroup.value);
-      
-  //   }
-
-  // })
-
 
 
 
@@ -227,7 +202,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     } else if (qIdCurrent == questions.length - 1) {
       return (
         <div className="buttons">
-          <IonButton onClick={radioBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton onClick={registerBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
           <IonButton onClick={sendTest} color="danger" routerLink={`/connected/series/${tId}/quest/${qId}`}>Envoyer</IonButton>
         </div>
       )
@@ -235,7 +210,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
     } else {
       return (
         <div className="buttons">
-          <IonButton onClick={radioBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
+          <IonButton onClick={registerBack} color="success" routerDirection="back" routerLink={`/connected/series/${tId}/quest/${qId - 1}`}>Précédent</IonButton>
           <IonButton onClick={registerNext} color="success" routerLink={`/connected/series/${tId}/quest/${qId + 1}`}>Suivant</IonButton>
         </div>
       )
