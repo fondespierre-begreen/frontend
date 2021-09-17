@@ -13,18 +13,14 @@ import {
     IonIcon,
     IonPage,
     IonTitle,
-    IonToolbar,
-    useIonViewWillEnter,
-    useIonViewWillLeave
+    IonToolbar
 } from "@ionic/react";
 
-import { arrowBack, chevronBack, pencilOutline } from 'ionicons/icons';
+import { chevronBack, pencilOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
-import { IPlantParams, getPrivPlantById, getPubPlantById, lastId, privPlantByPlantId } from "./plantService";
-import useForceUpdate from 'use-force-update';
-import { componentOnReady } from "@ionic/core";
+import { IPlantParams, getPubPlantById, privPlantByPlantId } from "./plantService";
 
 
 
@@ -33,14 +29,6 @@ import { componentOnReady } from "@ionic/core";
  * @returns La fiche complète de la plante sélectionnée
  */
 const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
-
-    const forceUpdate = useForceUpdate();
-
-    const handleClick = React.useCallback(() => {
-      alert('I will re-render now.');
-      forceUpdate();
-    }, [forceUpdate]);
-
 
     const [plant, setPlant] = useState<any>();
 
@@ -84,7 +72,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                             <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>{(plant !== undefined &&plant.name)}</IonTitle>
+                    <IonTitle>{(plant !== undefined && plant.name)}</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
@@ -93,7 +81,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     plant !== undefined && (
                         <IonCard >
                             {/* Bon j'ai tricher mais je vais pas y passer toute la journée, LA ça marche ! */}
-                            <img src={ plant.photos == "" ? "" : plant.photos[0].url} />
+                            <img src={plant.photos == "" ? "" : plant.photos[0].url} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>
@@ -108,7 +96,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     path === "/connected/plants/personnal/:id" && (
                         <IonFab horizontal="end" vertical="bottom" slot="fixed">
                             {
-                                plant !== undefined &&  
+                                plant !== undefined &&
                                 <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
                                     <IonIcon icon={pencilOutline}></IonIcon>
                                 </IonFabButton>

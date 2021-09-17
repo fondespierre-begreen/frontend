@@ -15,10 +15,9 @@ import { addOutline } from 'ionicons/icons';
 
 import React, { useEffect, useReducer, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import useForceUpdate from "use-force-update";
 
 import Plantlist from "./PlantList";
-import { getPrivPlantById, getPrivPlants, getPubPlants, IPlant } from "./plantService";
+import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
 
 
 /**
@@ -33,7 +32,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
-    
+
     const initialState = {
         lists: privPlants,
         query: ""
@@ -65,7 +64,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
         let tempSearchResult = state.lists.filter((ele: any) => {
             return ele.name.toLowerCase().indexOf(state.query) > -1;
         });
-        
+
 
         dispatch({ type: 'updateList', payload: [...tempSearchResult] });
     }, [state.query]);
@@ -104,23 +103,23 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                         <IonSearchbar value={state.query} onIonChange={handleChange} />
                     </IonToolbar>
                 </IonHeader>
-                    {
-                        value === PERSONNAL ? (
-                            <IonContent>
-                                <Plantlist val={value} listProps={state.lists} />
-                                <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                                    <IonFabButton color="success" routerLink={`${match.url}/create`}>
-                                        <IonIcon icon={addOutline}></IonIcon>
-                                    </IonFabButton>
-                                </IonFab>
-                            </IonContent>
-                        ) : (
-                            <IonContent>
-                                <Plantlist val={value} listProps={state.lists} />
-                            </IonContent>
-                        )
-                    }
-               
+                {
+                    value === PERSONNAL ? (
+                        <IonContent>
+                            <Plantlist val={value} listProps={state.lists} />
+                            <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                                <IonFabButton color="success" routerLink={`${match.url}/create`}>
+                                    <IonIcon icon={addOutline}></IonIcon>
+                                </IonFabButton>
+                            </IonFab>
+                        </IonContent>
+                    ) : (
+                        <IonContent>
+                            <Plantlist val={value} listProps={state.lists} />
+                        </IonContent>
+                    )
+                }
+
             </IonPage>
 
         </div>
