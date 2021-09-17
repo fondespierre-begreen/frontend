@@ -9,8 +9,6 @@ const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
   // const [color, setColor] = useState(false)
   let { url } = useRouteMatch();
 
-  console.log(url);
-
   const uri: string = `${url}/${props.val}/${props.plant.id}`;
 
   const [u, setU] = useState()

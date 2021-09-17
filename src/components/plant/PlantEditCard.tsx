@@ -18,7 +18,7 @@ import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { IPlant, putPlant, IPlantParams, getPrivPlantById } from "./plantService";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 
 /**
@@ -33,8 +33,11 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
 
     const { register, handleSubmit, reset, setValue } = useForm();
 
+    const [plant, setPlant] = useState([])
+
     useEffect(() => {
-        const plant: IPlant = getPrivPlantById(parseInt(p.id));
+        let plant: IPlant = {};
+        getPrivPlantById(1).then(data => plant = data);
         setValue("name", plant.name);
         setValue("latin", plant.latin);
         setValue("description", plant.description);

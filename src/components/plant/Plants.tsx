@@ -18,7 +18,7 @@ import { RouteComponentProps } from "react-router";
 import useForceUpdate from "use-force-update";
 
 import Plantlist from "./PlantList";
-import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
+import { getPrivPlantById, getPrivPlants, getPubPlants, IPlant } from "./plantService";
 
 
 /**
@@ -29,6 +29,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
     const privPlants: IPlant[] = getPrivPlants();
     const pubPlants = getPubPlants();
+    console.log(getPubPlants());
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
@@ -82,6 +83,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                 dispatch({ type: 'updateList', payload: [...pubPlants] });
         }
     }
+    // console.log(state.lists);
 
 
     return (

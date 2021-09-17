@@ -22,7 +22,7 @@ import { arrowBack, chevronBack, pencilOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
-import { IPlantParams, getPrivPlantById, getPubPlantById, lastId } from "./plantService";
+import { IPlantParams, getPrivPlantById, getPubPlantById, lastId, privPlantByPlantId } from "./plantService";
 import useForceUpdate from 'use-force-update';
 import { componentOnReady } from "@ionic/core";
 
@@ -42,9 +42,11 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
     }, [forceUpdate]);
 
 
-    const [plant, setPlant] = useState<any>({});
+    const [plant, setPlant] = useState<any>();
 
     const [url, setUrl] = useState<any>({});
+
+    // const [u, setU] = useState("");
 
     let { path, params } = useRouteMatch();
     let p: IPlantParams = params as IPlantParams;
@@ -57,12 +59,20 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
             setUrl(path.slice(0, -11))
         } else {
             // getPrivPlantById(parseInt(p.id)).then((response: any) => setPlant(response));
-            setPlant(getPrivPlantById(parseInt(p.id)));
+            setPlant(privPlantByPlantId(parseInt(p.id)));
             const actualpath = path.slice(0, -11)
             setUrl(path.slice(0, -14));
         }
-
     }, []);
+
+    // useIonViewWillEnter(()=> {
+    //     if(plant.photos !== undefined){
+    //         console.log('if',plant)
+    //     }else{
+
+    //         console.log('else',plant)
+    //     }
+    // })
 
 
     return (
@@ -74,7 +84,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                             <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>{(plant.name)}</IonTitle>
+                    <IonTitle>{(plant !== undefined &&plant.name)}</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
@@ -83,7 +93,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                     plant !== undefined && (
                         <IonCard >
                             {/* Bon j'ai tricher mais je vais pas y passer toute la journée, LA ça marche ! */}
-                            <img src={plant.photos === undefined ||plant.photos.length == 0 ? plant.photos = "" : getPrivPlantById(parseInt(p.id)).photos[0].url} />
+                            <img src={ plant.photos == "" ? "" : plant.photos[0].url} />
                             <IonCardHeader>
                                 <IonCardSubtitle>{plant.latin}</IonCardSubtitle>
                                 <IonCardTitle>{plant.name}</IonCardTitle>
@@ -97,9 +107,12 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                 {
                     path === "/connected/plants/personnal/:id" && (
                         <IonFab horizontal="end" vertical="bottom" slot="fixed">
-                            <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
-                                <IonIcon icon={pencilOutline}></IonIcon>
-                            </IonFabButton>
+                            {
+                                plant !== undefined &&  
+                                <IonFabButton color="success" routerLink={`/connected/plants/edit/${plant.id}`}>
+                                    <IonIcon icon={pencilOutline}></IonIcon>
+                                </IonFabButton>
+                            }
                         </IonFab>
                     )
                 }
