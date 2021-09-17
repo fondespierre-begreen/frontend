@@ -1,46 +1,4 @@
 /**
- * Mock-up data
- */
-const privPlants: IPlant[] = [
-    {
-        id: 1,
-        name: "My own Rose",
-        latin: "Flos mea",
-        description: "string",
-        photos: [
-            {
-                id: 1,
-                url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"
-            }
-        ]
-    },
-    {
-        id: 2,
-        name: "My own tree",
-        latin: "Mea arbor",
-        description: "string",
-        photos: [
-            {
-                id: 1,
-                url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"
-            }
-        ]
-    },
-    {
-        id: 3,
-        name: "My own mushroom",
-        latin: "Fungus mea",
-        description: "string",
-        photos: [
-            {
-                id: 1,
-                url: "https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"
-            }
-        ]
-    }
-];
-
-/**
  * Model
  */
 export interface IPhoto {

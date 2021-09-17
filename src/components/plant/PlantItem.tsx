@@ -1,6 +1,6 @@
 import { IonAvatar, IonItem, IonLabel } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import { useRouteMatch } from "react-router-dom";
+import { useLocation, useRouteMatch } from "react-router-dom";
 import { IPlant } from "./plantService";
 
 
@@ -13,7 +13,8 @@ const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
   const [u, setU] = useState()
 
   useEffect(() => {
-    if(props.plant.photos.length == 0 || props.plant.photos == null){
+
+    if(props.plant.photos == null || props.plant.photos.length == 0 ){
       props.plant.photos = '';
       setU(props.plant.photos);
     }else {
@@ -21,6 +22,7 @@ const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
     };
 
   }, [])
+  
 
   return (
     <IonItem routerLink={uri}>

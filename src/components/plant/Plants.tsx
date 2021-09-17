@@ -32,7 +32,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
     const PERSONNAL = "personnal";
 
     const [value, setValue] = useState<string>(PERSONNAL);
-
+    
     const initialState = {
         lists: privPlants,
         query: ""
@@ -64,6 +64,7 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
         let tempSearchResult = state.lists.filter((ele: any) => {
             return ele.name.toLowerCase().indexOf(state.query) > -1;
         });
+        
 
         dispatch({ type: 'updateList', payload: [...tempSearchResult] });
     }, [state.query]);
@@ -101,24 +102,23 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                         <IonSearchbar value={state.query} onIonChange={handleChange} />
                     </IonToolbar>
                 </IonHeader>
-                <IonContent>
                     {
                         value === PERSONNAL ? (
-                            <section>
+                            <IonContent>
                                 <Plantlist val={value} listProps={state.lists} />
-                                <IonFab horizontal="end" vertical="bottom" slot="fixed">
+                                <IonFab vertical="bottom" horizontal="end" slot="fixed">
                                     <IonFabButton color="success" routerLink={`${match.url}/create`}>
                                         <IonIcon icon={addOutline}></IonIcon>
                                     </IonFabButton>
                                 </IonFab>
-                            </section>
+                            </IonContent>
                         ) : (
-                            <div>
+                            <IonContent>
                                 <Plantlist val={value} listProps={state.lists} />
-                            </div>
+                            </IonContent>
                         )
                     }
-                </IonContent>
+               
             </IonPage>
 
         </div>
