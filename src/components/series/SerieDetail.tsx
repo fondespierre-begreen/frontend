@@ -60,7 +60,12 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   
   useEffect(() => {
 
+
     let radioGroup = document.querySelector('ion-radio-group');
+    let radios = document.querySelectorAll('ion-radio');
+    resetRadio(radioGroup)
+
+    
     
     const arrayEmpty = localStorage.getItem('checkedChoices')
     const checkChoices = JSON.parse(arrayEmpty!)
@@ -68,14 +73,14 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
     console.log(previousCheckChoice);
     
-    // resetRadio(radioGroup)
 
 
     if (radioGroup) {
+      console.log(radios);
+      radios[qId].ariaChecked = "false"
       radioGroup.value = previousCheckChoice
-
       console.log(radioGroup.value);
-      
+
     }
     
   }, [location]);
