@@ -7,6 +7,8 @@ import {
 import { ellipseOutline, checkmarkCircle, removeCircle, closeCircle } from 'ionicons/icons';
 import { ISerie } from './seriesService';
 import './seriesItems.css'
+import { useRouteMatch } from "react-router-dom";
+
 
 interface SerieItemsProps {
   serie: ISerie;
@@ -24,27 +26,25 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
    */
   function displayIconColor() {
     if (serie.total == null) {
-      console.log("Non fait");
       return <IonIcon slot="end" size="large" className="ellipseoutline" icon={ellipseOutline} />
 
     } else if (serie.total >= 81 && serie.total <= 100) {
-      console.log("90%");
       return <IonIcon slot="end" size="large" className="checkmarkcircle" icon={checkmarkCircle} />
 
     } else if (serie.total >= 51 && serie.total <= 80) {
-      console.log("70%");
       return <IonIcon slot="end" size="large" className="removecircle" icon={removeCircle} />
 
     } else if (serie.total <= 50) {
-      console.log("40%");
       return <IonIcon slot="end" size="large" className="closecircle" icon={closeCircle} />
 
     }
   }
 
+  let { url } = useRouteMatch();
+
 
   return (
-    <IonItem routerLink={`/series/${serie.id}`} detail={false}>
+    <IonItem routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
       {displayIconColor()}
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">

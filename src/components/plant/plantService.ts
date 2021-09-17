@@ -19,7 +19,13 @@ export interface IPlantParams {
 }
 
 const URL = "http://localhost:9090";
-const ALEX_ = "http://192.168.1.46:9090";
+// const ALEX_ = "http://192.168.1.46:9090";
+//informations
+// const find = window.location.pathname;
+// export const currentid = parseInt(find.slice(-1));
+// export const uriList = find.slice(8, find.length - 2);
+
+// const URL = "http://192.168.1.46:9090";
 
 
 /**
@@ -35,6 +41,10 @@ fetch(`${URL}/plants`)
         console.log(error);
         localStorage.setItem('pubPlants', JSON.stringify([]));
     });
+// fetch(`${URL}/plants`)
+//     .then(response => response.json())
+//     .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
+//     .catch(error => console.log(error));
 
 /**
  * WILL NEED TO BE CHANGED FOR A fetch TO DB
@@ -120,8 +130,7 @@ export const postPlant = (data: any) => {
 }
 
 /**
- * USING MOCK-UP fetch FOR EDIT PLANT   :(
- * AND REAL localStorage.setItem    ;)
+ * patch d'une plante et mise à jour du localStorage
  */
 export const putPlant = (data: any) => {
 
@@ -156,5 +165,9 @@ export const putPlant = (data: any) => {
             })
         }
         localStorage.setItem('privPlants', JSON.stringify(updatedPlants))
+
+        return plantResp;
     });
+
+    return prom;
 };

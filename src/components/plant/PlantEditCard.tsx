@@ -65,7 +65,7 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>
-                    <IonTitle>Ajout d'une plante</IonTitle>
+                    <IonTitle>Modifier une plante</IonTitle>
                 </IonToolbar>
             </IonHeader>
 

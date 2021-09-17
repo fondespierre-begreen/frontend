@@ -17,8 +17,8 @@ import {
     useIonViewWillEnter,
     useIonViewWillLeave
 } from "@ionic/react";
-import { arrowBack, pencilOutline } from 'ionicons/icons';
 
+import { arrowBack, chevronBack, pencilOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 
@@ -50,14 +50,16 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
     let p: IPlantParams = params as IPlantParams;
 
     useEffect(() => {
-        if (path === "/connected/plants/public/:id" || path === "/visitor/public/:id") {
+        if (path === "/connected/plants/public/:id" ||
+            path === "/connected/home/public/:id" ||
+            path === "/visitor/public/:id") {
             getPubPlantById(parseInt(p.id)).then(response => setPlant(response));
             setUrl(path.slice(0, -11))
         } else {
             // getPrivPlantById(parseInt(p.id)).then((response: any) => setPlant(response));
             setPlant(getPrivPlantById(parseInt(p.id)));
             const actualpath = path.slice(0, -11)
-            setUrl(path.slice(0,-14));
+            setUrl(path.slice(0, -14));
         }
 
     }, []);
@@ -69,7 +71,7 @@ const PlantDetail: React.FC<RouteComponentProps> = ({ match }) => {
                 <IonToolbar>
                     <IonButtons slot="start">
                         <IonButton routerDirection="back" routerLink={url}>
-                            <IonIcon icon={arrowBack} />
+                            <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>
                     <IonTitle>{(plant.name)}</IonTitle>

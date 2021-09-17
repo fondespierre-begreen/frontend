@@ -21,6 +21,9 @@ import PlantEditCard from '../plant/PlantEditCard';
 import Account from '../parameter/Account';
 import Help from '../parameter/Help';
 import About from '../parameter/About';
+import SerieDetail from '../series/SerieDetail';
+import SerieCreateOne from '../series/SerieCreateOne';
+import SerieCreateTwo from '../series/SerieCreateTwo';
 
 
 /**
@@ -32,6 +35,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
         <IonReactRouter>
             <IonTabs>
                 <IonRouterOutlet>
+                    <Route path={`${match.url}/home/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/public/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/personnal/:id`} component={PlantDetail} />
                     <Route path={`${match.url}/plants/create`} render={(props) => <PlantCreateCard {...props} />} />
@@ -45,9 +49,12 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <Parameter />
                     </Route>
 
-                    <Route exact path={`${match.url}/quiz`}>
-                        <SeriesList />
-                    </Route>
+                    <Route exact path={`${match.url}/series`} render={(props) => <SeriesList {...props} />} />
+
+                    <Route path={`${match.url}/series/:tId/quest/:qId`} render={(props) => <SerieDetail {...props} />} />
+
+                    <Route path={`${match.url}/series/create/one/:qId`} render={(props) => <SerieCreateOne {...props} />} />
+                    <Route path={`${match.url}/series/create/two/:qId`} render={(props) => <SerieCreateTwo {...props} />} />
 
                     {/* <Route exact path={`${match.url}/plants`}>
                         <Plants />
@@ -75,7 +82,7 @@ const Connected: React.FC<RouteComponentProps> = ({ match }) => {
                         <IonLabel>Plantes</IonLabel>
                     </IonTabButton>
 
-                    <IonTabButton tab="quiz" href={`${match.url}/quiz`}>
+                    <IonTabButton tab="quiz" href={`${match.url}/series`}>
                         <IonIcon icon={school} />
                         <IonLabel>Quiz</IonLabel>
                     </IonTabButton>
