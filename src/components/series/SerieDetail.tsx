@@ -27,7 +27,7 @@ import { chevronBack } from 'ionicons/icons';
 import React, { useState, useEffect } from 'react';
 import { RouteComponentProps, useLocation, useRouteMatch } from 'react-router-dom';
 
-import { getquestions, getTest, postSerie } from './seriesService';
+import { getCheckedChoices, getquestions, getTest, postSerie } from './seriesService';
 import "./seriedetail.css"
 
 
@@ -48,7 +48,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   const [quiz] = useState<any>(getquestions(tId));
 
-  const [selected, setSelected] = useState<string>('biff');
+  const [selected, setSelected] = useState<string>();
 
   // let choices = getquestions(tId)[qId].choices
 
@@ -57,36 +57,18 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   const location = useLocation()
 
-  
+
+  // useIonViewWillEnter(() => {
+  //   const gChoices = getCheckedChoices()
+  //   setSelected(gChoices[qId - 1]);
+  // });
+
   useEffect(() => {
+    // const gChoices = getCheckedChoices()
 
-
-    let radioGroup = document.querySelector('ion-radio-group');
-    let radios = document.querySelectorAll('ion-radio');
-    resetRadio(radioGroup)
-
-    
-    
-    const arrayEmpty = localStorage.getItem('checkedChoices')
-    const checkChoices = JSON.parse(arrayEmpty!)
-    let previousCheckChoice = checkChoices[qId - 1]
-
-    console.log(previousCheckChoice);
-    
-
-
-    if (radioGroup) {
-      console.log(radios);
-      radios[qId].ariaChecked = "false"
-      radioGroup.value = previousCheckChoice
-      console.log(radioGroup.value);
-
-    }
-    
+    // console.log(qId);
+    setSelected("");
   }, [location]);
-
-
-  const [value, setvalue] = useState<string>()
 
 
   /**
@@ -99,15 +81,15 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
       const arrayEmpty = localStorage.getItem('checkedChoices')
       const checkChoices = JSON.parse(arrayEmpty!)
-      
+
       // Ajoute ou écrase la check value au même index que la question dans un tableau
       checkChoices[qId] = choiceValue.value
-      
+
       localStorage.setItem('checkedChoices', JSON.stringify(checkChoices))
       // choices = [...choices, choiceValue.value]
       console.log(checkChoices);
-      
-      resetRadio(choiceValue)
+
+      // resetRadio(choiceValue)
     }
   }
 
@@ -115,7 +97,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    * Reset le radio checked
    */
   function resetRadio(choiceValue: any) {
-    choiceValue.value = ""
+    // choiceValue.value = ""
   }
 
   /**
@@ -131,6 +113,11 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
   function registerBack() {
     registerValue()
   }
+
+  const handleOnChange = (event: any) => {
+    const gChoices = getCheckedChoices()
+    setSelected(gChoices[qId]);
+  };
 
 
 
@@ -151,33 +138,33 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
     const serie = getTest(tId)
 
-    
+
     // Liste des choix checked
     let arrChoicesChecked: any = JSON.parse(localStorage.getItem('checkedChoices')!)
     console.log(arrChoicesChecked);
-    
-        // Ajout de l'id du choix correspondant à la réponse de l'user
-        serie.questions.map((question: any, i: number) => {
-          question.choices.map((choice: any) => {
-            if (choice.description === arrChoicesChecked[i]) {
-              question.answers[0] = {id: choice.id}
-              console.log(choice.id);
-              
-              // localStorage.setItem('result', JSON.stringify(serie))
-            }
-          })
-        }) 
 
-        // Supprime les id du tableau
-        cleanSerie(serie)
-        console.log(serie);
-        
-        
-        // console.log(JSON.stringify(serie));
-        let currentSerie = {}
-        postSerie(serie)
-        .then(serie => currentSerie = serie)
-          
+    // Ajout de l'id du choix correspondant à la réponse de l'user
+    serie.questions.map((question: any, i: number) => {
+      question.choices.map((choice: any) => {
+        if (choice.description === arrChoicesChecked[i]) {
+          question.answers[0] = { id: choice.id }
+          console.log(choice.id);
+
+          // localStorage.setItem('result', JSON.stringify(serie))
+        }
+      })
+    })
+
+    // Supprime les id du tableau
+    cleanSerie(serie)
+    console.log(serie);
+
+
+    // console.log(JSON.stringify(serie));
+    let currentSerie = {}
+    postSerie(serie)
+      .then(serie => currentSerie = serie)
+
   }
 
 
@@ -241,20 +228,20 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
           </IonCardHeader>
 
           <IonCardContent>
-              <IonList>
-                <IonRadioGroup allowEmptySelection>
+            <IonList>
+              <IonRadioGroup value={selected} onIonChange={handleOnChange} allowEmptySelection>
 
-                  {quiz !== undefined && quiz[qId].choices.map((c: any, I: any) => (
-                    <IonItem key={I}>
-                      <IonLabel>{c.description}</IonLabel>
-                      <IonRadio className="choices" color="success" slot="end" name="description" value={c.description} />
-                    </IonItem>
-                  ))}
-                </IonRadioGroup>
-              </IonList>
+                {quiz !== undefined && quiz[qId].choices.map((c: any, I: any) => (
+                  <IonItem key={I}>
+                    <IonLabel>{c.description}</IonLabel>
+                    <IonRadio className="choices" color="success" slot="end" name="description" value={c.description} />
+                  </IonItem>
+                ))}
+              </IonRadioGroup>
+            </IonList>
 
-              {/* Affiches les boutons nécessaires à la navigation entre les questions */}
-              {displayButtons(qId, quiz)}
+            {/* Affiches les boutons nécessaires à la navigation entre les questions */}
+            {displayButtons(qId, quiz)}
 
           </IonCardContent>
         </IonCard>

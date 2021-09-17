@@ -4,7 +4,11 @@
 
 localStorage.setItem('checkedChoices', JSON.stringify([]))
 
-
+export const getCheckedChoices = () => {
+  const lSCCs = localStorage.getItem('checkedChoices');
+  const parsedLSCCs = JSON.parse(lSCCs!)
+  return parsedLSCCs;
+}
 
 fetch(`http://localhost:9090/series`)
   .then(res => res.json())
@@ -57,10 +61,10 @@ export const getquestions = (tId: number) => {
   const serie = JSON.parse(localStorage.getItem('test')!)
 
   // console.log(serie![tId].questions, "serv");
-  
+
   const test = serie!.filter((s: any) => s.id == tId)
 
-  
+
   // index à 0 serie id est 1
   return test[0].questions
 
@@ -71,10 +75,10 @@ export const getTest = (tId: number) => {
   const serie = JSON.parse(localStorage.getItem('test')!)
 
   // console.log(serie![tId].questions, "serv");
-  
+
   const test = serie!.filter((s: any) => s.id == tId)
 
-  
+
   // index à 0 serie id est 1
   return test[0]
 
@@ -87,9 +91,9 @@ export const postSerie = (serie: any) => {
   return fetch(`http://localhost:9090/series`, {
     method: "POST",
     headers: {
-        'Accept': '*/*',
-        'Content-type': 'application/json'
+      'Accept': '*/*',
+      'Content-type': 'application/json'
     },
     body: JSON.stringify(serie),
-}).then(resp => resp.json())
+  }).then(resp => resp.json())
 }

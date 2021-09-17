@@ -47,7 +47,11 @@ const SerieItems: React.FC<SerieItemsProps> = ({ serie }) => {
 
 
   return (
-    <IonItem routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
+    <IonItem onClick={() => {
+      const inits = JSON.stringify([]);
+      localStorage.setItem('checkedChoices', inits)
+    }
+    } routerLink={`${url}/${serie.id}/quest/0`} detail={false}>
       {displayIconColor()}
       <div slot="start" className="dot dot-unread"></div>
       <IonLabel className="ion-text-wrap">
