@@ -57,17 +57,27 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
 
   const location = useLocation()
 
-  console.log(location);
   
   useEffect(() => {
 
-
-    console.log("salut");
+    let radioGroup = document.querySelector('ion-radio-group');
     
+    const arrayEmpty = localStorage.getItem('checkedChoices')
+    const checkChoices = JSON.parse(arrayEmpty!)
+    let previousCheckChoice = checkChoices[qId - 1]
+
+    console.log(previousCheckChoice);
+    
+    // resetRadio(radioGroup)
 
 
+    if (radioGroup) {
+      radioGroup.value = previousCheckChoice
 
-
+      console.log(radioGroup.value);
+      
+    }
+    
   }, [location]);
 
 
@@ -114,23 +124,6 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
    * Enregistre le choice checked courant au bouton précédent
    */
   function registerBack() {
-
-    // let radioGroup = document.querySelector('ion-radio-group');
-    
-    // const arrayEmpty = localStorage.getItem('checkedChoices')
-    // const checkChoices = JSON.parse(arrayEmpty!)
-    // let previousCheckChoice = checkChoices[qId - 1]
-
-    // console.log(previousCheckChoice);
-    
-    // resetRadio(radioGroup)
-
-
-    // if (radioGroup) {
-    //   radioGroup.value = previousCheckChoice
-    //   console.log(radioGroup.value);
-      
-    // }
     registerValue()
   }
 
