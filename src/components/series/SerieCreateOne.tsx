@@ -21,9 +21,15 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
     const { params } = useRouteMatch();
     const p: ISeriesParams = params as ISeriesParams;
 
-    // const plantLists = getPubPlants();
-
     const [color, setColor] = useState<number>(-1);
+
+    const location = useLocation();
+
+    const dispatch = useAppDispatch()
+
+    const value = useAppSelector(state => state.plant.value);
+    const query = useAppSelector(state => state.plant.query);
+    const t3mpP0bl1c = useAppSelector(state => state.plant.tempPub);
 
     const handlePlantChoice = (id: number, plant: IPlant) => {
         setColor(id);
@@ -34,20 +40,6 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
         toTheLocalStorage(createTest);
     }
 
-    // const initialState = {
-    //     lists: plantLists,
-    //     query: ""
-    // }
-    // const [state, dispatch] = useReducer(reducer, initialState);
-
-    const location = useLocation();
-
-    const dispatch = useAppDispatch()
-
-    const value = useAppSelector(state => state.plant.value);
-    const query = useAppSelector(state => state.plant.query);
-    const t3mpP0bl1c = useAppSelector(state => state.plant.tempPub);
-
     const handleChange = (e: any) => {
         dispatch(updateQuery({ value, query: e.detail.value! }));
     };
@@ -56,37 +48,6 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
         dispatch(updateQuery({ value: "public", query }));
     }, [query, location]);
 
-    // const handleChange = (e: any) => {
-    //     dispatch({
-    //         type: 'updateQuery', payload: {
-    //             lists: plantLists,
-    //             query: e.detail.value!
-    //         }
-    //     });
-    // };
-
-    // function reducer(state: any, action: any) {
-    //     switch (action.type) {
-    //         case 'updateList':
-    //             return { ...state, lists: action.payload };
-    //         case 'updateQuery':
-    //             return { ...action.payload };
-    //         default:
-    //             throw new Error();
-    //     }
-    // }
-
-
-    // useEffect(() => {
-    //     let tempSearchResult = state.lists.filter((ele: any) => {
-    //         return ele.name.toLowerCase().indexOf(state.query) > -1;
-    //     });
-
-    //     dispatch({ type: 'updateList', payload: [...tempSearchResult] });
-
-    //     console.log("getCreateTest() ", getCreateTest())
-
-    // }, [state.query, location])
 
     return (
         <IonPage>
