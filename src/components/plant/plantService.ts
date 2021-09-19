@@ -1,4 +1,5 @@
 /**
+ * ############################################################################
  * Model
  */
 export interface IPhoto {
@@ -20,149 +21,67 @@ export interface IPlantParams {
 
 const URL = "http://localhost:9090";
 
+export const PERSONNAL = "personnal";
+
 
 /**
- * Repository
+ * ############################################################################
+ * fetch
  */
+
 /**
- * Initialise le localStorage pour la liste de plante publique
- */
-fetch(`${URL}/plants`)
-    .then(response => response.json())
-    .then(response => localStorage.setItem('pubPlants', JSON.stringify(response)))
-.catch(error => {
-    console.log(error);
-    // localStorage.setItem('pubPlants', JSON.stringify([]));
-});
+* La liste publique des plantes
+* @returns une promise avec la liste des plantes public
+*/
+export const getPublicPlants = () => {
+    return fetch(`${URL}/plants`)
+        .then(response => response.json());
+};
 
-
-
-
+/**
+* La liste privée des plantes de l'apprenant courant
+* @param id celui de l'apprenant
+* @returns une promise avec la liste privée des plantes d'un apprenant
+*/
+export const getPrivPlantById = (id: number) => {
+    return fetch(`${URL}/learners/${id}/plants`)
+        .then(response => response.json());
+};
 
 /**
  * Ajoute une plante à la liste publique en DB
  * puis ajoute l'objet retourné au localStorage pubPlants
  * @param data 
  */
- export const postPlant = (data: any) => {
-
-    const prom = fetch(`${URL}/plants/add/1`, {
+export const postPlant = (data: any) => {
+    return fetch(`${URL}/plants/add/1`, {
         method: "POST",
         headers: {
             'Accept': '*/*',
         },
         body: data
-    }).then(resp => resp.json())
-    
-    prom.then(plantResp => {
-        const prevPlants = localStorage.getItem('privPlants');
-        let oldPlants: IPlant[] = [];
-        if (prevPlants !== null) {
-            oldPlants = JSON.parse(prevPlants);
-            oldPlants.push(plantResp)
-        }
-        localStorage.setItem('privPlants', JSON.stringify(oldPlants))
-    });
-
-    return prom;    
+    }).then(resp => resp.json());
 }
 
 /**
  * patch d'une plante et mise à jour du localStorage
  */
- export const putPlant = (data: any) => {
-
-    const prom = fetch(`${URL}/plants/edit`, {
+export const putPlant = (data: any) => {
+    return fetch(`${URL}/plants/edit`, {
         method: "PATCH",
         headers: {
             'Accept': '*/*',
         },
         body: data
     }).then(resp => resp.json());
-
-    prom.then((plantResp: any) => {
-        const prevPlants = localStorage.getItem('privPlants');
-
-        let oldPlants: IPlant[] = [];
-        let updatedPlants;
-        if (prevPlants !== null) {
-            oldPlants = JSON.parse(prevPlants);
-
-            // Au lieu d'écraser changer juste la donnée differente
-            updatedPlants = oldPlants.map(p => {
-                if (plantResp.id === p.id) return plantResp;
-                return p;
-            })
-        }
-        localStorage.setItem('privPlants', JSON.stringify(updatedPlants))
-
-        return plantResp;
-    });
-
-    return prom;
-};
-
-/**
- * Get a plant by id
- * @param id 
- * @returns 
- */
-export const getPubPlantById = (id: number) => {
-    return fetch(`${URL}/plants/${id}`)
-        .then(response => response.json())
-        .catch(error => console.log(error));
 };
 
 /**
  * Getting the last id of plants[]
  */
- export const lastId = () => {
+export const lastId = () => {
 
-    return fetch(`${URL}/lastPlant`, { method: "GET"})
-    .then(data => data.json());
-
-}
-
-
-export const getPubPlants = () => {
-    let temp: any = localStorage.getItem('pubPlants')
-    const pubPlants: any = JSON.parse(temp);
-    return pubPlants;
-};
-
-/**
- * Priv plant by userid
- * @param id 
- */
-export const getPrivPlantById = (id: number) => {
-
-    const prom = fetch(`${URL}/learners/${id}/plants`)
-    .then(response => response.json());
-
-    prom.then(response => localStorage.setItem('privPlants', JSON.stringify(response)))
-    .catch(error => console.log(error));
-
-    return prom;
+    return fetch(`${URL}/lastPlant`, { method: "GET" })
+        .then(data => data.json());
 
 }
-
-getPrivPlantById(1);
-
-export const getPrivPlants = () => {
-    let temp: any = localStorage.getItem('privPlants')
-    const privPlant: any = JSON.parse(temp);
-    return privPlant;
-};
-
-export const privPlantByPlantId = (plant_id : number) => {
-    let temp = localStorage.getItem('privPlants');
-    const privPlants = JSON.parse(temp!);
-
-    return privPlants.filter((p: any)=> p.id === plant_id)[0];
-}
-
-
-
-
-
-

@@ -1,9 +1,10 @@
 import {
   IonApp,
-  IonContent,
   IonRouterOutlet
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+
+import { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
 /* Core CSS required for Ionic components to work properly */
@@ -24,42 +25,61 @@ import '@ionic/react/css/typography.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Plants from './components/plant/Plants';
-import PlantDetail from './components/plant/PlantDetail';
 
 /* Components */
 import Login from './components/login/Login';
 import Visitor from './components/visitor/Visitor';
 import Connected from './components/connected/Connected';
-import PlantCreateCard from './components/plant/PlantCreateCard';
+import PlantDetail from './components/plant/PlantDetail';
+
+import { initPrivatePlant, initPublicPlant } from "./redux/plantSlice"
+import { useAppDispatch } from './redux/hooks';
+
+import { getPrivPlantById, getPublicPlants } from './components/plant/plantService';
 
 
 /**
  * @returns routeur externe dirige vers l'app du promeneur ou bien vers la connection begreen
  */
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
+const App: React.FC = () => {
 
-      <IonRouterOutlet>
-        <Route path={`/visitor/public/:id`} component={PlantDetail} />
+  /**
+   * IF YOU NEED TO ASK WHY THEN RTFD
+   * https://redux-toolkit.js.org/tutorials/typescript#project-setup
+   */
+  const dispatch = useAppDispatch()
 
-        <Route exact path="/connected" render={(props) => <Connected {...props} />} />
+  useEffect(() => {
+    getPrivPlantById(1)
+      .then(data => { dispatch(initPrivatePlant(data)) })
+    getPublicPlants()
+      .then(data => { dispatch(initPublicPlant(data)) })
+  });
 
-        <Route exact path="/visitor">
-          <Visitor />
-        </Route>
+  return (
+    <IonApp>
+      <IonReactRouter>
 
-        <Route exact path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-      </IonRouterOutlet>
+        <IonRouterOutlet>
+          <Route path={`/visitor/public/:id`} component={PlantDetail} />
 
-    </IonReactRouter>
-  </IonApp>
-);
+          <Route exact path="/connected" render={(props) => <Connected {...props} />} />
+
+          <Route exact path="/visitor">
+            <Visitor />
+          </Route>
+
+          <Route exact path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+        </IonRouterOutlet>
+
+      </IonReactRouter>
+    </IonApp>
+  )
+};
 
 export default App;

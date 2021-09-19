@@ -13,11 +13,15 @@ import {
 } from "@ionic/react";
 import { addOutline } from 'ionicons/icons';
 
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router";
 
 import Plantlist from "./PlantList";
-import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
+
+import { PERSONNAL } from "./plantService";
+
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { updateQuery } from "../../redux/plantSlice";
 
 
 /**
@@ -26,63 +30,39 @@ import { getPrivPlants, getPubPlants, IPlant } from "./plantService";
  */
 const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
-    const privPlants: IPlant[] = getPrivPlants();
-    const pubPlants = getPubPlants();
-    console.log(getPubPlants());
-    const PERSONNAL = "personnal";
+    const dispatch = useAppDispatch()
 
-    const [value, setValue] = useState<string>(PERSONNAL);
-
-    const initialState = {
-        lists: privPlants,
-        query: ""
-    }
-    const [state, dispatch] = useReducer(reducer, initialState);
-
-    const handleChange = (e: any) => {
-        let tempLists = value === PERSONNAL ? privPlants : pubPlants;
-        dispatch({
-            type: 'updateQuery', payload: {
-                lists: [...tempLists],
-                query: e.detail.value!
-            }
-        });
-    };
-
-    function reducer(state: any, action: any) {
-        switch (action.type) {
-            case 'updateList':
-                return { ...state, lists: action.payload };
-            case 'updateQuery':
-                return { ...action.payload };
-            default:
-                throw new Error();
-        }
-    }
+    const value = useAppSelector(state => state.plant.value);
+    const query = useAppSelector(state => state.plant.query);
+    const t3mpP0bl1c = useAppSelector(state => state.plant.tempPub);
+    const t3mpPr1v4t3 = useAppSelector(state => state.plant.tempPriv);
 
     useEffect(() => {
-        let tempSearchResult = state.lists.filter((ele: any) => {
-            return ele.name.toLowerCase().indexOf(state.query) > -1;
-        });
-
-
-        dispatch({ type: 'updateList', payload: [...tempSearchResult] });
-    }, [state.query]);
+        dispatch(updateQuery({ value, query }));
+    }, [query]);
 
     /**
+     * SEARCHBAR
+     * Met à jour state.plant.query (redux)
+     * @param e event onChange sur la searchbar
+     */
+    const handleChange = (e: any) => {
+        /**
+         * si value est PERSONNAL on filtre la liste publique
+         * sinon la liste privée
+         * avec query comme paramètre de filtrage
+         */
+        dispatch(updateQuery({ value, query: e.detail.value! }));
+    };
+
+    /**
+     * SEGMENT
      * Check and define the plant list according to the user's choice (after switching is searching for data)
-     * @param e event
+     * @param e result from clicking on different labels (personnal, public)
      */
     const checkChanges = (e: any) => {
-        const val: string = e.detail.value; //result from clicking on different labels (personnal, public)
-        if (val !== undefined) {
-            setValue(val);
-            val === PERSONNAL ?
-                dispatch({ type: 'updateList', payload: [...privPlants] }) :
-                dispatch({ type: 'updateList', payload: [...pubPlants] });
-        }
+        dispatch(updateQuery({ value: e.detail.value!, query: "" }));
     }
-    // console.log(state.lists);
 
 
     return (
@@ -100,13 +80,13 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                         </IonSegment>
                     </IonToolbar>
                     <IonToolbar>
-                        <IonSearchbar value={state.query} onIonChange={handleChange} />
+                        <IonSearchbar value={query} onIonChange={handleChange} />
                     </IonToolbar>
                 </IonHeader>
                 {
                     value === PERSONNAL ? (
                         <IonContent>
-                            <Plantlist val={value} listProps={state.lists} />
+                            <Plantlist val={value} listProps={t3mpPr1v4t3} />
                             <IonFab vertical="bottom" horizontal="end" slot="fixed">
                                 <IonFabButton color="success" routerLink={`${match.url}/create`}>
                                     <IonIcon icon={addOutline}></IonIcon>
@@ -115,13 +95,11 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
                         </IonContent>
                     ) : (
                         <IonContent>
-                            <Plantlist val={value} listProps={state.lists} />
+                            <Plantlist val={value} listProps={t3mpP0bl1c} />
                         </IonContent>
                     )
                 }
-
             </IonPage>
-
         </div>
     );
 }

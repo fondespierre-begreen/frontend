@@ -14,24 +14,25 @@ import {
     IonTitle,
     IonToolbar
 } from "@ionic/react";
-import { useState, useEffect } from "react";
 
-import { getPubPlants, IPlant } from "../plant/plantService";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { getplantById } from "../../redux/plantSlice";
 
 
 /**
  * @returns La page Home de l'apprenant.
  */
 const Home: React.FC = () => {
+    const dispatch = useAppDispatch();
+    /**
+     * J'ai dû utiliser la publique "officielle" sinon ça casse
+     * quand on fait une recherche dans la search bar de Plants.tsx/segment === "public"
+     */
+    const p0bl1c = useAppSelector(state => state.plant.publicPlant);
 
-    // STILL ISSUES WITH Home.tsx
-    // ONLY THE PLANT CARD HAS A PIC
-    // AFTER CHANGING TAB IT WORKS
-    const [pubPlants, setPubPlants] = useState<IPlant[]>(getPubPlants());
-
-    useEffect(() => {
-        setPubPlants(getPubPlants());
-    }, [setPubPlants])
+    const handleDetail = (id: number) => {
+        dispatch(getplantById({ value: "public", id: id }));
+    }
 
     return (
         <IonPage>
@@ -44,7 +45,7 @@ const Home: React.FC = () => {
             <IonContent fullscreen>
                 <IonSlides>
                     {
-                        pubPlants !== undefined && pubPlants.map((plant, index) => (
+                        p0bl1c.map((plant, index) => (
                             <IonSlide key={index}>
                                 <IonCard>
                                     <IonImg src={plant.photos!.length > 0 ? plant.photos![0].url : ""}></IonImg>
@@ -54,8 +55,11 @@ const Home: React.FC = () => {
                                     </IonCardHeader>
 
                                     <IonCardContent>
-                                        <IonButton routerLink={`/connected/home/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton>
-                                        {/* <IonButton routerLink={`/connected/plants/public/${plant.id}`} expand="block" color="success">Voir plus</IonButton> */}
+                                        <IonButton
+                                            routerLink={`/connected/home/public/${plant.id}`} expand="block"
+                                            color="success"
+                                            onClick={() => handleDetail(plant.id!)}
+                                        >Voir plus</IonButton>
                                     </IonCardContent>
                                 </IonCard>
                             </IonSlide>

@@ -6,7 +6,7 @@ import './plantcss.css';
 
 const Plantlist: React.FC<{ listProps: IPlant[], val: string }> = (props) => {
 
-    // console.log(props.listProps);
+    // console.log("props.listProps : ", props.listProps);
 
     return (
         <IonList>

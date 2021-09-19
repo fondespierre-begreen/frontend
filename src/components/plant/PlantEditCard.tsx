@@ -14,11 +14,14 @@ import {
 } from "@ionic/react"
 import { arrowBack } from "ionicons/icons";
 
+import { useEffect } from "react";
 import { RouteComponentProps, useRouteMatch } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-import { IPlant, putPlant, IPlantParams, getPrivPlantById } from "./plantService";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { putPrivatePlants } from "../../redux/plantSlice";
+
+import { putPlant, IPlantParams } from "./plantService";
 
 
 /**
@@ -27,20 +30,19 @@ import { useEffect, useState } from "react";
  * @returns Le formulaire d'ajout d'une plante
  */
 const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
+    const dispatch = useAppDispatch()
+    const plantDetail = useAppSelector(state => state.plant.detailPlant);
 
     let { params } = useRouteMatch();
     let p: IPlantParams = params as IPlantParams;
 
     const { register, handleSubmit, reset, setValue } = useForm();
 
-    const [plant, setPlant] = useState([])
 
     useEffect(() => {
-        let plant: IPlant = {};
-        getPrivPlantById(1).then(data => plant = data);
-        setValue("name", plant.name);
-        setValue("latin", plant.latin);
-        setValue("description", plant.description);
+        setValue("name", plantDetail.name);
+        setValue("latin", plantDetail.latin);
+        setValue("description", plantDetail.description);
     }, [])
 
     const onSubmit = async (data: any) => {
@@ -48,11 +50,12 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
         const form = new FormData();
         data.file[0] != null ? form.append('file', data.file[0]) : delete data.file[0]
         form.append('id', p.id)
-        form.append('name',data.name)
-        form.append('latin',data.latin)
-        form.append('description',data.description)
-        
-        await putPlant(form);
+        form.append('name', data.name)
+        form.append('latin', data.latin)
+        form.append('description', data.description)
+
+        await putPlant(form)
+            .then(data => { dispatch(putPrivatePlants(data)) });
         reset(form);
 
         await history.push("/connected/plants");
@@ -63,7 +66,6 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        {/* <IonBackButton defaultHref="/connected/plants" /> */}
                         <IonButton routerDirection="back" routerLink="/connected/plants">
                             <IonIcon icon={arrowBack} />
                         </IonButton>
@@ -75,7 +77,7 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
             <IonContent>
                 <form encType="multipart/form-data" onSubmit={handleSubmit(onSubmit)}>
                     <IonItem>
-                        <input type="file"  {...register("file")}/>
+                        <input type="file"  {...register("file")} />
                     </IonItem>
                     <IonItem>
                         <IonLabel>Nom commun</IonLabel>

@@ -12,69 +12,50 @@ import {
 
 import Plantlist from "../plant/PlantList";
 
-import { getPubPlants } from "../plant/plantService";
 import { chevronBack } from "ionicons/icons";
 import { useEffect, useReducer } from "react";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { updateQuery } from "../../redux/plantSlice";
 
 
 /**
  * @returns L'app du visiteur.
  */
 const Visitor: React.FC = () => {
-    const plantLists = getPubPlants();
+    const dispatch = useAppDispatch()
 
-    const initialState = {
-        lists: plantLists,
-        query: ""
-    }
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const value = useAppSelector(state => state.plant.value);
+    const query = useAppSelector(state => state.plant.query);
+    const t3mpP0bl1c = useAppSelector(state => state.plant.tempPub);
 
     const handleChange = (e: any) => {
-        dispatch({
-            type: 'updateQuery', payload: {
-                lists: plantLists,
-                query: e.detail.value!
-            }
-        });
+        dispatch(updateQuery({ value, query: e.detail.value! }));
     };
 
-    function reducer(state: any, action: any) {
-        switch (action.type) {
-            case 'updateList':
-                return { ...state, lists: action.payload };
-            case 'updateQuery':
-                return { ...action.payload };
-            default:
-                throw new Error();
-        }
-    }
-
     useEffect(() => {
-        let tempSearchResult = state.lists.filter((ele: any) => {
-            return ele.name.toLowerCase().indexOf(state.query) > -1;
-        });
-
-        dispatch({ type: 'updateList', payload: [...tempSearchResult] });
-    }, [state.query])
+        dispatch(updateQuery({ value: "public", query }));
+    }, [query]);
 
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton routerDirection="back" routerLink="/">
+                        <IonButton onClick={() => {
+                            dispatch(updateQuery({ value: "personnal", query: "" }))
+                        }} routerDirection="back" routerLink="/">
                             <IonIcon icon={chevronBack} />
                         </IonButton>
                     </IonButtons>
                     <IonTitle>Welcome visitor</IonTitle>
                 </IonToolbar>
                 <IonToolbar>
-                    <IonSearchbar value={state.query} onIonChange={handleChange} />
+                    <IonSearchbar value={query} onIonChange={handleChange} />
                 </IonToolbar>
             </IonHeader>
 
             <IonContent>
-                <Plantlist listProps={state.lists} val="public" />
+                <Plantlist listProps={t3mpP0bl1c} val="public" />
             </IonContent>
         </IonPage>
     );
