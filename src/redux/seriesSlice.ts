@@ -23,6 +23,16 @@ interface ITest {
     questions: IQuestion[];
 }
 
+interface Ianswer {
+    description: string;
+}
+
+interface IQuiz {
+    total: number | null;
+    questions: IQuestion[];
+    answer: Ianswer
+}
+
 interface IPlantId {
     plant: IPlant;
     id: number;
@@ -31,6 +41,7 @@ interface IPlantId {
 interface IInitState {
     test: ITest;
     id: number;
+    series: IQuiz[];
 }
 
 const initialState: IInitState = {
@@ -58,6 +69,34 @@ const initialState: IInitState = {
         }],
     },
     id: -1,
+    series: [
+        {
+            total: null,
+            questions: [{
+                description: "",
+                plant: {
+                    id: 0,
+                    name: "",
+                    latin: "",
+                    description: "",
+                    photos: [
+                        {
+                            id: null,
+                            url: ""
+                        }
+                    ]
+                },
+                choices: [
+                    {
+                        description: ""
+                    }
+                ]
+            }],
+            answer: {
+                description: ""
+            }
+        }
+    ]
 };
 
 const slice = createSlice({
@@ -80,6 +119,10 @@ const slice = createSlice({
             } else {
                 delete state.test.questions[action.payload.id].plant.photos
             }
+        },
+        initSeries: (state, action) => {
+            // A VERIFIER
+            state.series = action.payload;
         }
     }
 });
@@ -87,7 +130,8 @@ const slice = createSlice({
 export const {
     initTest,
     addPlantToQuestion,
-    addQuestion
+    addQuestion,
+    initSeries
 } = slice.actions;
 
 export default slice.reducer;

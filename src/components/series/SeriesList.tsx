@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import {
@@ -19,7 +19,7 @@ import { addOutline } from 'ionicons/icons';
 
 import SeriesItems from '../series/SeriesItems';
 import { ISerie, getSeries, toTheLocalStorage, initialCreateTest } from './seriesService';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { initTest } from '../../redux/seriesSlice';
 
 
@@ -28,6 +28,11 @@ import { initTest } from '../../redux/seriesSlice';
  */
 const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
   const dispatch = useAppDispatch();
+  const series = useAppSelector(state => state.series.series);
+
+  useEffect(() => {
+
+  }, []);
 
   const [series, setSeries] = useState<ISerie[]>([]);
 
@@ -36,10 +41,10 @@ const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
   //   srs !== undefined && srs.then(datas => setSeries(datas))
   // });
 
-  useIonViewWillEnter(() => {
-    const srs = getSeries();
-    setSeries(srs);
-  });
+  // useIonViewWillEnter(() => {
+  //   const srs = getSeries();
+  //   setSeries(srs);
+  // });
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {

@@ -103,22 +103,11 @@ export const postNewTest = (test: any) => {
   })
     .then(resp => resp.json());
 };
-// export const postNewTest = () => {
-//   const data = getCreateTest();
-//   const jsonData = JSON.stringify(data);
 
-
-//   fetch(`${URL}/createSerie`, {
-//     method: "POST",
-//     headers: {
-//       'Content-Type': 'application/json'
-//     },
-//     body: jsonData
-//   })
-//     .then(resp => resp.json())
-//     .then(console.log)
-//     .then(() => toTheLocalStorage(initialCreateTest));
-// };
+export const getSeries = () => {
+  return fetch(`${URL}`)
+    .then(resp => resp.json());
+};
 
 /**
  * #############################################################################
@@ -147,4 +136,4 @@ const series: ISerie[] = [
   }
 ];
 
-export const getSeries = () => series;
+// export const getSeries = () => series;

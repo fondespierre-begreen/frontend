@@ -36,6 +36,8 @@ import { initPrivatePlant, initPublicPlant } from "./redux/plantSlice"
 import { useAppDispatch } from './redux/hooks';
 
 import { getPrivPlantById, getPublicPlants } from './components/plant/plantService';
+import { getSeries } from './components/series/seriesService';
+import { initSeries } from './redux/seriesSlice';
 
 
 /**
@@ -54,6 +56,8 @@ const App: React.FC = () => {
       .then(data => { dispatch(initPrivatePlant(data)) })
     getPublicPlants()
       .then(data => { dispatch(initPublicPlant(data)) })
+    getSeries()
+      .then((data) => { dispatch(initSeries(data)) })
   });
 
   return (
