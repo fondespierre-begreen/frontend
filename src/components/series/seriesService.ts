@@ -1,23 +1,79 @@
-// const series = fetch(`http://192.168.1.46:9090/series`)
-//                     .then(res => res.json())
+/**
+ * #############################################################################
+ * interface
+ */
+export interface ISerie {
+  id: number;
+  total: number | null;
+  createdat: string;
+}
+
+export interface IQuizParams {
+  qId: string;
+  tId: string;
+}
+
+/**
+ * #############################################################################
+ * localStorage
+ */
+localStorage.setItem('checkedChoices', JSON.stringify([]));
+
+export const getCheckedChoices = () => {
+  const lSCCs = localStorage.getItem('checkedChoices');
+  const parsedLSCCs = JSON.parse(lSCCs!);
+  return parsedLSCCs;
+}
+
+/**
+ * @param tId 
+ * @returns tableau d'objets question
+ */
+export const getquestions = (tId: number) => {
+  const serie = JSON.parse(localStorage.getItem('test')!);
+  const test = serie!.filter((s: any) => s.id == tId);
+
+  // index à 0 serie id est 1
+  return test[0].questions;
+}
+
+export const getTest = (tId: number) => {
+  const serie = JSON.parse(localStorage.getItem('test')!);
+  const test = serie!.filter((s: any) => s.id == tId);
+
+  // index à 0 serie id est 1
+  return test[0];
+}
+
+/**
+ * #############################################################################
+ * fetch
+ */
 
 import { resolve } from "dns";
 
 fetch(`http://localhost:9090/series`)
   .then(res => res.json())
   .then(data => {
-    localStorage.getItem('test')
     localStorage.setItem('test', JSON.stringify(data))
-  })
+  });
 
-
-
-export interface ISerie {
-  id: number;
-  total: number | null;
-  createdat?: string;
+export const postSerie = (serie: any) => {
+  return fetch(`http://localhost:9090/series`, {
+    method: "POST",
+    headers: {
+      'Accept': '*/*',
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(serie),
+  }).then(resp => resp.json());
 }
 
+
+/**
+ * #############################################################################
+ * mock data
+ */
 const series: ISerie[] = [
   {
     id: 1,
@@ -39,101 +95,6 @@ const series: ISerie[] = [
     total: 40,
     createdat: "12 janvier 2021"
   }
-]
-
-// export interface IQuest {
-//     id: number;
-//     description: string;
-//     plantfield: string;
-//     idserie: number;
-//     idplant: number;
-//     choices: Choices[];
-// }
-
-// export interface Choices {
-//   id: number;
-//   description: string;
-//   idquestion: number;
-//   idplant: number;
-// }
-
-
+];
 
 export const getSeries = () => series;
-
-/**
- * 
- * @param tId 
- * @returns tableau d'objets question
- */
-export const getquestions = (tId: number) => {
-
-  const serie = JSON.parse(localStorage.getItem('test')!)
-
-  // console.log(serie![tId].questions, "serv");
-
-  const test = serie!.filter((s: any) => s.id == tId)
-
-
-  // index à 0 serie id est 1
-  return test[0].questions
-
-}
-
-export interface ISeriesParams {
-  qId: string
-}
-
-export const initialCreateTest = {
-  total: null,
-  questions: []
-};
-
-const initialCreateQuestion = {
-  description: "",
-  plant: {
-    name: "",
-    latin: "",
-    description: "",
-    photos: [
-      {
-        url: ""
-      }
-    ]
-  },
-  choices: [
-    {
-      description: ""
-    }
-  ]
-};
-
-localStorage.setItem('createTest', JSON.stringify(initialCreateTest));
-
-export const getCreateTest = () => JSON.parse(localStorage.getItem('createTest')!);
-
-export const toTheLocalStorage = (test: any): string => {
-  localStorage.setItem("createTest", JSON.stringify(test));
-  return "done"
-};
-
-const URL = "http://localhost:9090";
-// const URL = "http://192.168.1.46:9090";
-
-// NEED THE URL
-export const postNewTest = () => {
-  const data = getCreateTest()
-  const jsonData = JSON.stringify(data)
-  console.log(jsonData);
-
-
-  fetch(`${URL}/createSerie`, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: jsonData
-  })
-    .then(resp => resp.json())
-    .then(console.log)
-};
