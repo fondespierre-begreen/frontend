@@ -8,6 +8,8 @@ import { getCreateTest, ISeriesParams, postNewTest, toTheLocalStorage } from "./
 import { IPhoto, IPlant } from "../plant/plantService";
 
 import "./serieCreate.css";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { addQuestion, initTest } from "../../redux/seriesSlice";
 
 interface IChoices {
     description: string;
@@ -25,35 +27,50 @@ interface ITest {
 }
 
 const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
+    const dispatch = useAppDispatch()
+    const test = useAppSelector(state => state.series.test)
 
     const { params } = useRouteMatch();
     const p: ISeriesParams = params as ISeriesParams;
 
-    const [test, setTest] = useState<any>();
+    // const [test, setTest] = useState<any>();
     const radioRef = useRef<any>(null);
 
     const { handleSubmit, register, reset, setValue } = useForm();
 
     const location = useLocation();
 
-    useEffect(() => {
-        setTest(getCreateTest());
-    }, [location]);
+    // useEffect(() => {
+    //     setTest(getCreateTest());
+    // }, [location]);
 
     const handleSubmitQuestion = (data: any) => {
-        let filledTest = test;
-        if (data.photo) {
-            const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter((photo: any) => photo.id === data.photo);
+        // let filledTest = test;
+        // if (data.photo) {
+        //     const thePhoto = filledTest?.questions[parseInt(p.qId)]!.plant!.photos!.filter((photo: any) => photo.id === data.photo);
+        //     console.log(thePhoto);
 
-            filledTest!.questions[parseInt(p.qId)].plant.photos = thePhoto;
-        } else {
-            delete filledTest!.questions[parseInt(p.qId)].plant.photos;
+        //     filledTest!.questions[parseInt(p.qId)].plant.photos = [];
+        //     // filledTest!.questions[parseInt(p.qId)].plant.photos = thePhoto;
+        // } else {
+        //     delete filledTest!.questions[parseInt(p.qId)].plant.photos;
+        // }
+
+        // filledTest!.questions[parseInt(p.qId)].description = data.description;
+        // filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } });
+
+        let photo;
+        if (data.photo) {
+            photo = test?.questions[parseInt(p.qId)]!.plant!.photos!.filter((photo: any) => photo.id === data.photo);
         }
 
-        filledTest!.questions[parseInt(p.qId)].description = data.description;
-        filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } });
-
-        toTheLocalStorage(filledTest)
+        // toTheLocalStorage(filledTest)
+        dispatch(addQuestion({
+            id: parseInt(p.qId),
+            description: data.description,
+            choices: Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } }),
+            photo
+        }));
 
         // RESET DOES NOT WORK
         // reset()
@@ -78,7 +95,8 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
     }
 
     const handlePost = () => {
-        postNewTest()
+        postNewTest(test)
+            .then(() => dispatch(initTest));
         history.push(`/connected/series`);
     }
 
@@ -104,7 +122,7 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
                                             <IonGrid>
                                                 <IonRow>
                                                     {
-                                                        getCreateTest()!.questions[parseInt(p.qId)]!.plant.photos!.map((photo: any, i: number) => (
+                                                        test!.questions[parseInt(p.qId)]!.plant.photos!.map((photo: any, i: number) => (
                                                             <IonCol key={i} size="6">
                                                                 <IonItem>
                                                                     <IonRadio {...register("photo")} slot="end" value={photo.id} />

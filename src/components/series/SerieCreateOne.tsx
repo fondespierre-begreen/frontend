@@ -10,6 +10,7 @@ import { getCreateTest, ISeriesParams, toTheLocalStorage } from "./seriesService
 import "./serieCreate.css";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { updateQuery } from "../../redux/plantSlice";
+import { addPlantToQuestion } from "../../redux/seriesSlice";
 
 
 /**
@@ -34,10 +35,11 @@ const SerieCreateOne: React.FC<RouteComponentProps> = ({ history }) => {
     const handlePlantChoice = (id: number, plant: IPlant) => {
         setColor(id);
 
-        const createTest = getCreateTest();
+        // const createTest = getCreateTest();
 
-        createTest.questions[p.qId] = { plant: plant };
-        toTheLocalStorage(createTest);
+        // createTest.questions[p.qId] = { plant: plant };
+        // toTheLocalStorage(createTest);
+        dispatch(addPlantToQuestion({ id: parseInt(p.qId), plant }))
     }
 
     const handleChange = (e: any) => {
