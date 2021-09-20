@@ -38,8 +38,6 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
     useEffect(() => {
         setTest(getCreateTest());
-        console.log("test ", test);
-
     }, [location]);
 
     const handleSubmitQuestion = (data: any) => {
@@ -54,9 +52,6 @@ const SerieCreateTwo: React.FC<RouteComponentProps> = ({ history }) => {
 
         filledTest!.questions[parseInt(p.qId)].description = data.description;
         filledTest!.questions[parseInt(p.qId)].choices = Array.apply(null, Array(4)).map((e, i) => { return { description: data[`choice-${i + 1}`] } });
-
-        console.log("filledTest ", filledTest);
-        console.log("data ", data);
 
         toTheLocalStorage(filledTest)
 

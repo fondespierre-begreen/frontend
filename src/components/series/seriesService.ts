@@ -1,3 +1,6 @@
+// const URL = "http://localhost:9090";
+const URL = "http://192.168.1.46:9090";
+
 /**
  * #############################################################################
  * interface
@@ -12,6 +15,19 @@ export interface IQuizParams {
   qId: string;
   tId: string;
 }
+
+export interface ISeriesParams {
+  qId: string
+}
+
+/**
+ * #############################################################################
+ * model
+ */
+export const initialCreateTest = {
+  total: null,
+  questions: []
+};
 
 /**
  * #############################################################################
@@ -45,21 +61,28 @@ export const getTest = (tId: number) => {
   return test[0];
 }
 
+localStorage.setItem('createTest', JSON.stringify(initialCreateTest));
+
+export const getCreateTest = () => JSON.parse(localStorage.getItem('createTest')!);
+
+export const toTheLocalStorage = (test: any): string => {
+  localStorage.setItem("createTest", JSON.stringify(test));
+  return "done"
+};
+
 /**
  * #############################################################################
  * fetch
  */
 
-import { resolve } from "dns";
-
-fetch(`http://localhost:9090/series`)
+fetch(`${URL}/series`)
   .then(res => res.json())
   .then(data => {
     localStorage.setItem('test', JSON.stringify(data))
   });
 
 export const postSerie = (serie: any) => {
-  return fetch(`http://localhost:9090/series`, {
+  return fetch(`${URL}/series`, {
     method: "POST",
     headers: {
       'Accept': '*/*',
@@ -69,6 +92,22 @@ export const postSerie = (serie: any) => {
   }).then(resp => resp.json());
 }
 
+export const postNewTest = () => {
+  const data = getCreateTest();
+  const jsonData = JSON.stringify(data);
+
+
+  fetch(`${URL}/createSerie`, {
+    method: "POST",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: jsonData
+  })
+    .then(resp => resp.json())
+    .then(console.log)
+    .then(() => toTheLocalStorage(initialCreateTest));
+};
 
 /**
  * #############################################################################
