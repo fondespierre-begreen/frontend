@@ -50,7 +50,7 @@ const Parameter: React.FC = () => {
               </IonList>
           </div>
           <div>
-            <IonImg className="parametres-img" src="https://github.com/fondespierre-begreen/documentation/blob/main/logos/beGreenSigle.png?raw=true"/>
+            <IonImg className="parametres-img" src="https://raw.githubusercontent.com/fondespierre-begreen/documentation/7ef83f197e5c2d2ceb6d4ccc4b7e07aea8b2fc42/logos/beGreenSigle.svg"/>
             <IonButton href="https://fondespierre.com/nos-poles-de-competences/begreen/" fill="clear" expand="block">Site web Fondespierre BeGreen</IonButton>
             <IonButton href="#" fill="clear" expand="block" color="danger">Déconnexion</IonButton>
           </div>

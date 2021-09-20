@@ -1,5 +1,5 @@
-import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle, IonItem, IonLabel, IonList } from "@ionic/react";
-import { arrowBack, checkmarkCircle, closeCircle, ellipseOutline, helpCircleOutline, personCircleOutline, removeCircle } from "ionicons/icons";
+import { IonPage, IonContent, IonHeader, IonToolbar, IonButtons, IonButton, IonIcon, IonTitle, IonItem, IonList } from "@ionic/react";
+import { checkmarkCircle, chevronBack, closeCircle, ellipseOutline, removeCircle } from "ionicons/icons";
 import React from "react";
 import './../series/SeriesItems';
 
@@ -11,7 +11,7 @@ const Help: React.FC = () => {
                     <IonToolbar>
                         <IonButtons slot="start">
                             <IonButton routerDirection="back" routerLink="/connected/parameter">
-                                <IonIcon icon={arrowBack} />
+                                <IonIcon icon={chevronBack} />
                             </IonButton>
                         </IonButtons>
                         <IonTitle color="success">Aide</IonTitle>
