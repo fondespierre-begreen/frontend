@@ -51,6 +51,8 @@ export const getPrivPlantById = (id: number) => {
 /**
  * Ajoute une plante à la liste publique en DB
  * puis ajoute l'objet retourné au localStorage pubPlants
+ * 
+ * with learner id
  * @param data 
  */
 export const postPlant = (data: any) => {
@@ -65,9 +67,10 @@ export const postPlant = (data: any) => {
 
 /**
  * patch d'une plante et mise à jour du localStorage
+ * with learner id
  */
 export const putPlant = (data: any) => {
-    return fetch(`${URL}/plants/edit`, {
+    return fetch(`${URL}/plants/edit/1`, {
         method: "PATCH",
         headers: {
             'Accept': '*/*',

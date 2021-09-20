@@ -1,4 +1,5 @@
 import { IonAvatar, IonItem, IonLabel } from "@ionic/react";
+import { useEffect } from "react";
 import { useRouteMatch } from "react-router-dom";
 
 import { useAppDispatch } from "../../redux/hooks";
@@ -21,7 +22,7 @@ const PlantItem: React.FC<{ plant: IPlant, val: string }> = (props) => {
   return (
     <IonItem routerLink={uri} onClick={handleDetail}>
       <IonAvatar slot="start">
-        <img src={(props.plant.photos.length === 0) ? "" : props.plant.photos[0].url} />
+        <img src={(props.plant.photos == null ||props.plant.photos.length === 0) ? "" : props.plant.photos[0].url} />
       </IonAvatar>
       <IonLabel>
         <h2>{props.plant.name}</h2>

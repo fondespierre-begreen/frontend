@@ -12,6 +12,8 @@ import {
     IonHeader,
     IonIcon,
     IonPage,
+    IonSlide,
+    IonSlides,
     IonTitle,
     IonToolbar
 } from "@ionic/react";
@@ -59,8 +61,7 @@ const PlantDetail: React.FC<RouteComponentProps> = () => {
 
             <IonContent>
                 <IonCard >
-                    {/* Bon j'ai tricher mais je vais pas y passer toute la journée, LA ça marche ! */}
-                    <img src={plantDetail.photos == "" ? "" : plantDetail.photos[0].url} />
+                    <img src={plantDetail.photos == null ||plantDetail.photos == "" ? "" : plantDetail.photos[0].url} />
                     <IonCardHeader>
                         <IonCardSubtitle>{plantDetail.latin}</IonCardSubtitle>
                         <IonCardTitle>{plantDetail.name}</IonCardTitle>

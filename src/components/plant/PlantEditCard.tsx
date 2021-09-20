@@ -38,6 +38,8 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
 
     const { register, handleSubmit, reset, setValue } = useForm();
 
+    const link = `/connected/plants${p.id}`;
+
 
     useEffect(() => {
         setValue("name", plantDetail.name);
@@ -66,7 +68,7 @@ const PlantEditCard: React.FC<RouteComponentProps> = ({ history }) => {
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">
-                        <IonButton routerDirection="back" routerLink="/connected/plants">
+                        <IonButton routerDirection="back" routerLink={`/connected/plants/personnal/${p.id}`}>
                             <IonIcon icon={arrowBack} />
                         </IonButton>
                     </IonButtons>
