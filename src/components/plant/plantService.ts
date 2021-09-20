@@ -3,7 +3,7 @@
  * Model
  */
 export interface IPhoto {
-    id?: number;
+    id?: number | null;
     url?: string;
 }
 
@@ -19,7 +19,8 @@ export interface IPlantParams {
     id: string
 }
 
-const URL = "http://localhost:9090";
+// const URL = "http://localhost:9090";
+const URL = "http://192.168.1.46:9090";
 
 export const PERSONNAL = "personnal";
 
@@ -51,6 +52,8 @@ export const getPrivPlantById = (id: number) => {
 /**
  * Ajoute une plante à la liste publique en DB
  * puis ajoute l'objet retourné au localStorage pubPlants
+ * 
+ * with learner id
  * @param data 
  */
 export const postPlant = (data: any) => {
@@ -65,9 +68,10 @@ export const postPlant = (data: any) => {
 
 /**
  * patch d'une plante et mise à jour du localStorage
+ * with learner id
  */
 export const putPlant = (data: any) => {
-    return fetch(`${URL}/plants/edit`, {
+    return fetch(`${URL}/plants/edit/1`, {
         method: "PATCH",
         headers: {
             'Accept': '*/*',

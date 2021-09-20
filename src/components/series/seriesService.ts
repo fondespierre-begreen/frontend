@@ -92,22 +92,33 @@ export const postSerie = (serie: any) => {
   }).then(resp => resp.json());
 }
 
-export const postNewTest = () => {
-  const data = getCreateTest();
-  const jsonData = JSON.stringify(data);
-
-
-  fetch(`${URL}/createSerie`, {
+export const postNewTest = (test: any) => {
+  const strTest = JSON.stringify(test);
+  return fetch(`${URL}/createSerie`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
     },
-    body: jsonData
+    body: strTest
   })
-    .then(resp => resp.json())
-    .then(console.log)
-    .then(() => toTheLocalStorage(initialCreateTest));
+    .then(resp => resp.json());
 };
+// export const postNewTest = () => {
+//   const data = getCreateTest();
+//   const jsonData = JSON.stringify(data);
+
+
+//   fetch(`${URL}/createSerie`, {
+//     method: "POST",
+//     headers: {
+//       'Content-Type': 'application/json'
+//     },
+//     body: jsonData
+//   })
+//     .then(resp => resp.json())
+//     .then(console.log)
+//     .then(() => toTheLocalStorage(initialCreateTest));
+// };
 
 /**
  * #############################################################################

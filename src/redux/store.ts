@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import plantReducer from "./plantSlice";
+import seriesReducer from "./seriesSlice";
 
 export const store = configureStore({
     reducer: {
-        plant: plantReducer
+        plant: plantReducer,
+        series: seriesReducer
     }
 })
 

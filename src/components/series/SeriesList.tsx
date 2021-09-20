@@ -19,12 +19,15 @@ import { addOutline } from 'ionicons/icons';
 
 import SeriesItems from '../series/SeriesItems';
 import { ISerie, getSeries, toTheLocalStorage, initialCreateTest } from './seriesService';
+import { useAppDispatch } from '../../redux/hooks';
+import { initTest } from '../../redux/seriesSlice';
 
 
 /**
  * @returns La liste des tests en mode lecture.
  */
 const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
+  const dispatch = useAppDispatch();
 
   const [series, setSeries] = useState<ISerie[]>([]);
 
@@ -72,7 +75,8 @@ const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
         </IonList>
         <IonFab horizontal="end" vertical="bottom" slot="fixed">
           <IonFabButton color="success" onClick={() => {
-            toTheLocalStorage(initialCreateTest)
+            // toTheLocalStorage(initialCreateTest)
+            dispatch(initTest)
             history.push(`${match.url}/create/one/0`);
           }}>
             <IonIcon icon={addOutline}></IonIcon>
