@@ -8,10 +8,11 @@ import { ellipseOutline, checkmarkCircle, removeCircle, closeCircle } from 'ioni
 import { ISerie } from './seriesService';
 import './seriesItems.css'
 import { useRouteMatch } from "react-router-dom";
+import { IQuiz } from '../../redux/seriesSlice';
 
 
 interface SerieItemsProps {
-  serie: ISerie;
+  serie: IQuiz;
 }
 
 

@@ -34,7 +34,7 @@ const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
 
   }, []);
 
-  const [series, setSeries] = useState<ISerie[]>([]);
+  // const [series, setSeries] = useState<ISerie[]>([]);
 
   // useIonViewWillEnter(() => {
   //   const srs = getSeries();

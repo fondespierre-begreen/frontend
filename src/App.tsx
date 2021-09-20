@@ -56,6 +56,10 @@ const App: React.FC = () => {
       .then(data => { dispatch(initPrivatePlant(data)) })
     getPublicPlants()
       .then(data => { dispatch(initPublicPlant(data)) })
+
+    /**
+     * récupère tous les tests (passés ou non) avec toutes ses infos (questions, choix, correction, ...)
+     */
     getSeries()
       .then((data) => { dispatch(initSeries(data)) })
   });

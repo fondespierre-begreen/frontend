@@ -27,10 +27,12 @@ interface Ianswer {
     description: string;
 }
 
-interface IQuiz {
+export interface IQuiz {
+    id: number | null;
     total: number | null;
     questions: IQuestion[];
-    answer: Ianswer
+    answer: Ianswer;
+    createdat: Date | null;
 }
 
 interface IPlantId {
@@ -71,6 +73,8 @@ const initialState: IInitState = {
     id: -1,
     series: [
         {
+            id: null,
+            createdat: null,
             total: null,
             questions: [{
                 description: "",
