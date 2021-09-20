@@ -1,5 +1,5 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
-import { arrowBack } from "ionicons/icons";
+import { chevronBack } from "ionicons/icons";
 import React from "react";
 import './parameter.css';
 
@@ -9,7 +9,7 @@ const About: React.FC = () => (
             <IonToolbar>
                 <IonButtons slot="start">
                     <IonButton routerDirection="back" routerLink="/connected/parameter">
-                        <IonIcon icon={arrowBack} />
+                        <IonIcon icon={chevronBack} />
                     </IonButton>
                 </IonButtons>
                 <IonTitle color="success">À props</IonTitle>

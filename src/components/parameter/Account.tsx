@@ -1,6 +1,6 @@
 import React from "react";
 import { IonPage, IonContent, IonIcon, IonItem, IonLabel, IonHeader, IonTitle, IonToolbar, IonButton, IonButtons } from "@ionic/react";
-import { personCircleOutline, chevronForward, arrowBack } from "ionicons/icons";
+import { personCircleOutline, chevronBack } from "ionicons/icons";
 
 const Account: React.FC = () => {
     return (
@@ -10,7 +10,7 @@ const Account: React.FC = () => {
                     <IonToolbar>
                         <IonButtons slot="start">
                             <IonButton routerDirection="back" routerLink="/connected/parameter">
-                                <IonIcon icon={arrowBack} />
+                                <IonIcon icon={chevronBack} />
                             </IonButton>
                         </IonButtons>
                         <IonTitle color="success">Account</IonTitle>
