@@ -4,9 +4,13 @@
   "private": true,
   "dependencies": {
     "@capacitor/app": "1.0.2",
+    "@capacitor/camera": "^1.1.0",
     "@capacitor/core": "3.2.0",
+    "@capacitor/filesystem": "^1.0.3",
     "@capacitor/haptics": "1.0.2",
     "@capacitor/keyboard": "1.0.2",
+    "@capacitor/storage": "^1.2.0",
+    "@ionic/pwa-elements": "^3.0.2",
     "@ionic/react": "^5.5.0",
     "@ionic/react-router": "^5.5.0",
     "@reduxjs/toolkit": "^1.6.1",

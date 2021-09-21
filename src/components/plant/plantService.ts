@@ -57,10 +57,12 @@ export const getPrivPlantById = (id: number) => {
  * @param data 
  */
 export const postPlant = (data: any) => {
+
     return fetch(`${URL}/plants/add/1`, {
         method: "POST",
         headers: {
             'Accept': '*/*',
+            'Content-Type': 'application/json'
         },
         body: data
     }).then(resp => resp.json());

@@ -7,6 +7,10 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 
 import { store } from './redux/store';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
+
+defineCustomElements(window);
+
 
 ReactDOM.render(
   <Provider store={store}>
