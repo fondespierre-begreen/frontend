@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import {
@@ -12,13 +11,12 @@ import {
   IonRefresher,
   IonRefresherContent,
   IonTitle,
-  IonToolbar,
-  useIonViewWillEnter
+  IonToolbar
 } from '@ionic/react';
 import { addOutline } from 'ionicons/icons';
 
 import SeriesItems from '../series/SeriesItems';
-import { ISerie, getSeries, toTheLocalStorage, initialCreateTest } from './seriesService';
+
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { initTest } from '../../redux/seriesSlice';
 
@@ -29,29 +27,13 @@ import { initTest } from '../../redux/seriesSlice';
 const Series: React.FC<RouteComponentProps> = ({ match, history }) => {
   const dispatch = useAppDispatch();
   const series = useAppSelector(state => state.series.series);
-
-  useEffect(() => {
-
-  }, []);
-
-  // const [series, setSeries] = useState<ISerie[]>([]);
-
-  // useIonViewWillEnter(() => {
-  //   const srs = getSeries();
-  //   srs !== undefined && srs.then(datas => setSeries(datas))
-  // });
-
-  // useIonViewWillEnter(() => {
-  //   const srs = getSeries();
-  //   setSeries(srs);
-  // });
+  console.log(series);
 
   const refresh = (e: CustomEvent) => {
     setTimeout(() => {
       e.detail.complete();
     }, 3000);
   };
-  // console.log(series);
 
   return (
     <IonPage id="series-page">

@@ -33,11 +33,11 @@ import Connected from './components/connected/Connected';
 import PlantDetail from './components/plant/PlantDetail';
 
 import { initPrivatePlant, initPublicPlant } from "./redux/plantSlice"
-import { useAppDispatch } from './redux/hooks';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
 
 import { getPrivPlantById, getPublicPlants } from './components/plant/plantService';
-import { getSeries } from './components/series/seriesService';
-import { initSeries } from './redux/seriesSlice';
+import { getAllSeries } from './components/series/seriesService';
+import { initSeries, getTotal, IQuiz } from './redux/seriesSlice';
 
 
 /**
@@ -55,13 +55,34 @@ const App: React.FC = () => {
     getPrivPlantById(1)
       .then(data => { dispatch(initPrivatePlant(data)) })
     getPublicPlants()
-      .then(data => { dispatch(initPublicPlant(data)) })
+      .then(data => {
+        dispatch(initPublicPlant(data));
+      });
 
     /**
      * récupère tous les tests (passés ou non) avec toutes ses infos (questions, choix, correction, ...)
      */
-    getSeries()
-      .then((data) => { dispatch(initSeries(data)) })
+    getAllSeries()
+      .then((data) => {
+        const newData = data.map((s: IQuiz) => {
+          if (s.questions[0].answers.length !== 0) {
+            let correction = 0;
+            s.questions.map(question => {
+              question.choices.map(choice => {
+                if (choice.description === question.answers[0].description) {
+                  // console.log(choice);
+                  if (choice.plant !== null) {
+                    correction += 1;
+                  }
+                }
+              })
+            })
+            s.total = Math.round(correction / s.questions.length * 100);
+            return s;
+          } else return s;
+        })
+        dispatch(initSeries(newData));
+      });
   });
 
   return (

@@ -39,8 +39,6 @@ const Plants: React.FC<RouteComponentProps> = ({ match }) => {
 
     useEffect(() => {
         dispatch(updateQuery({ value, query }));
-        console.log("youpla boom");
-
     }, [query]);
 
     /**

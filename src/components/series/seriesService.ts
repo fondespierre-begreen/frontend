@@ -1,5 +1,5 @@
-// const URL = "http://localhost:9090";
-const URL = "http://192.168.1.46:9090";
+const URL = "http://localhost:9090";
+// const URL = "http://192.168.1.46:9090";
 
 /**
  * #############################################################################
@@ -104,8 +104,14 @@ export const postNewTest = (test: any) => {
     .then(resp => resp.json());
 };
 
-export const getSeries = () => {
-  return fetch(`${URL}`)
+export const getAllSeries = () => {
+  return fetch(`${URL}/series`)
+    .then(resp => resp.json());
+};
+
+// URL TO COMPLETE
+export const getSeriesById = (id: number | null) => {
+  return fetch(`${URL}/${id}`)
     .then(resp => resp.json());
 };
 

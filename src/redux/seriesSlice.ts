@@ -8,6 +8,24 @@ interface IsendingTest {
     photo?: IPhoto;
 }
 
+interface ITakingTestChoices {
+    description: string;
+    plant: IPlant | null;
+}
+
+interface ITakingTestQuestion {
+    description: string;
+    plant: IPlant;
+    choices: ITakingTestChoices[];
+    answers: Ianswer[];
+}
+
+export interface IQuiz {
+    id: number | null;
+    questions: ITakingTestQuestion[];
+    total: number | null;
+}
+
 interface IChoices {
     description: string;
 }
@@ -16,23 +34,15 @@ interface IQuestion {
     description: string;
     plant: IPlant;
     choices: IChoices[];
+    answers: Ianswer[];
 }
 
 interface ITest {
-    total: number | null;
     questions: IQuestion[];
 }
 
 interface Ianswer {
     description: string;
-}
-
-export interface IQuiz {
-    id: number | null;
-    total: number | null;
-    questions: IQuestion[];
-    answer: Ianswer;
-    createdat: Date | null;
 }
 
 interface IPlantId {
@@ -44,11 +54,11 @@ interface IInitState {
     test: ITest;
     id: number;
     series: IQuiz[];
+    serieId: number;
 }
 
 const initialState: IInitState = {
     test: {
-        total: null,
         questions: [{
             description: "",
             plant: {
@@ -67,14 +77,16 @@ const initialState: IInitState = {
                 {
                     description: ""
                 }
-            ]
+            ],
+            answers: [{
+                description: "",
+            }]
         }],
     },
     id: -1,
     series: [
         {
             id: null,
-            createdat: null,
             total: null,
             questions: [{
                 description: "",
@@ -92,15 +104,17 @@ const initialState: IInitState = {
                 },
                 choices: [
                     {
-                        description: ""
+                        description: "",
+                        plant: null
                     }
-                ]
+                ],
+                answers: [{
+                    description: "",
+                }]
             }],
-            answer: {
-                description: ""
-            }
         }
-    ]
+    ],
+    serieId: 0
 };
 
 const slice = createSlice({
@@ -109,7 +123,6 @@ const slice = createSlice({
     reducers: {
         initTest: (state) => {
             state.test.questions = [];
-            state.test.total = null;
             state.id = -1;
         },
         addPlantToQuestion: (state, action: PayloadAction<IPlantId>) => {
@@ -125,8 +138,12 @@ const slice = createSlice({
             }
         },
         initSeries: (state, action) => {
-            // A VERIFIER
             state.series = action.payload;
+        },
+        getTotal: (state) => {
+        },
+        getSeriesIdForReview: (state, action) => {
+            state.serieId = action.payload.serieId;
         }
     }
 });
@@ -135,7 +152,9 @@ export const {
     initTest,
     addPlantToQuestion,
     addQuestion,
-    initSeries
+    initSeries,
+    getSeriesIdForReview,
+    getTotal
 } = slice.actions;
 
 export default slice.reducer;

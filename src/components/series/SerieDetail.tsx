@@ -173,7 +173,7 @@ const SerieDetail: React.FC<RouteComponentProps> = () => {
         <IonCard>
           <IonImg src="https://github.com/fondespierre-begreen/documentation/blob/main/photos/marguerite-729510_1920.jpg?raw=true"></IonImg>
           <IonCardHeader>
-            <IonCardTitle>{quiz !== undefined && <p>{quiz[qId].id}. {quiz[qId].description}</p>}</IonCardTitle>
+            <IonCardTitle>{quiz !== undefined && <p>{qId + 1}. {quiz[qId].description}</p>}</IonCardTitle>
           </IonCardHeader>
 
           <IonCardContent>

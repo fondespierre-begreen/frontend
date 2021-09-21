@@ -19,8 +19,8 @@ export interface IPlantParams {
     id: string
 }
 
-// const URL = "http://localhost:9090";
-const URL = "http://192.168.1.46:9090";
+const URL = "http://localhost:9090";
+// const URL = "http://192.168.1.46:9090";
 
 export const PERSONNAL = "personnal";
 
